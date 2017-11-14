@@ -1,5 +1,3 @@
-# 08206-Project
-
 # Task List
 
 
@@ -7,7 +5,7 @@
   - Temperature sensor
   - LCD panel
   - Sounder
-  - 
+
   
 ### Tom :
  - Real time clock
@@ -36,6 +34,16 @@ To switch branches
 ```sh
 $ git checkout -b <branch name>
 ```
+
+Branching strategy
+
+  -  Merge the master branch into your branch
+  ```sh
+  $ git fetch
+  $ git rebase origin/master
+  ```
+  
+  See this post for explanation - https://stackoverflow.com/questions/7200614/how-to-merge-remote-master-to-local-branch
 
 
 
