@@ -45,5 +45,13 @@ Branching strategy
   
   See this post for explanation - https://stackoverflow.com/questions/7200614/how-to-merge-remote-master-to-local-branch
 
-
+ - Merge your branch into master
+ 
+  -  Merge the master branch into your branch
+  ```sh
+	$ git checkout master
+    $ git pull origin master
+	$ git merge test
+	$ git push origin master
+  ```
 
