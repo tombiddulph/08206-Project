@@ -1,0 +1,3 @@
+#ifndef clock
+#define clock
+
