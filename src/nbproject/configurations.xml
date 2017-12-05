@@ -4,8 +4,12 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+<<<<<<< HEAD
       <itemPath>clock.h</itemPath>
       <itemPath>Commonheader.h</itemPath>
+=======
+      <itemPath>//adir.hull.ac.uk/home/463/463929/08206-Project/src/lcd.h</itemPath>
+>>>>>>> origin/master
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -15,7 +19,11 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>main.c</itemPath>
+<<<<<<< HEAD
       <itemPath>clock.c</itemPath>
+=======
+      <itemPath>//adir.hull.ac.uk/home/463/463929/08206-Project/src/lcd.c</itemPath>
+>>>>>>> origin/master
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
