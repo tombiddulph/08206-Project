@@ -8,7 +8,7 @@
 // ACW for 08026
 
 #include <xc.h>
-
+#include "lcd.h"
 void main(void) {
     return;
 }

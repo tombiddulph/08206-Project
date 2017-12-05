@@ -31,7 +31,7 @@
 #define RTC_TRICKLE_READ    0x91
 
 void RTC_Init(void);
-void RTC_Cmd(unsigned cmd);
+void RTC_Cmd(unsigned cmd, unsigned char value);
 void RTC_Write(unsigned char address, unsigned char value);
 unsigned char RTC_Read(unsigned char address);
 void RTC_Serial_Write(unsigned char value);
