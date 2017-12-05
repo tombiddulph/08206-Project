@@ -18,7 +18,7 @@
 
 void LCD_delay (int j);
 void cmd(char cmd);
-void initialise();
+void initialise_LCD();
 void data(char data);
 void Write_string(char a[]);
 void Second_line(char param[]);
