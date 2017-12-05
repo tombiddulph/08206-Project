@@ -16,7 +16,6 @@ nbbuild/
 dist/
 nbdist/
 nbactions.xml
-nbproject/configurations.xml
 funclist
 nbproject/Makefile-*
 disassembly/
