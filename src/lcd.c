@@ -7,7 +7,8 @@
 #define HOME 0b00000011
 #define LEFT 0b00010111
 #include <pic.h>
-__CONFIG( FOSC_HS & WDTE_OFF & PWRTE_ON & BOREN_OFF & LVP_OFF );
+
+
 void LCD_delay (int j) {
 for (unsigned i=0; i<j; i++);
 }
@@ -30,7 +31,7 @@ void cmd(char cmd)
     LCD_delay(1000);
 }
 
-void initialise()
+void initialise_LCD()
 {
     ADCON1 = 0x06; // digital output
     TRISA = 0x00;
