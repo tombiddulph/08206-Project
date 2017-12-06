@@ -37,5 +37,14 @@ unsigned char RTC_Read(unsigned char address);
 void RTC_Serial_Write(unsigned char value);
 unsigned char RTC_Serial_Read(void);
 
+typedef struct {
+    unsigned char year;  
+    unsigned char month;                          
+    unsigned char date;  
+    unsigned char day;   
+    unsigned char hour;  
+    unsigned char minute;  
+    unsigned char second;     
+} dateTime;
 
 #endif
