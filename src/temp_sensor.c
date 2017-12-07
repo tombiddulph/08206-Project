@@ -26,7 +26,7 @@ unsigned char shifen;                        //ten cent bit
 unsigned char baifen;                        //hundred cent bit                          
 unsigned char qianfen;                       //thousand cent bit                         
 unsigned char wanfen;                        //myriad cent bit                           
-unsigned char table[10]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90}; 
+unsigned char RTC_table[10]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90}; 
 
 char temperature[10] = "         ";
 //the display code of 0-9     
@@ -50,22 +50,22 @@ void delay(char x,char y)
 void display()
 {
  TRISA=0X00;                           //set A PORT all OUTPUT                          
- PORTD=table[shi];                     //display integer ten bit                        
+ PORTD=RTC_table[shi];                     //display integer ten bit                        
  PORTA=0x3e;                                                                            
  delay(10,70);                                                                          
- PORTD=table[ge]&0X7F;                 //display integer Entries bit and decimal dot    
+ PORTD=RTC_table[ge]&0X7F;                 //display integer Entries bit and decimal dot    
  PORTA=0x3d;                                                                            
  delay(10,70);                                                                          
- PORTD=table[shifen];                  //display decimal ten cent bit                   
+ PORTD=RTC_table[shifen];                  //display decimal ten cent bit                   
  PORTA=0x3b;                                                                            
  delay(10,70);                                                                          
- PORTD=table[baifen];                  //display decimal hundred cent bit               
+ PORTD=RTC_table[baifen];                  //display decimal hundred cent bit               
  PORTA=0x37;                                                                            
  delay(10,70);                                                                          
- PORTD=table[qianfen];                 //display decimal thousand  cent bit             
+ PORTD=RTC_table[qianfen];                 //display decimal thousand  cent bit             
  PORTA=0x2f;                                                                            
  delay(10,70);                                                                          
- PORTD=table[wanfen];                  //display decimal myriad cent bit                
+ PORTD=RTC_table[wanfen];                  //display decimal myriad cent bit                
  PORTA=0x1f;
  delay(10,70);
 }
