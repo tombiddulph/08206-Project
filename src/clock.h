@@ -1,51 +1,39 @@
-//#ifndef RTC_H
-//#define RTC_H
-//
-//
-//
-//
-//#define RTC_CLK RB0
-//#define RTC_IO  RB4
-//#define RTC_RST RB5
-//
-//#define RTC_SERIAL_MASK 0x80
-//
-//
-//#define RTC_SEC_WRITE       0x80
-//#define RTC_SEC_READ        0x81
-//#define RTC_MIN_WRITE       0x82
-//#define RTC_MIN_READ        0x83
-//#define RTC_HOUR_WRITE      0x84
-//#define RTC_HOUR_READ       0x85
-//#define RTC_DATE_WRITE      0x86
-//#define RTC_DATE_READ       0x87
-//#define RTC_MONTH_WRITE     0x88
-//#define RTC_MONTH_READ      0x89
-//#define RTC_DAY_WRITE       0x8A
-//#define RTC_DAY_READ        0x8B
-//#define RTC_YEAR_WRITE      0x8C
-//#define RTC_YEAR_READ       0x8D
-//#define RTC_COTNROL_WRITE   0x8E
-//#define RTC_CONTROL_READ    0x8F
-//#define RTC_TRICKLE_WRITE   0x90
-//#define RTC_TRICKLE_READ    0x91
-//
-//#define RTC_BURST_READ      0xBF
-//void RTC_Init(void);
-//void RTC_Cmd(unsigned cmd, unsigned char value);
-//void RTC_Write(unsigned char address, unsigned char value);
-//unsigned char RTC_Read(unsigned char address);
-//void RTC_Serial_Write(unsigned char value);
-//unsigned char RTC_Serial_Read(void);
-//
-//typedef struct {
-//    unsigned char year;  
-//    unsigned char month;                          
-//    unsigned char date;  
-//    unsigned char day;   
-//    unsigned char hour;  
-//    unsigned char minute;  
-//    unsigned char second;     
-//} dateTime;
-//
-//#endif
+#ifndef RTC_H
+#define RTC_H
+
+#include <pic.h>
+
+#define RTC_IO   RB4                      //1302I_O           
+#define RTC_CLK  RB0                      //1302 clock        
+#define RTC_RST  RB5                      //1302 enable bit   
+
+#define RTC_CONTROL_WRITE   0x8E
+#define RTC_LOW_MASK        0x0F
+#define RTC_HIGH_MASK       0xF0
+
+unsigned char time_rx @ 0x30;        //define receive reg.
+static volatile bit time_rx7   @ (unsigned)&time_rx*8+7;   //receive reg highest.//defined name time_rx7 for most significant bit (bit 7) for variable time_rx. After symbol @ there are calculation for the that bit address: &time_rx give us the address of variable time_rx, after multiplying with 8 we have the bit address of bit 0 of time_rx, and adding 7 give us the bit address of bit 7 of time_rx. Type casting (unsigned) used for avoiding signed result of multiplying operation.
+
+void Port_init_rtc();                      //port initilize subroutine.
+void ds1302_init();                    //DS1302 initilize subroutine.
+void Set_time_rtc();                       //set time subroutine.
+void Get_time_rtc();                       //get time subroutine.
+void Display_7_seg_rtc();                        //display subroutine.
+void write_time_rtc(unsigned char time_tx);    //write one byte subroutine.
+unsigned char  read_time_rtc();          //read one byte subroutine.
+void delay_rtc();                          //delay subroutine.
+
+unsigned char bcd_to_decimal(unsigned char val);
+unsigned char decimal_to_bcd(unsigned char val);
+
+//define the time:       sec,  min, hour,day,month,week,year,control word.
+const char rtc_table[]={ 0x00,0x58,0x12,0xA9,0x3,0x06,0x9,0x00};
+//define the read time and date save table.
+char rtc_table1[7];
+
+char rtc_lcd_display_date_table[9];
+char rtc_lcd_display_time_table[9];
+//define the display code for display 0-9
+const char rtc_7_seg_display_table[]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90}; 
+
+#endif

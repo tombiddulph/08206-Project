@@ -1,56 +1,58 @@
-/*
- * File:   clock.c
- * Author: 462767
+/* 
+ * File:   rtc.c
+ * Author: tombi
  *
- * Created on 14 November 2017, 15:53
+ * Created on 06 December 2017, 17:03
  */
 
-#include "clock.h"
-#include <xc.h>
+#include "rtc.h"
+
+//define the time: sec,min,hour,day,month,week,year,control word.
 
 
+//---------------------------------------------
 //DS1302 initilize.
 void ds1302_init()
   {
    RTC_CLK=0;                            //pull low clock
    RTC_RST =0;                            //reset DS1302
    RTC_RST=1;                             //enable DS1302
-   write_time_rtc(RTC_CONTROL_WRITE);                //send control command
-   write_time_rtc(0);                   //enable write DS1302
+   time_write_rtc(0x8e);                //send control command
+   time_write_rtc(0);                   //enable write DS1302
    RTC_RST=0;                             //reset
   }
 
 //---------------------------------------------
 //set time.
-void Set_time_rtc()
+void set_time_rtc()
   {
    int i;                             //define the loop counter.
    RTC_RST=1;                             //enable DS1302
-   write_time_rtc(0xbe);                //
+   time_write_rtc(0xbe);                //
    for(i=0;i<8;i++)                   //continue to write 8 bytes.
      {
-       write_time_rtc(rtc_table[i]);        //write one byte
+       time_write_rtc(rtc_table[i]);        //write one byte
      }
    RTC_RST=0;                             //reset
    }
 
 //---------------------------------------------
 //get time.
-void Get_time_rtc()
+void get_time_rtc()
  {
    int i;                             //set loop counter.
    RTC_RST=1;                             //enable DS1302
-   write_time_rtc(0xbf);                //
+   time_write_rtc(0xbf);                //
    for(i=0;i<7;i++)                   //continue to read 7 bytes.
      {
-        rtc_table1[i] = read_time_rtc();      //
+        rtc_table1[i]=time_read_rtc();      //
      }
     RTC_RST=0;                            //reset DS1302
  }
 
 //--------------------------------------------
 //write one byte
-void write_time_rtc(unsigned char time_tx)
+void time_write_rtc(unsigned char time_tx)
  {
     int j;                            //set the loop counter.
     for(j=0;j<8;j++)                  //continue to write 8bit
@@ -69,15 +71,15 @@ void write_time_rtc(unsigned char time_tx)
 
 //---------------------------------------------
 //read one byte.
-unsigned char read_time_rtc()
+unsigned char time_read_rtc()
  {
    int j;                            //set the loop counter.  
    TRISB4=1;                         //continue to write 8bit 
    for(j=0;j<8;j++)                  
       {
         RTC_CLK=0;                       //pull low clk                   
-        time_rx=time_rx>>1;           //judge the send bit is 0 or 1.  
-        time_rx7=RTC_IO;                //put the received bit into the reg's highest.
+        time_rx = time_rx>>1;           //judge the send bit is 0 or 1.  
+        time_rx7 = RTC_IO;                //put the received bit into the reg's highest.
        RTC_CLK=1;                       //pull high clk                 
       }                                                              
     TRISB4=0;                        //finished 1 byte,pull low clk  
@@ -87,7 +89,7 @@ unsigned char read_time_rtc()
 
 //--------------------------------------------
 //pin define func
-void Port_init_rtc()
+void port_init_rtc()
   {
     TRISA=0x00;                     //a port all output
     TRISD=0X00;                     //d port all output
@@ -98,75 +100,46 @@ void Port_init_rtc()
     PORTD=0XFF;                     //clear all display
    }
 
-
-void ReverseArray(char arr[])
-{
-  
-  int size = (sizeof(arr) / sizeof(arr[0]));
-  
-  
-  
-  int i = 6;
-  int j = 0;
-  char temp;
-   
-   for(j = 0; j < i / 2; j++)
-   {
-     temp = arr[j];
-     arr[j] = arr[i];
-     arr[i] = temp;
-     i--;
-   }
- 
-}
-
 //-------------------------------------------
 //display
-void Display_7_seg_rtc()
+void display_rtc()
    {
-    
-     char *date = rtc_table1;
-     char *time = rtc_table1 + 2;
+     int i;                         //define table variable.
+     if(RB1==0)                     //judge rb1.
+       {
+          rtc_table1[0]=rtc_table1[3];     
+          rtc_table1[1]=rtc_table1[4];
+          rtc_table1[2]=rtc_table1[6];
+       }
+     i=rtc_table1[0]&0x0f;             //sec's low.
+     PORTD=rtc_display_table[i];              //send to port d.
+     PORTA=0x1f;                   //light on sec's low.
+     delay_rtc();                      //delay some times.
+     i=rtc_table1[0]&0xf0;             //sec's high
+     i=i>>4;                       //rotate right for 4 bits.
+     PORTD=rtc_display_table[i];              //send to port d.    
+     PORTA=0x2f;                   //light on sec's high.
+     delay_rtc();                      //delay some times.  
      
+     i=rtc_table1[1]&0x0f;             //min's low.                 
+     PORTD=rtc_display_table[i]&0x7f;         //send to port d.            
+     PORTA=0x37;                   //light on min's low.        
+     delay_rtc();                      //delay some times.          
+     i=rtc_table1[1]&0xf0;             //min's high                 
+     i=i>>4;                       //rotate right for 4 bits.   
+     PORTD=rtc_display_table[i];              //send to port d.            
+     PORTA=0x3b;                   //light on min's high.       
+     delay_rtc();                      //delay some times.          
 
-     
-   
-     
-     rtc_lcd_display_date_table[7] = (*date & RTC_LOW_MASK) + '0';    
-     rtc_lcd_display_time_table[7] = (*time & RTC_LOW_MASK) + '0';    
-     delay_rtc();                     
-     rtc_lcd_display_date_table[6] = ((*date++ & RTC_HIGH_MASK ) >> 4) + '0';
-     rtc_lcd_display_time_table[6] = ((*time++ & RTC_HIGH_MASK ) >> 4) + '0';
-     
-                    
-     delay_rtc();   
-     rtc_lcd_display_date_table[5] = '/';
-     rtc_lcd_display_time_table[5] = ':';
-             
-     rtc_lcd_display_date_table[4] = (*date & RTC_LOW_MASK) + '0'; 
-     rtc_lcd_display_time_table[4] = (*time & RTC_LOW_MASK) + '0'; 
-     delay_rtc();                           
-     
-     rtc_lcd_display_date_table[3] = ((*date++ & RTC_HIGH_MASK) >> 4) + '0'; 
-     rtc_lcd_display_time_table[3] = ((*time++ & RTC_HIGH_MASK) >> 4) + '0'; 
-                     
-     rtc_lcd_display_date_table[2] = '/';
-     rtc_lcd_display_time_table[2] = ':'; 
-             
-     rtc_lcd_display_date_table[1] = (*date & RTC_LOW_MASK) + '0'; 
-     rtc_lcd_display_time_table[1] = (*time & RTC_LOW_MASK) + '0'; 
-                             
-     delay_rtc();                                  
-     
-     rtc_lcd_display_date_table[0] = ((*date & RTC_HIGH_MASK) >> 4) + '0'; 
-     rtc_lcd_display_time_table[0] = ((*time & RTC_HIGH_MASK) >> 4) + '0';
-             
-     rtc_lcd_display_date_table[8] = '\0'; 
-     rtc_lcd_display_time_table[8] = '\0';
-          
-     delay_rtc();                      //delay some times.    
-     
-     //ReverseArray(&rtc_lcd_display_table);
+     i=rtc_table1[2]&0x0f;             //hour's low.                 
+     PORTD=rtc_display_table[i]&0x7f;         //send to port d.            
+     PORTA=0x3d;                   //light on hour's low.        
+     delay_rtc();                      //delay some times.          
+     i=rtc_table1[2]&0xf0;             //hour's high                 
+     i=i>>4;                       //rotate right for 4 bits.   
+     PORTD=rtc_display_table[i];              //send to port d.            
+     PORTA=0x3e;                   //light on hour's high.       
+     delay_rtc();                      //delay some times.          
    }
 
 //------------------------------------------------------------------
@@ -176,12 +149,3 @@ void  delay_rtc()              //
      int i;                 //define variable
      for(i=0x64;i--;);     //delay
     }
-
-unsigned char bcd_to_decimal(unsigned char val)
-{
-  return ((val & 0x0F) + (((val & 0xF0) >> 4) * 10));
-}
-unsigned char decimal_to_bcd(unsigned char val)
-{
-    return (((val / 10) << 4) & 0xF0) | ((val % 10) & 0x0F);
-}
