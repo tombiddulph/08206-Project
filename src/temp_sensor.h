@@ -31,7 +31,7 @@ void write_byte(uch val);
 uch read_byte(void);
 void get_temp();
 void Write_float(float fl);
-void createfloat(uch ten, uch unit, uch a, uch b, uch c, uch d, char* temp);
+void tempConverter(uch ten, uch unit, uch a, uch b, uch c, uch d, char* temp);
 
 
 #endif	/* TEMP_SENSOR_H */

@@ -23,12 +23,12 @@ void cmd(char cmd)
     RS = 0;
     RW = 0;
     E = 0;
-    LCD_delay (1000);
+    LCD_delay (50);
     E = 1;
     PORTD = cmd; 
-    LCD_delay(1000);
+    LCD_delay(50);
     E = 0;
-    LCD_delay(1000);
+    LCD_delay(50);
 }
 
 void initialise_LCD()
@@ -53,12 +53,12 @@ void data(char data)
     RS = 1;
     RW = 0;
     E = 0;
-    LCD_delay (1000);
+    LCD_delay (50);
     E = 1;
     PORTD = data; // set cursor at start
-    LCD_delay(1000);
+    LCD_delay(50);
     E = 0;
-    LCD_delay(1000);
+    LCD_delay(50);
 }
 void Write_string(char a[])
 {
@@ -105,4 +105,25 @@ void Write_line(char param[], int lineNo)
     
 }
 
-unsigned int number = 0;
+void clear_line(int lineNo)
+{
+    switch (lineNo)
+    {
+        case 1:
+            cmd(HOME);
+            Write_string("                ");
+            break;
+        case 2:
+            cmd(0b10010000); // set cursor to 16 second line
+            Write_string("                ");
+            break;
+        case 3:
+            cmd(0b10001000); // set cursor to 8 3rd line
+            Write_string("                ");
+            break;
+        case 4:
+            cmd(0b10011000); // set cursor to 24 4th line
+            Write_string("                ");
+            break;
+    }
+}

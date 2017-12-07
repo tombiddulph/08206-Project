@@ -23,6 +23,7 @@ void data(char data);
 void Write_string(char a[]);
 void Second_line(char param[]);
 void Write_line(char param[], int lineNo);
+void clear_line(int lineNo);
 
 
 #endif	/* LCD_H */
