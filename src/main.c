@@ -7,13 +7,16 @@
 
 
 
-#include<pic.h>                        //include MCU head file     
+#include <pic.h>                        //include MCU head file     
+#include "Commonheader.h"
 #include "clock.h"
 #include "lcd.h"
 //__PROG_CONFIG(0x1832);       
 //__CONFIG( _DEBUG_OFF&_CP_ALL&_WRT_HALF&_CPD_ON&_LVP_OFF&_BODEN_OFF&_PWRTE_ON&_WDT_OFF&_HS_OSC);
 __CONFIG( FOSC_HS & WDTE_OFF & PWRTE_ON & BOREN_OFF & LVP_OFF );
 
+
+struct DateTime dateTime;
 //----------------------------------------------
 //main routine.
 void main()
@@ -35,8 +38,9 @@ void main()
            Get_time_rtc();
            Display_7_seg_rtc();
           //Display_7_seg_rtc();      
-          Write_line(rtc_lcd_display_date_table , 1); 
-          Write_line(rtc_lcd_display_time_table,2);
+           Write_Date(1);
+//          Write_line(rtc_lcd_display_date_table , 1); 
+//          Write_line(rtc_lcd_display_time_table,2);
           
           
         }

@@ -5,8 +5,12 @@
  * Created on 14 November 2017, 15:53
  */
 
+#include "Commonheader.h"
 #include "clock.h"
 #include <xc.h>
+#include <string.h>
+#include <stdio.h>
+
 
 
 //DS1302 initilize.
@@ -125,46 +129,50 @@ void ReverseArray(char arr[])
 void Display_7_seg_rtc()
    {
     
-     char *date = rtc_table1;
-     char *time = rtc_table1 + 2;
+     char *date = rtc_table1 + 2;
+     char *time = rtc_table1;
      
-
+     sprintf(dateTime.Year, "%c%c", ((*date & RTC_LOW_MASK) + '0'), (((*date++ & RTC_HIGH_MASK ) >> 4) + '0'));
+     delay_rtc();        
+     sprintf(dateTime.Month,"%c%c", ((*date & RTC_LOW_MASK) + '0'), (((*date++ & RTC_HIGH_MASK ) >> 4) + '0'));
+     delay_rtc();        
+     sprintf(dateTime.Day,  "%c%c", (*date & RTC_LOW_MASK) + '0', ((*date++ & RTC_HIGH_MASK ) >> 4) + '0');
      
-   
+     //dateTime. 
      
-     rtc_lcd_display_date_table[7] = (*date & RTC_LOW_MASK) + '0';    
-     rtc_lcd_display_time_table[7] = (*time & RTC_LOW_MASK) + '0';    
-     delay_rtc();                     
-     rtc_lcd_display_date_table[6] = ((*date++ & RTC_HIGH_MASK ) >> 4) + '0';
-     rtc_lcd_display_time_table[6] = ((*time++ & RTC_HIGH_MASK ) >> 4) + '0';
-     
-                    
-     delay_rtc();   
-     rtc_lcd_display_date_table[5] = '/';
-     rtc_lcd_display_time_table[5] = ':';
-             
-     rtc_lcd_display_date_table[4] = (*date & RTC_LOW_MASK) + '0'; 
-     rtc_lcd_display_time_table[4] = (*time & RTC_LOW_MASK) + '0'; 
-     delay_rtc();                           
-     
-     rtc_lcd_display_date_table[3] = ((*date++ & RTC_HIGH_MASK) >> 4) + '0'; 
-     rtc_lcd_display_time_table[3] = ((*time++ & RTC_HIGH_MASK) >> 4) + '0'; 
-                     
-     rtc_lcd_display_date_table[2] = '/';
-     rtc_lcd_display_time_table[2] = ':'; 
-             
-     rtc_lcd_display_date_table[1] = (*date & RTC_LOW_MASK) + '0'; 
-     rtc_lcd_display_time_table[1] = (*time & RTC_LOW_MASK) + '0'; 
-                             
-     delay_rtc();                                  
-     
-     rtc_lcd_display_date_table[0] = ((*date & RTC_HIGH_MASK) >> 4) + '0'; 
-     rtc_lcd_display_time_table[0] = ((*time & RTC_HIGH_MASK) >> 4) + '0';
-             
-     rtc_lcd_display_date_table[8] = '\0'; 
-     rtc_lcd_display_time_table[8] = '\0';
-          
-     delay_rtc();                      //delay some times.    
+//     rtc_lcd_display_date_table[7] = (*date & RTC_LOW_MASK) + '0';    
+//     rtc_lcd_display_time_table[7] = (*time & RTC_LOW_MASK) + '0';    
+//     delay_rtc();                     
+//     rtc_lcd_display_date_table[6] = ((*date++ & RTC_HIGH_MASK ) >> 4) + '0';
+//     rtc_lcd_display_time_table[6] = ((*time++ & RTC_HIGH_MASK ) >> 4) + '0';
+//     
+//                    
+//     delay_rtc();   
+//     rtc_lcd_display_date_table[5] = '/';
+//     rtc_lcd_display_time_table[5] = ':';
+//             
+//     rtc_lcd_display_date_table[1] = (*date & RTC_LOW_MASK) + '0'; 
+//     rtc_lcd_display_time_table[4] = (*time & RTC_LOW_MASK) + '0'; 
+//     delay_rtc();                           
+//     
+//     rtc_lcd_display_date_table[0] = ((*date++ & RTC_HIGH_MASK) >> 4) + '0'; 
+//     rtc_lcd_display_time_table[3] = ((*time++ & RTC_HIGH_MASK) >> 4) + '0'; 
+//                     
+//     rtc_lcd_display_date_table[2] = '/';
+//     rtc_lcd_display_time_table[2] = ':'; 
+//             
+//     rtc_lcd_display_date_table[4] = (*date & RTC_LOW_MASK) + '0'; 
+//     rtc_lcd_display_time_table[1] = (*time & RTC_LOW_MASK) + '0'; 
+//                             
+//     delay_rtc();                                  
+//     
+//     rtc_lcd_display_date_table[3] = ((*date & RTC_HIGH_MASK) >> 4) + '0'; 
+//     rtc_lcd_display_time_table[0] = ((*time & RTC_HIGH_MASK) >> 4) + '0';
+//             
+//     rtc_lcd_display_date_table[8] = '\0'; 
+//     rtc_lcd_display_time_table[8] = '\0';
+//          
+//     delay_rtc();                      //delay some times.    
      
      //ReverseArray(&rtc_lcd_display_table);
    }

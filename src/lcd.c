@@ -7,6 +7,11 @@
 #define HOME 0b00000011
 #define LEFT 0b00010111
 #include <pic.h>
+#include "lcd.h"
+
+
+
+
 
 
 void LCD_delay (int j) {
@@ -77,11 +82,8 @@ void Write_float(float fl)
 
 void Second_line(char param[])
 {
-    //cmd(0b10101000); // set cursor to 40
-    //cmd(0b11010000); // set cursor to 80 second line
+    
     cmd(0b10010000); // set cursor to 16 second line
-    //cmd(0b10011000); // set cursor to 24 4th line
-    //cmd(0b10001000); // set cursor to 8 3rd line
     Write_string(param);
 }
 void Write_line(char param[], int lineNo)
@@ -103,6 +105,13 @@ void Write_line(char param[], int lineNo)
     }
     Write_string(param);  
     
+}
+
+void Write_Date(int lineNo)
+{
+    char str[9];
+    sprintf(str, "%s%c%s%c%s", dateTime.Day, '/', dateTime.Month, '/', dateTime.Year);
+    Write_line(str, lineNo);
 }
 
 unsigned int number = 0;

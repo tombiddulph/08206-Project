@@ -2,7 +2,7 @@
 #define RTC_H
 
 #include <pic.h>
-
+#include "Commonheader.h"
 #define RTC_IO   RB4                      //1302I_O           
 #define RTC_CLK  RB0                      //1302 clock        
 #define RTC_RST  RB5                      //1302 enable bit   
@@ -35,5 +35,7 @@ char rtc_lcd_display_date_table[9];
 char rtc_lcd_display_time_table[9];
 //define the display code for display 0-9
 const char rtc_7_seg_display_table[]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90}; 
+
+struct DateTime dateTime;
 
 #endif

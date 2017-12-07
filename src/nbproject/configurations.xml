@@ -7,6 +7,7 @@
       <itemPath>lcd.h</itemPath>
       <itemPath>temp_sensor.h</itemPath>
       <itemPath>clock.h</itemPath>
+      <itemPath>Commonheader.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -39,7 +40,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC8</languageToolchain>
-        <languageToolchainVersion>1.44</languageToolchainVersion>
+        <languageToolchainVersion>1.42</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>
