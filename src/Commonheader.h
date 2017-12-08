@@ -6,12 +6,12 @@
 
 struct DateTime
 {
-    char Year[2];
-    char Month[2];
-    char Day[2];
-    char Hour[2];
-    char Minute[2];
-    char Second[2];
+    unsigned char Year;
+    unsigned char Month;
+    unsigned char Day;
+    unsigned char Hour;
+    unsigned char Minute;
+    unsigned char Second;
 };
 
 

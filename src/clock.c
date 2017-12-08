@@ -97,84 +97,27 @@ void Port_init_rtc()
     TRISD=0X00;                     //d port all output
     ADCON1=0X06;                    //a port all i/o
     TRISB=0X02;                     //rb1 input, others output
-  //  OPTION=0X00;                    //open b port internal pull high.
     PORTA=0XFF;               
     PORTD=0XFF;                     //clear all display
    }
 
-
-void ReverseArray(char arr[])
-{
-  
-  int size = (sizeof(arr) / sizeof(arr[0]));
-  
-  
-  
-  int i = 6;
-  int j = 0;
-  char temp;
-   
-   for(j = 0; j < i / 2; j++)
-   {
-     temp = arr[j];
-     arr[j] = arr[i];
-     arr[i] = temp;
-     i--;
-   }
- 
-}
 
 //-------------------------------------------
 //display
 void Display_7_seg_rtc()
    {
     
-     char *date = rtc_table1 + 2;
+     char *date = rtc_table1 + 3;
      char *time = rtc_table1;
      
-     sprintf(dateTime.Year, "%c%c", ((*date & RTC_LOW_MASK) + '0'), (((*date++ & RTC_HIGH_MASK ) >> 4) + '0'));
-     delay_rtc();        
-     sprintf(dateTime.Month,"%c%c", ((*date & RTC_LOW_MASK) + '0'), (((*date++ & RTC_HIGH_MASK ) >> 4) + '0'));
-     delay_rtc();        
-     sprintf(dateTime.Day,  "%c%c", (*date & RTC_LOW_MASK) + '0', ((*date++ & RTC_HIGH_MASK ) >> 4) + '0');
      
-     //dateTime. 
-     
-//     rtc_lcd_display_date_table[7] = (*date & RTC_LOW_MASK) + '0';    
-//     rtc_lcd_display_time_table[7] = (*time & RTC_LOW_MASK) + '0';    
-//     delay_rtc();                     
-//     rtc_lcd_display_date_table[6] = ((*date++ & RTC_HIGH_MASK ) >> 4) + '0';
-//     rtc_lcd_display_time_table[6] = ((*time++ & RTC_HIGH_MASK ) >> 4) + '0';
-//     
-//                    
-//     delay_rtc();   
-//     rtc_lcd_display_date_table[5] = '/';
-//     rtc_lcd_display_time_table[5] = ':';
-//             
-//     rtc_lcd_display_date_table[1] = (*date & RTC_LOW_MASK) + '0'; 
-//     rtc_lcd_display_time_table[4] = (*time & RTC_LOW_MASK) + '0'; 
-//     delay_rtc();                           
-//     
-//     rtc_lcd_display_date_table[0] = ((*date++ & RTC_HIGH_MASK) >> 4) + '0'; 
-//     rtc_lcd_display_time_table[3] = ((*time++ & RTC_HIGH_MASK) >> 4) + '0'; 
-//                     
-//     rtc_lcd_display_date_table[2] = '/';
-//     rtc_lcd_display_time_table[2] = ':'; 
-//             
-//     rtc_lcd_display_date_table[4] = (*date & RTC_LOW_MASK) + '0'; 
-//     rtc_lcd_display_time_table[1] = (*time & RTC_LOW_MASK) + '0'; 
-//                             
-//     delay_rtc();                                  
-//     
-//     rtc_lcd_display_date_table[3] = ((*date & RTC_HIGH_MASK) >> 4) + '0'; 
-//     rtc_lcd_display_time_table[0] = ((*time & RTC_HIGH_MASK) >> 4) + '0';
-//             
-//     rtc_lcd_display_date_table[8] = '\0'; 
-//     rtc_lcd_display_time_table[8] = '\0';
-//          
-//     delay_rtc();                      //delay some times.    
-     
-     //ReverseArray(&rtc_lcd_display_table);
+     dateTime.Second = bcd_to_decimal(0x7F & *time++);
+     dateTime.Minute = bcd_to_decimal(0x7F & *time++);
+     dateTime.Hour   = bcd_to_decimal(0x3F & *time);
+     dateTime.Day   = bcd_to_decimal(0x3F & *date++);
+     dateTime.Month = bcd_to_decimal(0x1F & *date++);
+     *date++; //increment again to skip over the week
+     dateTime.Year  = bcd_to_decimal(0xFF & *date++);
    }
 
 //------------------------------------------------------------------

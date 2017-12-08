@@ -26,8 +26,8 @@ void delay_rtc();                          //delay subroutine.
 unsigned char bcd_to_decimal(unsigned char val);
 unsigned char decimal_to_bcd(unsigned char val);
 
-//define the time:       sec,  min, hour,day,month,week,year,control word.
-const char rtc_table[]={ 0x00,0x58,0x12,0xA9,0x3,0x06,0x9,0x00};
+//define the time:       sec,  min,  hour,  day,  month,  week,  year, control word.
+const char rtc_table[]={0x00,  0x58, 0x12,  0x03,   0x04,   0x06, 0x05,0x00};
 //define the read time and date save table.
 char rtc_table1[7];
 

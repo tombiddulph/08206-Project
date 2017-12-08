@@ -67,11 +67,11 @@ void data(char data)
 }
 void Write_string(char a[])
 {
-    int i = 0;
-    while (a[i]!= '\0') 
+ 
+    char *p = a;
+    while (*p != '\0') 
     {
-       data(a[i]);
-       i++;
+       data(*p++);
     } 
 }
 
@@ -109,8 +109,15 @@ void Write_line(char param[], int lineNo)
 
 void Write_Date(int lineNo)
 {
-    char str[9];
-    sprintf(str, "%s%c%s%c%s", dateTime.Day, '/', dateTime.Month, '/', dateTime.Year);
+    char str[7];
+    sprintf(str, "%d/%d/%d", dateTime.Day, dateTime.Month, dateTime.Year);
+    Write_line(str, lineNo);
+}
+
+void Write_Time(int lineNo)
+{
+    char str[7];
+    sprintf(str, "%d:%d:%d", dateTime.Hour, dateTime.Minute, dateTime.Second);
     Write_line(str, lineNo);
 }
 
