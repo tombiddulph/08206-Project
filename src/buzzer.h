@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-
+#define pin RD7
 
 
 #ifdef	__cplusplus
