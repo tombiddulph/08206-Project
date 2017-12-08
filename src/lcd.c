@@ -31,7 +31,7 @@ void cmd(char cmd)
     LCD_delay(50);
 }
 
-void initialise_LCD()
+void initLCD()
 {
     ADCON1 = 0x06; // digital output
     TRISA = 0x00;

@@ -25,7 +25,7 @@
 
 void delay(char x,char y);
 void display();
-void init();
+void initTempSensor();
 reset(void);
 void write_byte(uch val);
 uch read_byte(void);

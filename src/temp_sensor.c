@@ -72,7 +72,7 @@ void display()
 
 //------------------------------------------------
 //system initialize function           
-void init()
+void initTempSensor()
 {
   ADCON1=0X07;                                //set A PORT general data PORT   
   TRISA=0X00;                                 //set A PORT direct OUTPUT       
