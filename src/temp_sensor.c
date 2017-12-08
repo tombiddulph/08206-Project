@@ -28,7 +28,7 @@ unsigned char qianfen;                       //thousand cent bit
 unsigned char wanfen;                        //myriad cent bit                           
 unsigned char RTC_table[10]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90}; 
 
-char temperature[10] = "         ";
+char temperature[8] = "       ";
 //the display code of 0-9     
                               
 //-----------------------------------------------------------
@@ -72,7 +72,7 @@ void display()
 
 //------------------------------------------------
 //system initialize function           
-void init()
+void initTempSensor()
 {
   ADCON1=0X07;                                //set A PORT general data PORT   
   TRISA=0X00;                                 //set A PORT direct OUTPUT       
@@ -165,7 +165,7 @@ int convertBinaryToDecimal(long long n)
     return decimalNumber;
 }
 
-void createfloat(uch ten, uch unit, uch a, uch b, uch c, uch d, char* temp)
+void tempConverter(uch ten, uch unit, uch a, uch b, uch c, uch d, char* temp)
 {
     temp[0] = ten + 48;
     temp[1] = unit + 48;
@@ -212,6 +212,6 @@ shifen=wd/1000;                          //ten cent bit
 baifen=(wd%1000)/100;                    //hundred cent bit                                                                       
 qianfen=(wd%100)/10;                     //thousand cent bit                                                                      
 wanfen=wd%10;                            //myriad cent bit   
-createfloat(shi, ge, shifen, baifen, qianfen, wanfen, &temperature);
+tempConverter(shi, ge, shifen, baifen, qianfen, wanfen, &temperature);
 NOP();                                                                                                                            
 }                                                                                                                                 
