@@ -61,6 +61,7 @@ void write_time_rtc(unsigned char time_tx)
       {
         RTC_IO=0;                        //
         RTC_CLK=0;                       //pull low clk
+        Delay_loop(100);
         if(time_tx&0x01)              //judge the send bit is 0 or 1.
           {
             RTC_IO=1;                    //is 1
@@ -93,22 +94,25 @@ unsigned char read_time_rtc()
 //pin define func
 void Port_init_rtc()
   {
-    TRISA=0x00;                     //a port all output
-    TRISD=0X00;                     //d port all output
+                     //d port all output
     ADCON1=0X06;                    //a port all i/o
-    TRISB=0X02;                     //rb1 input, others output
-    PORTA=0XFF;               
-    PORTD=0XFF;                     //clear all display
+    TRISB=0X0F;                     //rb1 input, others output                  //clear all display
+    PORTB = 0x00;
    }
 
 
 //-------------------------------------------
 //display
-void Display_7_seg_rtc()
+void Update_dateTime()
    {
     
      char *date = rtc_table1 + 3;
      char *time = rtc_table1;
+     
+     unsigned char day, month, year;
+     day = dateTime.Day;
+     month = dateTime.Month;
+     month = dateTime.Year;
      
      
      dateTime.Second = bcd_to_decimal(0x7F & *time++);
@@ -118,6 +122,9 @@ void Display_7_seg_rtc()
      dateTime.Month = bcd_to_decimal(0x1F & *date++);
      *date++; //increment again to skip over the week
      dateTime.Year  = bcd_to_decimal(0xFF & *date++);
+     
+     DateChanged = (day != dateTime.Day || month != dateTime.Month || year != dateTime.Year);
+     
    }
 
 //------------------------------------------------------------------

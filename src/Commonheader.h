@@ -2,8 +2,9 @@
 #define COMMON_H
 
 #include <stdio.h>
+#include <stdbool.h>
 
-struct DateTime
+typedef struct 
 {
     unsigned char Year;
     unsigned char Month;
@@ -11,10 +12,12 @@ struct DateTime
     unsigned char Hour;
     unsigned char Minute;
     unsigned char Second;
-};
+} DateTime;
 
 
-extern struct DateTime dateTime;
+extern DateTime dateTime;
+extern bool DateChanged;
+
 
 void Delay_loop(int j);
 

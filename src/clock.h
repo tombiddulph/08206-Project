@@ -18,7 +18,7 @@ void Port_init_rtc();                      //port initilize subroutine.
 void ds1302_init();                    //DS1302 initilize subroutine.
 void Set_time_rtc();                       //set time subroutine.
 void Get_time_rtc();                       //get time subroutine.
-void Display_7_seg_rtc();                        //display subroutine.
+void Update_dateTime();                        //display subroutine.
 void write_time_rtc(unsigned char time_tx);    //write one byte subroutine.
 unsigned char  read_time_rtc();          //read one byte subroutine.
 void delay_rtc();                          //delay subroutine.
@@ -27,7 +27,7 @@ unsigned char bcd_to_decimal(unsigned char val);
 unsigned char decimal_to_bcd(unsigned char val);
 
 //define the time:       sec,  min,  hour,  day,  month,  week,  year, control word.
-const char rtc_table[]={0x00,  0x58, 0x12,  0x03,   0x04,   0x06, 0x05,0x00};
+const char rtc_table[]={0x00,0x58,0x12,0x8,0x3,0x06,0x06,0x00};//{0x00,  0x58, 0x12,  0x03,   0x04,   0x06, 0x05,0x00};
 //define the read time and date save table.
 char rtc_table1[7];
 
@@ -36,6 +36,7 @@ char rtc_lcd_display_time_table[9];
 //define the display code for display 0-9
 const char rtc_7_seg_display_table[]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90}; 
 
-struct DateTime dateTime;
+DateTime dateTime;
+bool DateChanged;
 
 #endif

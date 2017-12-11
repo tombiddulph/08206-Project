@@ -8,12 +8,13 @@
 #define LEFT 0b00010111
 
 #include <pic.h>
-
+#include <string.h>
 #include "lcd.h"
 
+const int lines[] = { LINE_1, LINE_2, LINE_3, LINE_4 };
 
 
-
+enum CurrentPage { Home };
 
 
 void LCD_delay (int j) {
@@ -70,11 +71,16 @@ void data(char data)
 void Write_string(char a[])
 {
  
-    char *p = a;
-    while (*p != '\0') 
-    {
-       data(*p++);
-    } 
+   int i = 0;
+	while (a[i] != '\0')
+	{
+		data(a[i]);
+		i++;
+	}
+   for (; i < 15; ++i)
+	{
+		data(' ');
+	}
 }
 
 void Write_float(float fl)
@@ -85,63 +91,31 @@ void Write_float(float fl)
 void Second_line(char param[])
 {
     
-    cmd(0b10010000); // set cursor to 16 second line
+    cmd(LINE_2); // set cursor to 16 second line
     Write_string(param);
 }
 void Write_line(char param[], int lineNo)
 {
-    switch (lineNo)
-    {
-        case 1:
-            cmd(HOME);
-            break;
-        case 2:
-            cmd(0b10010000); // set cursor to 16 second line
-            break;
-        case 3:
-            cmd(0b10001000); // set cursor to 8 3rd line
-            break;
-        case 4:
-            cmd(0b10011000); // set cursor to 24 4th line
-            break;
-    }
+    cmd(lines[lineNo]);
     Write_string(param);  
-    
 }
 
 void clear_line(int lineNo)
 {
-    switch (lineNo)
-    {
-        case 1:
-            cmd(HOME);
-            Write_string("                ");
-            break;
-        case 2:
-            cmd(0b10010000); // set cursor to 16 second line
-            Write_string("                ");
-            break;
-        case 3:
-            cmd(0b10001000); // set cursor to 8 3rd line
-            Write_string("                ");
-            break;
-        case 4:
-            cmd(0b10011000); // set cursor to 24 4th line
-            Write_string("                ");
-            break;
-    }
+    cmd(lines[lineNo]);
+    Write_string(BLANK_LINE);
 }
 
 void Write_Date(int lineNo)
 {
     char str[7];
-    sprintf(str, "%d/%d/%d", dateTime.Day, dateTime.Month, dateTime.Year);
+    sprintf(str, "%02d/%02d/%02d", dateTime.Day, dateTime.Month, dateTime.Year);
     Write_line(str, lineNo);
 }
 
 void Write_Time(int lineNo)
-{
-    char str[7];
-    sprintf(str, "%d:%d:%d", dateTime.Hour, dateTime.Minute, dateTime.Second);
+{ 
+    char str[10];
+    sprintf(str, "%02d:%02d:%02d", dateTime.Hour, dateTime.Minute, dateTime.Second);
     Write_line(str, lineNo);
 }
