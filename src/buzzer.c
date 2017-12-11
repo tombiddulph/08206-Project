@@ -1,7 +1,7 @@
 
 
 #include "buzzer.h"
-#include <pic.h>
+#include <xc.h>
 #include "Commonheader.h"
 
 

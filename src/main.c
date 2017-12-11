@@ -6,7 +6,6 @@
 
 
 #include <xc.h>
-#include <pic.h>
 #include <string.h>
 #include "temp_sensor.h"
 #include "lcd.h"
@@ -14,20 +13,39 @@
 
 #define BUTTON_MASK 0x0F
 
-//__PROG_CONFIG(0x1832);       
-//__CONFIG( _DEBUG_OFF&_CP_ALL&_WRT_HALF&_CPD_ON&_LVP_OFF&_BODEN_OFF&_PWRTE_ON&_WDT_OFF&_HS_OSC);
-__CONFIG( FOSC_HS & WDTE_OFF & PWRTE_ON & BOREN_OFF & LVP_OFF );
+#pragma config FOSC = HS        // Oscillator Selection bits (HS oscillator)
+#pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled)
+#pragma config PWRTE = ON       // Power-up Timer Enable bit (PWRT enabled)
+#pragma config BOREN = OFF      // Brown-out Reset Enable bit (BOR disabled)
+#pragma config LVP = ON         // Low-Voltage (Single-Supply) In-Circuit Serial Programming Enable bit (RB3/PGM pin has PGM function; low-voltage programming enabled)
+#pragma config CPD = OFF        // Data EEPROM Memory Code Protection bit (Data EEPROM code protection off)
+#pragma config WRT = OFF        // Flash Program Memory Write Enable bits (Write protection off; all program memory may be written to by EECON control)
+#pragma config CP = OFF         // Flash Program Memory Code Protection bit (Code protection off)
+
+//__PROG_CONFIG(1, 0x1832);       
+//__CONFIG( DEBUG_OFF &_CP_ALL&_WRT_HALF&_CPD_ON&_LVP_OFF&_BODEN_OFF&_PWRTE_ON&_WDT_OFF&_HS_OSC);
+//__CONFIG( FOSC_HS & WDTE_OFF & PWRTE_ON & BOREN_OFF & LVP_OFF )
+////
+// __PROG_CONFIG(0x1832)
+
+//__CONFIG(CP_OFF  & LVP_OFF & _BOREN_OFF & _MCLRE_ON & _WDT_OFF & _PWRTE_ON & _INTOSC_OSC_NOCLKOUT);
+
 
 extern char temperature[8];
 char previous_temp[8];
 int oldMatch = 10;
 
-void MainLoop();
-
 unsigned lastPressed = 9;
 
+void initPort()
+{
+    TRISB = 0xF0;
+ 
+    
+}
 
 
+void MainLoop();
 
 void main()
   {

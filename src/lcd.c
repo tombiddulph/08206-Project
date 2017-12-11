@@ -7,7 +7,7 @@
 #define HOME 0b00000011
 #define LEFT 0b00010111
 
-#include <pic.h>
+#include <xc.h>
 #include <string.h>
 #include "lcd.h"
 

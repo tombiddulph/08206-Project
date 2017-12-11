@@ -1,7 +1,7 @@
 #ifndef RTC_H
 #define RTC_H
 
-#include <pic.h>
+#include <xc.h>
 #include "Commonheader.h"
 #define RTC_IO   RB4                      //1302I_O           
 #define RTC_CLK  RB6                      //1302 clock        

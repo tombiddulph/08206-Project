@@ -7,7 +7,7 @@
 //	   S10 the first bit set ON ,the other bits OFF
 
 //	   SW S5¡¢S6 must set ON, the other SWS must set OFF.
-#include <pic.h>
+#include <xc.h>
 #include "temp_sensor.h"
      
 //THE configure of MCU,watchdog OFF,electrify delay OPEN,power down check OFF,

@@ -17,10 +17,13 @@
 void ds1302_init()
   {
    RTC_CLK=0;                            //pull low clock
-   RTC_RST =0;                            //reset DS1302
+   //RTC_RST =0;                            //reset DS1302
    RTC_RST=1;                             //enable DS1302
    write_time_rtc(RTC_CONTROL_WRITE);                //send control command
-   write_time_rtc(0);                   //enable write DS1302
+   write_time_rtc(0);    
+   write_time_rtc(0x90);
+   write_time_rtc(0xa9);
+   //enable write DS1302
    RTC_RST=0;                             //reset
   }
 
@@ -43,7 +46,7 @@ void Set_time_rtc()
 void Get_time_rtc()
  {
    int i;                             //set loop counter.
-   RTC_RST=1;                             //enable DS1302
+   RTC_RST = 1;                             //enable DS1302
    write_time_rtc(0xbf);                //
    for(i=0;i<7;i++)                   //continue to read 7 bytes.
      {
@@ -61,7 +64,6 @@ void write_time_rtc(unsigned char time_tx)
       {
         RTC_IO=0;                        //
         RTC_CLK=0;                       //pull low clk
-        Delay_loop(100);
         if(time_tx&0x01)              //judge the send bit is 0 or 1.
           {
             RTC_IO=1;                    //is 1
@@ -95,11 +97,17 @@ unsigned char read_time_rtc()
 void Port_init_rtc()
   {
                      //d port all output
-    ADCON1=0X06;                    //a port all i/o
-    TRISB=0X0F;                     //rb1 input, others output                  //clear all display
+    //ADCON1=0X06;                    //a port all i/o
+    TRISB=0X0F;     
+    OPTION_REG = 0xF0;//rb1 input, others output                  //clear all display
     PORTB = 0x00;
    }
 
+void  delay_rtc()              //
+    {
+     int i;                 //define variable
+     for(i=0x64;i--;);     //delay
+    }
 
 //-------------------------------------------
 //display
@@ -116,12 +124,18 @@ void Update_dateTime()
      
      
      dateTime.Second = bcd_to_decimal(0x7F & *time++);
+     delay_rtc();
      dateTime.Minute = bcd_to_decimal(0x7F & *time++);
+     delay_rtc();
      dateTime.Hour   = bcd_to_decimal(0x3F & *time);
+     delay_rtc();
      dateTime.Day   = bcd_to_decimal(0x3F & *date++);
+     delay_rtc();
      dateTime.Month = bcd_to_decimal(0x1F & *date++);
+     delay_rtc();
      *date++; //increment again to skip over the week
      dateTime.Year  = bcd_to_decimal(0xFF & *date++);
+     delay_rtc();
      
      DateChanged = (day != dateTime.Day || month != dateTime.Month || year != dateTime.Year);
      
