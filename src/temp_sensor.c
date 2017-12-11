@@ -81,7 +81,7 @@ void initTempSensor()
 
 //-----------------------------------------------
 //reset DS18B20 function   
-reset(void)
+void reset(void)
 {
   char presence=1;
   while(presence)

@@ -15,10 +15,10 @@
 
 
 #define  uch unsigned char                   //                                          
-# define DQ RA0                              //define 18B20 data PORT                    
-# define DQ_DIR TRISA0                       //define 18B20 D PORT direct register       
-# define DQ_HIGH() DQ_DIR =1                 //set data PORT INPUT                       
-# define DQ_LOW() DQ = 0; DQ_DIR = 0 
+#define DQ RA0                              //define 18B20 data PORT                    
+#define DQ_DIR TRISA0                       //define 18B20 D PORT direct register       
+#define DQ_HIGH() DQ_DIR =1                 //set data PORT INPUT                       
+#define DQ_LOW() DQ = 0; DQ_DIR = 0 
 
 
 
@@ -26,7 +26,7 @@
 void delay(char x,char y);
 void display();
 void initTempSensor();
-reset(void);
+void reset(void);
 void write_byte(uch val);
 uch read_byte(void);
 void get_temp();

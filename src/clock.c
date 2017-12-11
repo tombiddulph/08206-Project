@@ -121,12 +121,6 @@ void Display_7_seg_rtc()
    }
 
 //------------------------------------------------------------------
-//delay
-void  delay_rtc()              //
-    {
-     int i;                 //define variable
-     for(i=0x64;i--;);     //delay
-    }
 
 unsigned char bcd_to_decimal(unsigned char val)
 {

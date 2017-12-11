@@ -1,7 +1,6 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include <string.h>
 #include <stdio.h>
 
 struct DateTime
@@ -16,6 +15,8 @@ struct DateTime
 
 
 extern struct DateTime dateTime;
+
+void Delay_loop(int j);
 
 #endif
 

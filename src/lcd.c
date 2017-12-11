@@ -6,7 +6,9 @@
 #define CL_HOME 0b00000001
 #define HOME 0b00000011
 #define LEFT 0b00010111
+
 #include <pic.h>
+
 #include "lcd.h"
 
 
@@ -128,4 +130,18 @@ void clear_line(int lineNo)
             Write_string("                ");
             break;
     }
+}
+
+void Write_Date(int lineNo)
+{
+    char str[7];
+    sprintf(str, "%d/%d/%d", dateTime.Day, dateTime.Month, dateTime.Year);
+    Write_line(str, lineNo);
+}
+
+void Write_Time(int lineNo)
+{
+    char str[7];
+    sprintf(str, "%d:%d:%d", dateTime.Hour, dateTime.Minute, dateTime.Second);
+    Write_line(str, lineNo);
 }

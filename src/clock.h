@@ -4,7 +4,7 @@
 #include <pic.h>
 #include "Commonheader.h"
 #define RTC_IO   RB4                      //1302I_O           
-#define RTC_CLK  RB0                      //1302 clock        
+#define RTC_CLK  RB6                      //1302 clock        
 #define RTC_RST  RB5                      //1302 enable bit   
 
 #define RTC_CONTROL_WRITE   0x8E

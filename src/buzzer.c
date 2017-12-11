@@ -2,6 +2,7 @@
 
 #include "buzzer.h"
 #include <pic.h>
+#include "Commonheader.h"
 
 
 void buzzerInit()
@@ -17,12 +18,12 @@ void soundBuzzer()
      if(pin == 0)
      {
          pin = 1;
-         delay(1000);
+         Delay_loop(1000);
      }
      else
      {
          pin = 0;
-         delay(1000);
+         Delay_loop(1000);
      } 
  }
     
