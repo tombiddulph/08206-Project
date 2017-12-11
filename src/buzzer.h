@@ -12,9 +12,10 @@
 extern "C" {
 #endif
 
-#define pin RD7
-
-
+#define pin RB7
+    
+void soundBuzzer();
+void buzzerInit();
 #ifdef	__cplusplus
 }
 #endif

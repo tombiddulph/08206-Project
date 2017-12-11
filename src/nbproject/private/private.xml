@@ -5,6 +5,8 @@
         <group>
             <file>file:/Z:/08206-Project/src/temp_sensor.c</file>
             <file>file:/Z:/08206-Project/src/buzzer.h</file>
+            <file>file:/Z:/08206-Project/src/common.c</file>
+            <file>file:/Z:/08206-Project/src/Commonheader.h</file>
             <file>file:/Z:/08206-Project/src/buzzer.c</file>
             <file>file:/Z:/08206-Project/src/lcd.c</file>
             <file>file:/Z:/08206-Project/src/lcd.h</file>

@@ -9,6 +9,7 @@
 //	   SW S5¡¢S6 must set ON, the other SWS must set OFF.
 #include <pic.h>
 #include "temp_sensor.h"
+#include "Commonheader.h"
      
 //THE configure of MCU,watchdog OFF,electrify delay OPEN,power down check OFF,
 //LOW power programme OFF,encrypt,4M crystal HS surge.
