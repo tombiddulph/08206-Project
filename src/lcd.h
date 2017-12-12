@@ -21,6 +21,11 @@
 #define LINE_4 0x98
 #define LEFT 0b00010111
 
+#define DISPLAY_CURSOR_BLINK_ON 0x0F
+#define DISPLAY_CURSOR_ON       0x0E
+#define DISPLAY_ON              0x0C
+#define BASIC_FUNCTION_SET_8BIT 0x30
+
 #define BLANK_LINE "                "
 
 
@@ -32,6 +37,7 @@ void data(char data);
 void Second_line(char param[]);
 void Write_line(char param[], int lineNo);
 void clear_line(int lineNo);
+void clear_lines();
 void Write_Date(int lineNo);
 void Write_Time(int lineNo);
 void Write_Date_Time_Settings(DateTime dat, int lineNo);

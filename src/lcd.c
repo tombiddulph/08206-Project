@@ -7,10 +7,7 @@
 #define HOME 0b00000011
 #define LEFT 0b00010111
 
-#define DISPLAY_CURSOR_BLINK_ON 0x0F
-#define DISPLAY_CURSOR_ON       0x0E
-#define DISPLAY_ON              0x0C
-#define BASIC_FUNCTION_SET_8BIT 0x30
+
 
 #define SET_CGRAM_ADDR (addr) return (0x40 | addr);
 
@@ -87,7 +84,7 @@ void Write_string(char a[])
 		data(a[i]);
 		i++;
 	}
-   for (; i < 15; ++i)
+   for (; i < 16; ++i)
 	{
 		data(' ');
 	}
@@ -116,6 +113,15 @@ void clear_line(int lineNo)
     Write_string(BLANK_LINE);
 }
 
+void clear_lines()
+{
+  
+    for(char i = 0; i < 4; i++)
+    {
+       cmd(lines[i]);
+      Write_string(BLANK_LINE);
+    }
+}
 void Write_Date(int lineNo)
 {
     char str[7];
@@ -140,14 +146,16 @@ void Write_Date_Time_Settings(DateTime date, int lineNo)
 
 void Write_Time_Settings(DateTime date, int lineNo)
 {
-    char str[10];
-    sprintf(str, "%02d:%02d:%02d", date.Hour, date.Minute, date.Second);
+    char str[7];
+    Write_line(" H   M  S", lineNo++);
+    sprintf(str, "%02d  %02d  %02d", date.Hour, date.Minute, date.Second);
     Write_line(str, lineNo);
 }
 
 void Write_Date_Settings(DateTime date, int lineNo)
 {
     char str[7];
-    sprintf(str, "%02d/%02d/%02d", date.Day, date.Month, date.Year);
+    Write_line(" D   M  Y", lineNo++);
+    sprintf(str, "%02d  %02d  %02d", date.Day, date.Month, date.Year);
     Write_line(str, lineNo);
 }

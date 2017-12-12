@@ -31,6 +31,7 @@ void ButtonInit();
 void Delay_loop(int j);
 int convert_from_bit_pos(int bitPos);
 int convert_to_bit_pos(int pinNum);
+bool single_key_pressed(char byteVal);
 unsigned char bcd_to_decimal(unsigned char val);
 unsigned char decimal_to_bcd(unsigned char val);
 DateTime *convertDateFromArray(char input[]);

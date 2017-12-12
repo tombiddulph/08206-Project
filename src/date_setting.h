@@ -14,14 +14,19 @@
 
 
 
-#define ENTER_DATETIME_SELECTION_MODE 0x08
 #define BUTTON_MASK 0x0F
-#define INCREMENT   0x08
-#define DECREMENT   0x04
-#define MOVE_RIGHT  0x02
-#define MOVE_LEFT   0x01
-#define BACK        0x03
-#define TOGGLE_LINE 0x0C
+#define INCREMENT   0x01
+#define DECREMENT   0x02
+#define MOVE_RIGHT  0x04
+#define MOVE_LEFT   0x08
+
+
+#define TOGGLE_LINE 0x01
+#define BACK        0x02
+#define SET         0x04
+
+
+#define START_CURSOR_POSITION 0x48
 
 void Date_time_setting_loop();
 

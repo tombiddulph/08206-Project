@@ -13,6 +13,8 @@
 #include "date_setting.h"
 #include "zones.h"
 #include "buzzer.h"
+
+
 #define BUTTON_MASK 0x0F
 
 
@@ -32,18 +34,24 @@ extern char temperature[8];
 char previous_temp[8];
 int oldMatch = 10;
 
-//void (*settings_ptr[2]) = {Date_time_setting_loop, ZoneLoop };
-
 typedef void (*settings_ptr)(void);
-settings_ptr settings[2];
+typedef void (*page_ptr)(void);
+
+
+void Home_page();
+void Settings_page();
+
+settings_ptr settings[2] = {Date_time_setting_loop, ZoneLoop };
+page_ptr pages[2] = {Home_page, Settings_page};
+
+//settings_ptr settings[2];
 
 enum STATE {HOME, SETTINGS};
 
 enum STATE currentState;
 void mainInit()
 {
-    settings[0] = Date_time_setting_loop;
-    settings[1] = ZoneLoop;
+
      //initTempSensor();                       //call system initialize function  
      initLCD();
      ButtonInit();   
@@ -60,8 +68,7 @@ void main()
    
     mainInit();
         
-   
-    Delay_loop(5000);
+
     Set_time_rtc(); 
     //initTempSensor();                       //call system initialize function  
  
@@ -69,71 +76,72 @@ void main()
     Get_time_rtc();   
     //get_temp();  
     Get_time_rtc();
-    Update_Global_DateTime();
-     
-    
+    Update_Global_DateTime();  
    
    while(1)                                                                                                                                                                                        
      { 
        
-   
-       char choice;
        // get_temp();  
-        Get_time_rtc();
-        Update_Global_DateTime();
+       Get_time_rtc();
+       Update_Global_DateTime();
+       pages[currentState]();
        
-       switch(currentState)
-       {
-           case HOME:
-           {
-                //Write_line(temperature , 0);
-               Write_line("test" , 0);
-                Write_Date(1);
-                Write_Time(2);
-                
-                  choice  = (PORTB & BUTTON_MASK);
-                    
-                   if(choice && !(choice & (choice - 1))) // check to see if 1 and only 1 bit is set
-                   {
-                       if(convert_from_bit_pos(choice) == 3)
-                       {
-                           currentState = SETTINGS;
-                           break;
-                       }
-                   }
-                
-                break;
-           }
-           case SETTINGS:
-           {
-               Write_line("Date/Time", 0);
-               Write_line("Zones", 1);
-               Write_line("Temp", 2);
-               
-               
-                choice  = (PORTB & SETTINGS_MASK);
-               
-                if(choice && !(choice & (choice - 1))) // check to see if 1 and only 1 bit is set
-                {
-                    
-                    switch(convert_from_bit_pos(choice))
-                    {
-                        case (0):
-                            Date_time_setting_loop();
-                            break;
-                        case (1):
-                            ZoneLoop();
-                            break;
-                            
-                    }
-                    //(settings[])();         
-                    currentState = HOME;
-                }
-               
-               break;
-           }
-               
-       }
        
-   }
+        
+       
+    }
 }  
+
+
+void Home_page()
+{
+    while(1)
+    {
+      Write_line("test" , 0);
+      Write_Date(1);
+      Write_Time(2);
+      Get_time_rtc();
+      Update_Global_DateTime();
+       char choice  = (PORTB & BUTTON_MASK);
+                    
+        if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
+        {
+            if(convert_from_bit_pos(choice) == 0)
+            {
+                currentState = SETTINGS;
+                break;
+            }
+        }
+    }
+}
+
+void Settings_page()
+{    
+        
+        while(1)
+        {
+              Write_line("-- SETTINGS --", 0);
+            Write_line("Date/Time", 1);
+            Write_line("Zones", 2);
+            Write_line("Temp", 3);
+
+
+            char  choice  = (PORTB & SETTINGS_MASK);
+
+            if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
+            {
+                currentState = HOME;  
+                settings[convert_from_bit_pos(choice)]();
+                clear_lines();
+                break;
+               
+            }    
+            break;
+        }
+   
+}
+
+
+   
+   
+

@@ -19,7 +19,7 @@ void ds1302_init();                    //DS1302 initilize subroutine.
 void Set_time_rtc();                       //set time subroutine.
 void Get_time_rtc();                       //get time subroutine.
 void Update_Global_DateTime();                        //display subroutine.
-void Write_dateTime(DateTime *date);
+void Write_dateTime_rtc(DateTime *date);
 void write_time_rtc(unsigned char time_tx);    //write one byte subroutine.
 unsigned char  read_time_rtc();          //read one byte subroutine.
 void delay_rtc();                          //delay subroutine.

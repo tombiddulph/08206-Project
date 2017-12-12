@@ -119,10 +119,10 @@ void  delay_rtc()              //
 //-------------------------------------------
 //display
 
-void Write_dateTime(DateTime *date)
+void Write_dateTime_rtc(DateTime *date)
 {
     
-     RTC_RST = 1;                             //enable DS1302
+    RTC_RST = 1;                             //enable DS1302
     write_time_rtc(0xbe);   
     write_time_rtc(decimal_to_bcd(date->Second));
     write_time_rtc(decimal_to_bcd(date->Minute));
@@ -134,6 +134,8 @@ void Write_dateTime(DateTime *date)
     write_time_rtc(00);
     RTC_RST = 0;
 }
+
+
 
 void Update_Global_DateTime()
    {

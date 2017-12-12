@@ -26,6 +26,12 @@ char *formatString(char *inputstr, char *format)
     return *buf;
 }
 
+bool single_key_pressed(char byteVal)
+{
+    return byteVal && !(byteVal & (byteVal - 1));
+}
+
+
 DateTime *convertDateFromArray(char input[])
 {
      
@@ -68,6 +74,11 @@ void ButtonInit()
 {
     TRISB = 0x0F;
     PORTB = 0x00;
+    
+    TRISE0 = 1;
+    TRISE1 = 1;
+    TRISE2 = 1;
+    RE0 = RE1 = RE2 = 0;
     
 }
 
