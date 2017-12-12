@@ -4,7 +4,7 @@
 #include <xc.h>
 #include "Commonheader.h"
 #define RTC_IO   RB4                     //1302I_O           
-#define RTC_CLK  RC0                      //1302 clock        
+#define RTC_CLK  RC4                      //1302 clock        
 #define RTC_RST  RB5                      //1302 enable bit   
 
 #define RTC_CONTROL_WRITE   0x8E
@@ -18,7 +18,7 @@ void Port_init_rtc();                      //port initilize subroutine.
 void ds1302_init();                    //DS1302 initilize subroutine.
 void Set_time_rtc();                       //set time subroutine.
 void Get_time_rtc();                       //get time subroutine.
-void Read_dateTime();                        //display subroutine.
+void Update_Global_DateTime();                        //display subroutine.
 void Write_dateTime(DateTime *date);
 void write_time_rtc(unsigned char time_tx);    //write one byte subroutine.
 unsigned char  read_time_rtc();          //read one byte subroutine.

@@ -48,6 +48,29 @@ DateTime *convertDateFromArray(char input[])
      return &d;
 }
 
+
+int ButtonCheck()
+{
+    int result = (PORTB & BUTTON_MASK);
+        
+  
+        if(result && !(result & (result - 1))) // check to see if 1 and only 1 bit is set
+        {
+            lastPressed = result;
+            int portN = result == 8 ? 0 : result == 4 ? 1 : result == 2 ? 2 : 3; //convert hex value to port number
+            
+            return portN;
+        }
+    return -1;
+}
+
+void ButtonInit()
+{
+    TRISB = 0x0F;
+    PORTB = 0x00;
+    
+}
+
 unsigned char bcd_to_decimal(unsigned char val)
 {
   return ((val & 0x0F) + (((val & 0xF0) >> 4) * 10));

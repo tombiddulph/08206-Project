@@ -98,11 +98,16 @@ void Port_init_rtc()
   {
                      //d port all output
     //ADCON1=0X06;                    //a port all i/o
-    TRISB=0X0F;     
-    OPTION_REG = 0xF0;//rb1 input, others output                  //clear all display
-    PORTB = 0x00;
-    TRISC = 0x01;
-    TRISC = 0x00;
+   
+    
+    RC4 = 0;
+    RB4 = 0;
+    RB5 = 0;
+    TRISC4 = 0;
+    TRISB4 = 0;
+    TRISB4 = 0;
+   
+          
    }
 
 void  delay_rtc()              //
@@ -130,7 +135,7 @@ void Write_dateTime(DateTime *date)
     RTC_RST = 0;
 }
 
-void Read_dateTime()
+void Update_Global_DateTime()
    {
     
      char *date = rtc_table1 + 3;

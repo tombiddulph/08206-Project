@@ -11,6 +11,8 @@
 #include "clock.h"
 #include "Commonheader.h"
 #include "date_setting.h"
+#include "zones.h"
+#include "buzzer.h"
 #define BUTTON_MASK 0x0F
 
 
@@ -20,96 +22,118 @@
 #pragma config PWRTE = ON       // Power-up Timer Enable bit (PWRT enabled)
 #pragma config BOREN = OFF      // Brown-out Reset Enable bit (BOR disabled)
 #pragma config LVP = ON         // Low-Voltage (Single-Supply) In-Circuit Serial Programming Enable bit (RB3/PGM pin has PGM function; low-voltage programming enabled)
-#pragma config CPD = OFF        // Data EEPROM Memory Code Protection bit (Data EEPROM code protection off)
-#pragma config WRT = OFF        // Flash Program Memory Write Enable bits (Write protection off; all program memory may be written to by EECON control)
-#pragma config CP = OFF         // Flash Program Memory Code Protection bit (Code protection off)
-
-//__PROG_CONFIG(1, 0x1832);       
-//__CONFIG( DEBUG_OFF &_CP_ALL&_WRT_HALF&_CPD_ON&_LVP_OFF&_BODEN_OFF&_PWRTE_ON&_WDT_OFF&_HS_OSC);
-//__CONFIG( FOSC_HS & WDTE_OFF & PWRTE_ON & BOREN_OFF & LVP_OFF )
-////
-// __PROG_CONFIG(0x1832)
-
-//__CONFIG(CP_OFF  & LVP_OFF & _BOREN_OFF & _MCLRE_ON & _WDT_OFF & _PWRTE_ON & _INTOSC_OSC_NOCLKOUT);
+//#pragma config CPD = OFF        // Data EEPROM Memory Code Protection bit (Data EEPROM code protection off)
+//#pragma config WRT = OFF        // Flash Program Memory Write Enable bits (Write protection off; all program memory may be written to by EECON control)
+//#pragma config CP = OFF         // Flash Program Memory Code Protection bit (Code protection off)
 
 
+#define SETTINGS_MASK 0x07
 extern char temperature[8];
 char previous_temp[8];
 int oldMatch = 10;
 
-unsigned lastPressed = 9;
+//void (*settings_ptr[2]) = {Date_time_setting_loop, ZoneLoop };
 
-void initPort()
+typedef void (*settings_ptr)(void);
+settings_ptr settings[2];
+
+enum STATE {HOME, SETTINGS};
+
+enum STATE currentState;
+void mainInit()
 {
-    TRISB = 0xF0;  
+    settings[0] = Date_time_setting_loop;
+    settings[1] = ZoneLoop;
+     //initTempSensor();                       //call system initialize function  
+     initLCD();
+     ButtonInit();   
+     ZoneInit();
+     buzzerInit();
+     Port_init_rtc();                     //port initilize.
+     ds1302_init();                   //DS1302 initilize.
 }
-
-
-void MainLoop();
 
 void main()
   {
-    
-    
-    Port_init_rtc();                     //port initilize.
-    ds1302_init();                   //DS1302 initilize.
+    currentState = HOME;
+   
+   
+    mainInit();
         
    
     Delay_loop(5000);
     Set_time_rtc(); 
     //initTempSensor();                       //call system initialize function  
-    initLCD();
-    cmd(CL_HOME);
+ 
+   
     Get_time_rtc();   
-    //cmd(CL_HOME);
+    //get_temp();  
+    Get_time_rtc();
+    Update_Global_DateTime();
+     
     
    
    while(1)                                                                                                                                                                                        
      { 
-   
-        Get_time_rtc();
-        Read_dateTime();
-       // Write_line(temperature , 1);
-        
-        
-        Write_Date(1);
-        Write_Time(2);
        
-        
-        
-        if(PORTB & (BUTTON_MASK & ENTER_DATETIME_SELECTION_MODE))
-        {
-            Date_time_setting_loop();
-            
-           
-        }
-        
-        
-        int result = (PORTB & BUTTON_MASK);
-        
-  
-        if(result && !(result & (result - 1))) // check to see if 1 and only 1 bit is set
-        {
-            lastPressed = result;
-             //portN = result == 8 ? 3 : result == 4 ? 2 : result == 2 ? 1 : 0; //convert hex value to port number
-            int portN = convert_from_bit_pos(result);
-           
-            char buf[12];
-            sprintf(buf, "RB%d pressed", portN);
-            Write_line(buf,0);
-        }
-        else
-        {
-             Write_line("nothing pressed",0);
-        }
-        
-        Delay_loop(5000);
-     } 
-    
    
-  
-    
-    
-    
-    
+       char choice;
+       // get_temp();  
+        Get_time_rtc();
+        Update_Global_DateTime();
+       
+       switch(currentState)
+       {
+           case HOME:
+           {
+                //Write_line(temperature , 0);
+               Write_line("test" , 0);
+                Write_Date(1);
+                Write_Time(2);
+                
+                  choice  = (PORTB & BUTTON_MASK);
+                    
+                   if(choice && !(choice & (choice - 1))) // check to see if 1 and only 1 bit is set
+                   {
+                       if(convert_from_bit_pos(choice) == 3)
+                       {
+                           currentState = SETTINGS;
+                           break;
+                       }
+                   }
+                
+                break;
+           }
+           case SETTINGS:
+           {
+               Write_line("Date/Time", 0);
+               Write_line("Zones", 1);
+               Write_line("Temp", 2);
+               
+               
+                choice  = (PORTB & SETTINGS_MASK);
+               
+                if(choice && !(choice & (choice - 1))) // check to see if 1 and only 1 bit is set
+                {
+                    
+                    switch(convert_from_bit_pos(choice))
+                    {
+                        case (0):
+                            Date_time_setting_loop();
+                            break;
+                        case (1):
+                            ZoneLoop();
+                            break;
+                            
+                    }
+                    //(settings[])();         
+                    currentState = HOME;
+                }
+               
+               break;
+           }
+               
+       }
+       
+   }
 }  
