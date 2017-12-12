@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+#define Pin(n) (1 << n) //convert from pin number to bit position
+
 typedef struct 
 {
     unsigned char Year;

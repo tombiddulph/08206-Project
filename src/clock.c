@@ -101,6 +101,8 @@ void Port_init_rtc()
     TRISB=0X0F;     
     OPTION_REG = 0xF0;//rb1 input, others output                  //clear all display
     PORTB = 0x00;
+    TRISC = 0x01;
+    TRISC = 0x00;
    }
 
 void  delay_rtc()              //

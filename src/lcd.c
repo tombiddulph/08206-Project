@@ -7,6 +7,13 @@
 #define HOME 0b00000011
 #define LEFT 0b00010111
 
+#define DISPLAY_CURSOR_BLINK_ON 0x0F
+#define DISPLAY_CURSOR_ON       0x0E
+#define DISPLAY_ON              0x0C
+#define BASIC_FUNCTION_SET_8BIT 0x30
+
+#define SET_CGRAM_ADDR (addr) return (0x40 | addr);
+
 #include <xc.h>
 #include <string.h>
 #include "lcd.h"
@@ -48,9 +55,9 @@ void initLCD()
     PORTD = 0;
     PSB = 1;    
     
-    cmd(0x0f); // set cursor at start
-    cmd(0x38);
-    cmd(0b00111000); // 2 lines
+    cmd(DISPLAY_CURSOR_BLINK_ON); // set cursor at start
+    cmd(BASIC_FUNCTION_SET_8BIT);
+    //cmd(0b00110000); // 2 lines
 
 }
 
