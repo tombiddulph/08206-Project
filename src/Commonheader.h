@@ -3,6 +3,10 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <xc.h>
+#include <string.h>
+
+#define BUTTON_MASK 0x0F
 
 typedef struct 
 {
@@ -14,12 +18,15 @@ typedef struct
     unsigned char Second;
 } DateTime;
 
-
+int prevButt = -1;
+unsigned lastPressed = 9;
 extern DateTime dateTime;
 extern bool DateChanged;
 
 
 void Delay_loop(int j);
+int ButtonCheck();
+void ButtonInit();
 
 #endif
 

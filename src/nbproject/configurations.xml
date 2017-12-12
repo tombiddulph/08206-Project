@@ -8,6 +8,7 @@
       <itemPath>temp_sensor.h</itemPath>
       <itemPath>Commonheader.h</itemPath>
       <itemPath>buzzer.h</itemPath>
+      <itemPath>zones.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -21,6 +22,7 @@
       <itemPath>temp_sensor.c</itemPath>
       <itemPath>buzzer.c</itemPath>
       <itemPath>common.c</itemPath>
+      <itemPath>zones.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
