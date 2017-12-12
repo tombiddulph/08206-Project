@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-#define pin RB7
+#define pin RC5
     
 void soundBuzzer();
 void buzzerInit();

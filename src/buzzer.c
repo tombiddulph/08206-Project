@@ -1,12 +1,10 @@
 
-
 #include "buzzer.h"
-#include <pic.h>
 #include "Commonheader.h"
 
 void buzzerInit()
 {
-    TRISB7 = 0;               /* Configure TRISB7 as o/p              */
+    TRISC5 = 0;               /* Configure TRISB7 as o/p              */
     pin = 0;
 }
 

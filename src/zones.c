@@ -20,10 +20,10 @@ void ZoneCheck()
 {
     int finalMask = 0;
     
+    char mask = 0x01;
+    
     for(int i =0; i < 4; ++i)
     {
-      int mask = 0x01;
-      
       if(activeZones[i])
       {
            finalMask |= mask;

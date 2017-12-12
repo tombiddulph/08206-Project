@@ -1,9 +1,5 @@
 #include "Commonheader.h"
 
-
-
-
-
 void Delay_loop(int j )
 {
     for (unsigned i=0; i<j; i++);
@@ -17,7 +13,7 @@ int ButtonCheck()
         if(result && !(result & (result - 1))) // check to see if 1 and only 1 bit is set
         {
             lastPressed = result;
-            int portN = result == 8 ? 3 : result == 4 ? 2 : result == 2 ? 1 : 0; //convert hex value to port number
+            int portN = result == 8 ? 0 : result == 4 ? 1 : result == 2 ? 2 : 3; //convert hex value to port number
             
             return portN;
         }
