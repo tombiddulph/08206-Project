@@ -6,12 +6,14 @@
 
 
 #include <xc.h>
-#include <string.h>
 #include "temp_sensor.h"
 #include "lcd.h"
 #include "clock.h"
-
+#include "Commonheader.h"
+#include "date_setting.h"
 #define BUTTON_MASK 0x0F
+
+
 
 #pragma config FOSC = HS        // Oscillator Selection bits (HS oscillator)
 #pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled)
@@ -39,9 +41,7 @@ unsigned lastPressed = 9;
 
 void initPort()
 {
-    TRISB = 0xF0;
- 
-    
+    TRISB = 0xF0;  
 }
 
 
@@ -68,17 +68,21 @@ void main()
      { 
    
         Get_time_rtc();
-        Update_dateTime();
+        Read_dateTime();
        // Write_line(temperature , 1);
         
-        if(DateChanged)
-        {
-            Write_Date(1);
-        }
         
+        Write_Date(1);
         Write_Time(2);
        
         
+        
+        if(PORTB & (BUTTON_MASK & ENTER_DATETIME_SELECTION_MODE))
+        {
+            Date_time_setting_loop();
+            
+           
+        }
         
         
         int result = (PORTB & BUTTON_MASK);
@@ -87,7 +91,8 @@ void main()
         if(result && !(result & (result - 1))) // check to see if 1 and only 1 bit is set
         {
             lastPressed = result;
-            int portN = result == 8 ? 3 : result == 4 ? 2 : result == 2 ? 1 : 0; //convert hex value to port number
+             //portN = result == 8 ? 3 : result == 4 ? 2 : result == 2 ? 1 : 0; //convert hex value to port number
+            int portN = convert_from_bit_pos(result);
            
             char buf[12];
             sprintf(buf, "RB%d pressed", portN);

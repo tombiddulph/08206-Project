@@ -113,7 +113,24 @@ void  delay_rtc()              //
 
 //-------------------------------------------
 //display
-void Update_dateTime()
+
+void Write_dateTime(DateTime *date)
+{
+    
+     RTC_RST = 1;                             //enable DS1302
+    write_time_rtc(0xbe);   
+    write_time_rtc(decimal_to_bcd(date->Second));
+    write_time_rtc(decimal_to_bcd(date->Minute));
+    write_time_rtc(decimal_to_bcd(date->Hour));
+    write_time_rtc(decimal_to_bcd(date->Day));
+    write_time_rtc(decimal_to_bcd(date->Month));
+    write_time_rtc(decimal_to_bcd(0x06));
+    write_time_rtc(decimal_to_bcd(date->Year));
+    write_time_rtc(00);
+    RTC_RST = 0;
+}
+
+void Read_dateTime()
    {
     
      char *date = rtc_table1 + 3;
@@ -144,12 +161,3 @@ void Update_dateTime()
    }
 
 //------------------------------------------------------------------
-
-unsigned char bcd_to_decimal(unsigned char val)
-{
-  return ((val & 0x0F) + (((val & 0xF0) >> 4) * 10));
-}
-unsigned char decimal_to_bcd(unsigned char val)
-{
-    return (((val / 10) << 4) & 0xF0) | ((val % 10) & 0x0F);
-}
