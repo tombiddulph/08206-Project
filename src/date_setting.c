@@ -119,6 +119,7 @@ void Date_time_setting_loop()
                     currentDTstate = TIME;
                     break;
                 }
+                count = currentDTstate == 1 ? 3 : 0;
             }
 
 
@@ -250,7 +251,7 @@ void Right_buttons()
         {
         case (DAY):
 
-            if (date[DAY] == days_per_month[date[MONTH] - 1])
+            if (date[DAY] >= days_per_month[date[MONTH] - 1])
             {
                 date[DAY] = 1;
             }
@@ -273,9 +274,9 @@ void Right_buttons()
             month_changed = true;
             set_leap_year_status();
 
-            if (date[DAY] > days_per_month[date[MONTH]])
+            if (date[DAY] > days_per_month[date[MONTH] - 1 ])
             {
-                date[DAY] = days_per_month[date[MONTH]];
+                date[DAY] = days_per_month[date[MONTH] - 1];
             }
             break;
         case (YEAR):
@@ -336,9 +337,9 @@ void Right_buttons()
            
 
             set_leap_year_status();
-            if (date[DAY] > (days_per_month[date[MONTH]]))
+            if (date[DAY] > (days_per_month[date[MONTH] -1]))
             {
-                date[DAY] = days_per_month[date[MONTH]];
+                date[DAY] = days_per_month[date[MONTH]-1];
             }
             break;
         case (YEAR):
@@ -346,7 +347,7 @@ void Right_buttons()
             set_leap_year_status();
             break;
         case (HOUR):
-            if(date[HOUR] == 1)
+            if(date[HOUR] == 0)
             {
                 date[HOUR] = 23;
             }
@@ -360,7 +361,7 @@ void Right_buttons()
         case (MINUTE):
         case (SECOND):
 
-            if(date[count] == 1)
+            if(date[count] == 0)
             {
                 date[count] = 59;
             }

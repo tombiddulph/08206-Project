@@ -44,8 +44,6 @@ void Settings_page();
 settings_ptr settings[2] = {Date_time_setting_loop, ZoneLoop };
 page_ptr pages[2] = {Home_page, Settings_page};
 
-//settings_ptr settings[2];
-
 enum STATE {HOME, SETTINGS};
 
 enum STATE currentState;
