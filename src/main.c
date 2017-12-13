@@ -52,7 +52,7 @@ enum STATE currentState;
 void mainInit()
 {
 
-     //initTempSensor();                       //call system initialize function  
+     initTempSensor();                       //call system initialize function  
      initLCD();
      ButtonInit();   
      ZoneInit();
@@ -70,18 +70,18 @@ void main()
         
 
     Set_time_rtc(); 
-    //initTempSensor();                       //call system initialize function  
+    initTempSensor();                       //call system initialize function  
  
    
     Get_time_rtc();   
-    //get_temp();  
+    get_temp();  
     Get_time_rtc();
     Update_Global_DateTime();  
    
    while(1)                                                                                                                                                                                        
      { 
        
-       // get_temp();  
+       get_temp();  
        Get_time_rtc();
        Update_Global_DateTime();
        pages[currentState]();
@@ -97,7 +97,8 @@ void Home_page()
 {
     while(1)
     {
-      Write_line("test" , 0);
+      get_temp();
+      Write_line(temperature, 0);
       Write_Date(1);
       Write_Time(2);
       Get_time_rtc();
@@ -130,9 +131,6 @@ void Settings_page()
 
             if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
             {
-                char button = 
-               
-                
                 currentState = HOME;  
                 settings[convert_from_bit_pos(choice)]();
                 clear_lines();

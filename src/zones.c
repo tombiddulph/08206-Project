@@ -4,6 +4,10 @@
 #include "buzzer.h"
 #include "lcd.h"
 
+#define ZONE0   0x01
+#define ZONE1   0x02
+#define ZONE2   0x04
+#define ZONE3   0x08
   
 
 void SetZone(int zone)
@@ -54,43 +58,36 @@ void ZoneCheck()
 void ZoneLoop()
 {
     while(1)
-    {
+    {  
+        int butt = -1;
         
-        int butt = ButtonCheck();
+        char command = (PORTB & BUTTON_MASK);
         
-        if(butt != -1)
+        if (single_key_pressed(command))
         {
-//            char buf[12];
-//            sprintf(buf, "RB%d pressed", butt);
-//            Write_line(buf,3);
-
-
-            if(prevButt != butt)
-            {
-               SetZone(butt);
-            }
-             
-
-
+            butt = convert_from_bit_pos(command);
+            SetZone(butt); 
+           
             char duf[10];
             sprintf(duf, "Zone 0: %d", activeZones[0]);
             Write_line(duf,0);
-            
+
             sprintf(duf, "Zone 1: %d", activeZones[1]);
             Write_line(duf,1);
-            
+
             sprintf(duf, "Zone 2: %d", activeZones[2]);
             Write_line(duf,2);
-            
+
             sprintf(duf, "Zone 3: %d", activeZones[3]);
             Write_line(duf,3);
             
         }
         
-        ZoneCheck();
-        
-        
-        
-        prevButt = butt;
+        if(butt != -1)
+        {
+            prevButt = butt;
+        }
+   
+        ZoneCheck();  
     }
 }
