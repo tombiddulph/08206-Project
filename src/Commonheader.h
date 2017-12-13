@@ -9,6 +9,12 @@
 #define Pin(n) (1 << n) //convert from pin number to bit position
 #define BUTTON_MASK 0x0F
 
+
+#define INCREMENT   0x01
+#define DECREMENT   0x02
+#define MOVE_RIGHT  0x04
+#define MOVE_LEFT   0x08
+
 typedef struct 
 {
     unsigned char Year;
@@ -25,6 +31,7 @@ unsigned lastPressed = 9;
 
 extern DateTime dateTime;
 extern bool DateChanged;
+extern int current_alarm_duration;
 
 int ButtonCheck();
 void ButtonInit();

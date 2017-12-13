@@ -11,6 +11,7 @@
       <itemPath>temp_sensor.h</itemPath>
       <itemPath>date_setting.h</itemPath>
       <itemPath>zones.h</itemPath>
+      <itemPath>alarm_duration.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -27,6 +28,7 @@
       <itemPath>common.c</itemPath>
       <itemPath>date_setting.c</itemPath>
       <itemPath>zones.c</itemPath>
+      <itemPath>alarm_duration.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

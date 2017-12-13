@@ -1,5 +1,9 @@
 #include "buzzer.h"
 #include "Commonheader.h"
+#include "clock.h"
+
+
+int current_alarm_duration;
 
 void buzzerInit()
 {

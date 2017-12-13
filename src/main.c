@@ -13,20 +13,20 @@
 #include "date_setting.h"
 #include "zones.h"
 #include "buzzer.h"
+#include "alarm_duration.h"
 
 
 #define BUTTON_MASK 0x0F
-#define SETTINGS_MASK 0x07
-
+#define SETTINGS_MASK 0x0F
 
 #pragma config FOSC = HS        // Oscillator Selection bits (HS oscillator)
 #pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled)
 #pragma config PWRTE = ON       // Power-up Timer Enable bit (PWRT enabled)
 #pragma config BOREN = OFF      // Brown-out Reset Enable bit (BOR disabled)
 #pragma config LVP = ON         // Low-Voltage (Single-Supply) In-Circuit Serial Programming Enable bit (RB3/PGM pin has PGM function; low-voltage programming enabled)
-//#pragma config CPD = OFF        // Data EEPROM Memory Code Protection bit (Data EEPROM code protection off)
-//#pragma config WRT = OFF        // Flash Program Memory Write Enable bits (Write protection off; all program memory may be written to by EECON control)
-//#pragma config CP = OFF         // Flash Program Memory Code Protection bit (Code protection off)
+#pragma config CPD = OFF        // Data EEPROM Memory Code Protection bit (Data EEPROM code protection off)
+#pragma config WRT = OFF        // Flash Program Memory Write Enable bits (Write protection off; all program memory may be written to by EECON control)
+#pragma config CP = OFF         // Flash Program Memory Code Protection bit (Code protection off)
 
 
 
@@ -40,16 +40,24 @@ typedef void (*page_ptr)(void);
 
 void Home_page();
 void Settings_page();
+void Temp_sensor_page();
+void Alarm_duration_page();
 
-settings_ptr settings[2] = {Date_time_setting_loop, ZoneLoop };
+settings_ptr settings[4] = {Date_time_setting_loop, ZoneLoop, Temp_sensor_page, alarm_duration_settings_page};
 page_ptr pages[2] = {Home_page, Settings_page};
 
 enum STATE {HOME, SETTINGS};
 
 enum STATE currentState;
+
+int current_alarm_duration;
+
+//eeprom_write(0x01, 0xF0); //write 0xF0 to memory location 0x01
+    //char result = eeprom_read(0x01); //read from memory location 0x01
 void mainInit()
 {
 
+    current_alarm_duration = 15;
      //initTempSensor();                       //call system initialize function  
      initLCD();
      ButtonInit();   
@@ -122,24 +130,31 @@ void Settings_page()
             Write_line("Date/Time", 0);
             Write_line("Zones", 1);
             Write_line("Temp", 2);
-
+            Write_line("Alarm duration", 3);
 
             char  choice  = (PORTB & SETTINGS_MASK);
 
             if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
             {
-                char button = 
-               
+             
                 
-                currentState = HOME;  
                 settings[convert_from_bit_pos(choice)]();
                 clear_lines();
+                currentState = HOME;  
                 break;
                
             }    
             break;
         }
    
+}
+
+void Temp_sensor_page()
+{
+    clear_lines();
+    Write_line("TEST", 0);
+    Delay_loop(90000);
+    
 }
 
 
