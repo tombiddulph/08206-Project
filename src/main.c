@@ -16,7 +16,7 @@
 
 
 #define BUTTON_MASK 0x0F
-
+#define SETTINGS_MASK 0x07
 
 
 #pragma config FOSC = HS        // Oscillator Selection bits (HS oscillator)
@@ -29,7 +29,7 @@
 //#pragma config CP = OFF         // Flash Program Memory Code Protection bit (Code protection off)
 
 
-#define SETTINGS_MASK 0x07
+
 extern char temperature[8];
 char previous_temp[8];
 int oldMatch = 10;
@@ -102,7 +102,7 @@ void Home_page()
       Write_Time(2);
       Get_time_rtc();
       Update_Global_DateTime();
-       char choice  = (PORTB & BUTTON_MASK);
+      char choice  = (PORTB & BUTTON_MASK);
                     
         if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
         {
@@ -120,16 +120,19 @@ void Settings_page()
         
         while(1)
         {
-              Write_line("-- SETTINGS --", 0);
-            Write_line("Date/Time", 1);
-            Write_line("Zones", 2);
-            Write_line("Temp", 3);
+           
+            Write_line("Date/Time", 0);
+            Write_line("Zones", 1);
+            Write_line("Temp", 2);
 
 
             char  choice  = (PORTB & SETTINGS_MASK);
 
             if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
             {
+                char button = 
+               
+                
                 currentState = HOME;  
                 settings[convert_from_bit_pos(choice)]();
                 clear_lines();

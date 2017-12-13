@@ -119,6 +119,36 @@ void  delay_rtc()              //
 //-------------------------------------------
 //display
 
+void Write_updated_date_rtc(DateTime *date)
+{
+    RTC_RST = 1;                             //enable DS1302
+    write_time_rtc(0xbe);   
+    write_time_rtc(decimal_to_bcd(dateTime.Second));
+    write_time_rtc(decimal_to_bcd(dateTime.Minute));
+    write_time_rtc(decimal_to_bcd(dateTime.Hour));
+    write_time_rtc(decimal_to_bcd(date->Day));
+    write_time_rtc(decimal_to_bcd(date->Month));
+    write_time_rtc(decimal_to_bcd(0x06));
+    write_time_rtc(decimal_to_bcd(date->Year));
+    write_time_rtc(00);
+    RTC_RST = 0;
+}
+
+void Write_updated_time_rtc(DateTime *date)
+{
+    RTC_RST = 1;                             //enable DS1302
+    write_time_rtc(0xbe);   
+    write_time_rtc(decimal_to_bcd(date->Second));
+    write_time_rtc(decimal_to_bcd(date->Minute));
+    write_time_rtc(decimal_to_bcd(date->Hour));
+    write_time_rtc(decimal_to_bcd(dateTime.Day));
+    write_time_rtc(decimal_to_bcd(dateTime.Month));
+    write_time_rtc(decimal_to_bcd(0x06));
+    write_time_rtc(decimal_to_bcd(dateTime.Year));
+    write_time_rtc(00);
+    RTC_RST = 0;
+}
+
 void Write_dateTime_rtc(DateTime *date)
 {
     
