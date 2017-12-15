@@ -25,6 +25,12 @@ unsigned lastPressed = 9;
 
 extern DateTime dateTime;
 extern bool DateChanged;
+extern char threshold[7];
+extern int temp_LHS;
+extern int temp_RHS;
+extern bool temperatureAlarm;
+
+extern void updateVariables();
 
 int ButtonCheck();
 void ButtonInit();

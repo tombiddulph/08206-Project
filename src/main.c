@@ -33,6 +33,12 @@
 extern char temperature[8];
 char previous_temp[8];
 int oldMatch = 10;
+char threshold[7];
+int threshold_temp_LHS;
+int threshold_temp_RHS;
+int temp_LHS;
+int temp_RHS;
+bool temperatureAlarm;
 
 typedef void (*settings_ptr)(void);
 typedef void (*page_ptr)(void);
@@ -40,8 +46,9 @@ typedef void (*page_ptr)(void);
 
 void Home_page();
 void Settings_page();
+void tempCheck();
 
-settings_ptr settings[2] = {Date_time_setting_loop, ZoneLoop };
+settings_ptr settings[3] = {Date_time_setting_loop, ZoneLoop, tempThreshLoop};
 page_ptr pages[2] = {Home_page, Settings_page};
 
 //settings_ptr settings[2];
@@ -49,6 +56,24 @@ page_ptr pages[2] = {Home_page, Settings_page};
 enum STATE {HOME, SETTINGS};
 
 enum STATE currentState;
+
+ void updateVariables()
+ {
+     get_temp();  
+     Get_time_rtc();
+     Update_Global_DateTime();    
+     tempCheck();
+     ZoneCheck();
+     
+ }
+
+void tempCheck()
+{
+    temperatureAlarm = (( temp_LHS > threshold_temp_LHS) || (temp_LHS == threshold_temp_LHS && (temp_RHS > threshold_temp_RHS))); 
+}
+
+
+
 void mainInit()
 {
 
@@ -59,6 +84,7 @@ void mainInit()
      buzzerInit();
      Port_init_rtc();                     //port initilize.
      ds1302_init();                   //DS1302 initilize.
+     temperatureAlarm = false;
 }
 
 void main()
@@ -78,10 +104,13 @@ void main()
     Get_time_rtc();
     Update_Global_DateTime();  
    
+   
    while(1)                                                                                                                                                                                        
      { 
        
        get_temp();  
+       
+       tempCheck();
        Get_time_rtc();
        Update_Global_DateTime();
        pages[currentState]();
@@ -98,7 +127,9 @@ void Home_page()
     while(1)
     {
       get_temp();
-      Write_line(temperature, 0);
+      char buf[16];
+      sprintf(buf, "temp:%03d.%02d",temp_LHS, temp_RHS );
+      Write_line(buf, 0);
       Write_Date(1);
       Write_Time(2);
       Get_time_rtc();

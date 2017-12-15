@@ -12,7 +12,8 @@
 
 
 
-#define ZONE_MASK 0x0F
+#define ZONE_MASK 0x0E
+#define TEMP_MASK 0x01
 #define ZONE_0 0x00
 #define ZONE_1 0x01
 #define ZONE_2 0x04

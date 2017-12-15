@@ -8,7 +8,8 @@
 #define ZONE1   0x02
 #define ZONE2   0x04
 #define ZONE3   0x08
-  
+
+bool temperatureAlarm;
 
 void SetZone(int zone)
 {
@@ -36,12 +37,11 @@ void ZoneCheck()
       mask = mask << 1;
     }
     
-//    int btn = (PORTC & ZONE_MASK);
-//    char buf1[15];
-//    sprintf(buf1, "button val %d ", btn);
-//    Write_line(buf1, 1);
+
+    //char tmp = ((PORTC & ZONE_MASK) & temperatureAlarm) & finalMask
     
-    if((PORTC & (ZONE_MASK & finalMask)) > 0)
+    
+    if(((PORTC & ZONE_MASK) | temperatureAlarm) & finalMask)
     {
         soundBuzzer(); //pass current time
     }
@@ -88,6 +88,6 @@ void ZoneLoop()
             prevButt = butt;
         }
    
-        ZoneCheck();  
+        updateVariables();
     }
 }
