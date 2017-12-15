@@ -154,18 +154,8 @@ void Date_time_setting_loop()
             cmd(cursor_position);
 
 
-
-
-
-            Left_buttons();
-
-
-
-
             if (new_date_time_set)
             {
-
-
                 clear_lines();
 
                 switch (currentDTstate)
@@ -194,7 +184,6 @@ void Date_time_setting_loop()
 
             if (quit)
             {
-
                 break;
             }
 
@@ -220,15 +209,11 @@ void Left_buttons()
 void Right_buttons()
 {
     
-    tmp = LEFT_BUTTONS & BUTTON_MASK;
+   
+    command =  ((LEFT_BUTTONS & BUTTON_MASK) << 4) |(RIGHT_BUTTONS & BUTTON_MASK);
     Delay_loop(9999);
-    tmp = LEFT_BUTTONS & BUTTON_MASK;
-    
-    command = RIGHT_BUTTONS & BUTTON_MASK;
-    Delay_loop(9999);
-    command = RIGHT_BUTTONS & BUTTON_MASK;
+    command =  ((LEFT_BUTTONS & BUTTON_MASK) << 4) |(RIGHT_BUTTONS & BUTTON_MASK);
 
-    command |= (tmp << 4);
     switch (command)
     {
     case (0):
