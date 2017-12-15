@@ -19,11 +19,9 @@
 #define DECREMENT   0x02
 #define MOVE_RIGHT  0x04
 #define MOVE_LEFT   0x08
-
-
-#define TOGGLE_LINE 0x01
-#define BACK        0x02
-#define SET         0x04
+#define TOGGLE_LINE 0x010
+#define BACK        0x020
+#define SET         0x040
 
 
 #define START_CURSOR_POSITION 0x48

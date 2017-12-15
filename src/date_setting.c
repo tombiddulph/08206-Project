@@ -58,6 +58,7 @@ DateTime newDate;
 int days_per_month [12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 char title[15];
 unsigned char command;
+unsigned char tmp;
 char date[6];
 int year;
 
@@ -211,37 +212,23 @@ void Date_time_setting_loop()
 
 void Left_buttons()
 {
-    command = LEFT_BUTTONS & BUTTON_MASK;
-    Delay_loop(9999);
-    command = LEFT_BUTTONS & BUTTON_MASK;
+    
 
-    switch (command)
-    {
-    case (0):
-        break;
-    case (TOGGLE_LINE):
-        currentDTstate = 1 - currentDTstate;
-        //line = 1 - line;
-        count = currentDTstate == 1 ? 3 : 0;
-        line_changed = true;
-        break;
-    case (BACK):
-        quit = true;
-        break;
-    case (SET):
-        new_date_time_set = true;
-        cmd(DISPLAY_ON);
-        break;
-    }
 }
 
 
 void Right_buttons()
 {
+    
+    tmp = LEFT_BUTTONS & BUTTON_MASK;
+    Delay_loop(9999);
+    tmp = LEFT_BUTTONS & BUTTON_MASK;
+    
     command = RIGHT_BUTTONS & BUTTON_MASK;
     Delay_loop(9999);
     command = RIGHT_BUTTONS & BUTTON_MASK;
 
+    command |= (tmp << 4);
     switch (command)
     {
     case (0):
@@ -374,9 +361,6 @@ void Right_buttons()
         date_changed = true;
         break;
     case (MOVE_RIGHT):
-
-
-
         if (line)
         {
             if (count == 5)
@@ -432,6 +416,18 @@ void Right_buttons()
                 cursor_position -= 2 ;
             }
         }
+        break;
+    case (TOGGLE_LINE):
+        currentDTstate = 1 - currentDTstate;
+        count = currentDTstate == 1 ? 3 : 0;
+        line_changed = true;
+        break;
+    case (BACK):
+        quit = true;
+        break;
+    case (SET):
+        new_date_time_set = true;
+        cmd(DISPLAY_ON);
         break;
     }
 

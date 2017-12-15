@@ -12,14 +12,14 @@
 
 
 
-#define ZONE_MASK 0x0F
+#define ZONE_MASK 0x0E
 #define ZONE_0 0x00
 #define ZONE_1 0x01
 #define ZONE_2 0x04
 #define ZONE_3 0x08    
     
     
-bool activeZones[] = {false, false, false, false}; 
+extern bool activeZones[4]; 
     
 void SetZone(int zone);
 void ZoneInit();

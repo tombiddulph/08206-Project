@@ -32,15 +32,17 @@ unsigned lastPressed = 9;
 extern DateTime dateTime;
 extern bool DateChanged;
 extern int current_alarm_duration;
+extern bool activeZones[4];
 
 int ButtonCheck();
 void ButtonInit();
+void updateVariables();
 void Delay_loop(int j);
 int convert_from_bit_pos(int bitPos);
 int convert_to_bit_pos(int pinNum);
 bool single_key_pressed(char byteVal);
-unsigned char bcd_to_decimal(unsigned char val);
-unsigned char decimal_to_bcd(unsigned char val);
+unsigned char convert_bcd_to_dec(unsigned char val);
+unsigned char convert_dec_to_bcd(unsigned char val);
 DateTime *convertDateFromArray(char input[]);
 
 #endif

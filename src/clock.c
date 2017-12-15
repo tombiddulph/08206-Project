@@ -123,13 +123,13 @@ void Write_updated_date_rtc(DateTime *date)
 {
     RTC_RST = 1;                             //enable DS1302
     write_time_rtc(0xbe);   
-    write_time_rtc(decimal_to_bcd(dateTime.Second));
-    write_time_rtc(decimal_to_bcd(dateTime.Minute));
-    write_time_rtc(decimal_to_bcd(dateTime.Hour));
-    write_time_rtc(decimal_to_bcd(date->Day));
-    write_time_rtc(decimal_to_bcd(date->Month));
-    write_time_rtc(decimal_to_bcd(0x06));
-    write_time_rtc(decimal_to_bcd(date->Year));
+    write_time_rtc(convert_dec_to_bcd(dateTime.Second));
+    write_time_rtc(convert_dec_to_bcd(dateTime.Minute));
+    write_time_rtc(convert_dec_to_bcd(dateTime.Hour));
+    write_time_rtc(convert_dec_to_bcd(date->Day));
+    write_time_rtc(convert_dec_to_bcd(date->Month));
+    write_time_rtc(convert_dec_to_bcd(0x06));
+    write_time_rtc(convert_dec_to_bcd(date->Year));
     write_time_rtc(00);
     RTC_RST = 0;
 }
@@ -138,13 +138,13 @@ void Write_updated_time_rtc(DateTime *date)
 {
     RTC_RST = 1;                             //enable DS1302
     write_time_rtc(0xbe);   
-    write_time_rtc(decimal_to_bcd(date->Second));
-    write_time_rtc(decimal_to_bcd(date->Minute));
-    write_time_rtc(decimal_to_bcd(date->Hour));
-    write_time_rtc(decimal_to_bcd(dateTime.Day));
-    write_time_rtc(decimal_to_bcd(dateTime.Month));
-    write_time_rtc(decimal_to_bcd(0x06));
-    write_time_rtc(decimal_to_bcd(dateTime.Year));
+    write_time_rtc(convert_dec_to_bcd(date->Second));
+    write_time_rtc(convert_dec_to_bcd(date->Minute));
+    write_time_rtc(convert_dec_to_bcd(date->Hour));
+    write_time_rtc(convert_dec_to_bcd(dateTime.Day));
+    write_time_rtc(convert_dec_to_bcd(dateTime.Month));
+    write_time_rtc(convert_dec_to_bcd(0x06));
+    write_time_rtc(convert_dec_to_bcd(dateTime.Year));
     write_time_rtc(00);
     RTC_RST = 0;
 }
@@ -154,13 +154,13 @@ void Write_dateTime_rtc(DateTime *date)
     
     RTC_RST = 1;                             //enable DS1302
     write_time_rtc(0xbe);   
-    write_time_rtc(decimal_to_bcd(date->Second));
-    write_time_rtc(decimal_to_bcd(date->Minute));
-    write_time_rtc(decimal_to_bcd(date->Hour));
-    write_time_rtc(decimal_to_bcd(date->Day));
-    write_time_rtc(decimal_to_bcd(date->Month));
-    write_time_rtc(decimal_to_bcd(0x06));
-    write_time_rtc(decimal_to_bcd(date->Year));
+    write_time_rtc(convert_dec_to_bcd(date->Second));
+    write_time_rtc(convert_dec_to_bcd(date->Minute));
+    write_time_rtc(convert_dec_to_bcd(date->Hour));
+    write_time_rtc(convert_dec_to_bcd(date->Day));
+    write_time_rtc(convert_dec_to_bcd(date->Month));
+    write_time_rtc(convert_dec_to_bcd(0x06));
+    write_time_rtc(convert_dec_to_bcd(date->Year));
     write_time_rtc(00);
     RTC_RST = 0;
 }
@@ -179,18 +179,18 @@ void Update_Global_DateTime()
      month = dateTime.Year;
      
      
-     dateTime.Second = bcd_to_decimal(0x7F & *time++);
+     dateTime.Second = convert_bcd_to_dec(0x7F & *time++);
      delay_rtc();
-     dateTime.Minute = bcd_to_decimal(0x7F & *time++);
+     dateTime.Minute = convert_bcd_to_dec(0x7F & *time++);
      delay_rtc();
-     dateTime.Hour   = bcd_to_decimal(0x3F & *time);
+     dateTime.Hour   = convert_bcd_to_dec(0x3F & *time);
      delay_rtc();
-     dateTime.Day   = bcd_to_decimal(0x3F & *date++);
+     dateTime.Day   = convert_bcd_to_dec(0x3F & *date++);
      delay_rtc();
-     dateTime.Month = bcd_to_decimal(0x1F & *date++);
+     dateTime.Month = convert_bcd_to_dec(0x1F & *date++);
      delay_rtc();
      *date++; //increment again to skip over the week
-     dateTime.Year  = bcd_to_decimal(0xFF & *date++);
+     dateTime.Year  = convert_bcd_to_dec(0xFF & *date++);
      delay_rtc();
      
      DateChanged = (day != dateTime.Day || month != dateTime.Month || year != dateTime.Year);

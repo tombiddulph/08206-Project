@@ -29,6 +29,8 @@ unsigned char wanfen;                        //myriad cent bit
 unsigned char RTC_table[10]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90}; 
 
 char temperature[8] = "       ";
+int temp_LHS;
+int temp_RHS;
 //the display code of 0-9     
                               
 //-----------------------------------------------------------
@@ -186,12 +188,7 @@ int i;
 DQ_HIGH();
 reset();                              //reset,wait for  18b20 responsion                                                                                                               
 write_byte(0XCC);                     //ignore ROM matching   skip command                                                                                                                         
-write_byte(0X44);                     //send  temperature convert command                                                                                                              
-//for(i=20;i>0;i--)                                                                                                                                                                      
-//    {                                                                                                                                                                                  
-//                                                                                                                                                                                       
-//        display();                    //call some display function,insure the time of convert temperature                                                                              
-//    }                                                                                                                                                                                  
+write_byte(0X44);                     //send  temperature convert command                                                                                                                                                                                                                                                                                                
 reset();                              //reset again,wait for 18b20 responsion                                                                                                          
 write_byte(0XCC);                     //ignore ROM matching                                                                                                                            
 write_byte(0XBE);                     //send read temperature command                                                                                                                  
@@ -212,6 +209,13 @@ shifen=wd/1000;                          //ten cent bit
 baifen=(wd%1000)/100;                    //hundred cent bit                                                                       
 qianfen=(wd%100)/10;                     //thousand cent bit                                                                      
 wanfen=wd%10;                            //myriad cent bit   
-tempConverter(shi, ge, shifen, baifen, qianfen, wanfen, &temperature);
+
+
+
+
+temp_LHS = (((shi + 48) - '0' ) *10 ) + ((ge + 48) - '0');
+temp_RHS = (((shifen +48) - '0' ) * 10) + ((qianfen + 48) - '0');
+
+
 NOP();                                                                                                                            
-}                                                                                                                                 
+}   

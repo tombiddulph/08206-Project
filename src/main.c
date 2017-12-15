@@ -14,6 +14,7 @@
 #include "zones.h"
 #include "buzzer.h"
 #include "alarm_duration.h"
+#include "temp_thresh.h"
 
 
 #define BUTTON_MASK 0x0F
@@ -33,6 +34,13 @@
 extern char temperature[8];
 char previous_temp[8];
 int oldMatch = 10;
+char threshold[7];
+int threshold_temp_LHS;
+int threshold_temp_RHS;
+int temp_LHS;
+int temp_RHS;
+bool temperatureAlarm;
+bool activeZones[4];
 
 typedef void (*settings_ptr)(void);
 typedef void (*page_ptr)(void);
@@ -42,23 +50,26 @@ void Home_page();
 void Settings_page();
 void Temp_sensor_page();
 void Alarm_duration_page();
-
-settings_ptr settings[4] = {Date_time_setting_loop, ZoneLoop, Temp_sensor_page, alarm_duration_settings_page};
+ void tempCheck();
+settings_ptr settings[4] = {Date_time_setting_loop, ZoneLoop, tempThreshLoop, alarm_duration_settings_page};
 page_ptr pages[2] = {Home_page, Settings_page};
 
-enum STATE {HOME, SETTINGS};
-
-enum STATE currentState;
-
+typedef enum  {HOME, SETTINGS} STATE;
+STATE currentState;
 int current_alarm_duration;
+
 
 //eeprom_write(0x01, 0xF0); //write 0xF0 to memory location 0x01
     //char result = eeprom_read(0x01); //read from memory location 0x01
 void mainInit()
 {
-
-    current_alarm_duration = 15;
-     //initTempSensor();                       //call system initialize function  
+    for(char i = 0; i < 4; i++)
+    {
+        activeZones[i] = false;
+    }
+    
+    current_alarm_duration = 2;
+     initTempSensor();                       //call system initialize function  
      initLCD();
      ButtonInit();   
      ZoneInit();
@@ -66,6 +77,22 @@ void mainInit()
      Port_init_rtc();                     //port initilize.
      ds1302_init();                   //DS1302 initilize.
 }
+
+ void updateVariables()
+ {
+     get_temp();  
+     Get_time_rtc();
+     Update_Global_DateTime();    
+     tempCheck();
+     ZoneCheck();
+     
+ }
+ 
+ void tempCheck()
+{
+    temperatureAlarm = (( temp_LHS > threshold_temp_LHS) || (temp_LHS == threshold_temp_LHS && (temp_RHS > threshold_temp_RHS))); 
+}
+
 
 void main()
   {
@@ -76,18 +103,19 @@ void main()
         
 
     Set_time_rtc(); 
-    //initTempSensor();                       //call system initialize function  
+    initTempSensor();                       //call system initialize function  
  
    
     Get_time_rtc();   
-    //get_temp();  
+    get_temp();  
     Get_time_rtc();
     Update_Global_DateTime();  
    
    while(1)                                                                                                                                                                                        
      { 
        
-       // get_temp();  
+       get_temp();  
+       tempCheck();
        Get_time_rtc();
        Update_Global_DateTime();
        pages[currentState]();
@@ -103,7 +131,10 @@ void Home_page()
 {
     while(1)
     {
-      Write_line("test" , 0);
+      get_temp();
+      char buf[16];
+      sprintf(buf, "temp:%03d.%02d",temp_LHS, temp_RHS );
+      Write_line(buf, 0);
       Write_Date(1);
       Write_Time(2);
       Get_time_rtc();

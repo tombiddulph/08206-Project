@@ -1,14 +1,17 @@
-
+#include "Commonheader.h"
 #include "zones.h"
-#include <pic.h>
 #include "buzzer.h"
 #include "lcd.h"
+#include "clock.h"
 
 #define ZONE0   0x01
 #define ZONE1   0x02
 #define ZONE2   0x04
 #define ZONE3   0x08
-  
+
+bool temperatureAlarm;
+bool activeZones[4];
+int current_alarm_duration;
 
 void SetZone(int zone)
 {
@@ -37,9 +40,53 @@ void ZoneCheck()
     }
     
 
-    if((PORTC & (ZONE_MASK & finalMask)) > 0)
+    //char tmp = ((PORTC & ZONE_MASK) & temperatureAlarm) & finalMask
+    
+    
+    if(((PORTC & ZONE_MASK) | temperatureAlarm) & finalMask)
     {
-        soundBuzzer(); //pass current time
+        
+//        clear_lines();
+//        {
+//            if(temperatureAlarm & finalMask)
+//            {
+//                Write_line("Temperature",0);
+//                Write_line("alarm",1);
+//                Write_line("activated",1);
+//            }
+//        }
+        
+        unsigned char currentSecond = dateTime.Second;
+        
+        
+        int timeLeft = current_alarm_duration;
+        
+       
+        
+        
+        while(timeLeft >= 0)
+        {
+          Get_time_rtc();
+          Update_Global_DateTime();  
+          
+          char tmp = dateTime.Second;
+          if(currentSecond != tmp)
+          {
+            currentSecond = tmp;
+            --timeLeft;
+          }
+          RC5 = 1;
+          Delay_loop(1000);
+          RC5 = 0;
+          Delay_loop(1000);
+          RC5 = 1;
+          Delay_loop(1000);
+          RC5 = 0;
+          Delay_loop(1000);
+        }
+            
+            
+        //soundBuzzer(); //pass current time
     }
     if(PORTC & ZONE_MASK)
     {
@@ -64,18 +111,15 @@ void ZoneLoop()
             butt = convert_from_bit_pos(command);
             SetZone(butt); 
            
-            char duf[10];
-            sprintf(duf, "Zone 0: %d", activeZones[0]);
-            Write_line(duf,0);
-
-            sprintf(duf, "Zone 1: %d", activeZones[1]);
-            Write_line(duf,1);
-
-            sprintf(duf, "Zone 2: %d", activeZones[2]);
-            Write_line(duf,2);
-
-            sprintf(duf, "Zone 3: %d", activeZones[3]);
-            Write_line(duf,3);
+            
+            char buf[10];
+            
+            for(char i = 0; i < 4; i++)
+            {
+               sprintf(buf, "Zone %d: %d", i, activeZones[i]);
+               Write_line(buf,i);
+            }
+           
             
         }
         
@@ -84,6 +128,6 @@ void ZoneLoop()
             prevButt = butt;
         }
    
-        ZoneCheck();  
+        updateVariables();
     }
 }
