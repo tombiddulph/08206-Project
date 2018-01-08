@@ -8,6 +8,7 @@
 #define ZONE1   0x02
 #define ZONE2   0x04
 #define ZONE3   0x08
+#define EXIT_MASK   0x1
 
 bool temperatureAlarm;
 bool activeZones[4];
@@ -26,6 +27,13 @@ void ZoneInit()
 
 void ZoneCheck()
 {
+    Update_Global_DateTime();  
+    
+    if((dateTime.Hour < 8 || dateTime.Hour > 20) || (dateTime.Hour == 19 &&  dateTime.Minute >= 30))
+    {
+        return;
+    }
+    
     int finalMask = 0;
     
     char mask = 0x01;
@@ -46,23 +54,12 @@ void ZoneCheck()
     if(((PORTC & ZONE_MASK) | temperatureAlarm) & finalMask)
     {
         
-//        clear_lines();
-//        {
-//            if(temperatureAlarm & finalMask)
-//            {
-//                Write_line("Temperature",0);
-//                Write_line("alarm",1);
-//                Write_line("activated",1);
-//            }
-//        }
+
         
         unsigned char currentSecond = dateTime.Second;
         
         
-        int timeLeft = current_alarm_duration;
-        
-       
-        
+        int timeLeft = current_alarm_duration;      
         
         while(timeLeft >= 0)
         {
@@ -105,6 +102,13 @@ void ZoneLoop()
         int butt = -1;
         
         char command = (PORTB & BUTTON_MASK);
+        
+        char exit = (PORTE & EXIT_MASK);
+        
+        if(exit)
+        {
+            break;
+        }
         
         if (single_key_pressed(command))
         {

@@ -68,7 +68,7 @@ void mainInit()
         activeZones[i] = false;
     }
     
-    current_alarm_duration = 2;
+     current_alarm_duration = 2;
      initTempSensor();                       //call system initialize function  
      initLCD();
      ButtonInit();   
@@ -104,25 +104,10 @@ void main()
 
     Set_time_rtc(); 
     initTempSensor();                       //call system initialize function  
- 
-   
-    Get_time_rtc();   
-    get_temp();  
-    Get_time_rtc();
-    Update_Global_DateTime();  
-   
    while(1)                                                                                                                                                                                        
      { 
-       
-       get_temp();  
-       tempCheck();
-       Get_time_rtc();
-       Update_Global_DateTime();
-       pages[currentState]();
-       
-       
-        
-       
+      
+       pages[currentState]();    
     }
 }  
 
@@ -131,6 +116,7 @@ void Home_page()
 {
     while(1)
     {
+      updateVariables();
       get_temp();
       char buf[16];
       sprintf(buf, "temp:%03d.%02d",temp_LHS, temp_RHS );
@@ -157,7 +143,7 @@ void Settings_page()
         
         while(1)
         {
-           
+            updateVariables();
             Write_line("Date/Time", 0);
             Write_line("Zones", 1);
             Write_line("Temp", 2);
