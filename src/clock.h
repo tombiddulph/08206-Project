@@ -11,8 +11,11 @@
 #define RTC_LOW_MASK        0x0F
 #define RTC_HIGH_MASK       0xF0
 
-unsigned char time_rx @ 0x30;        //define receive reg.
-static volatile bit time_rx7   @ (unsigned)&time_rx*8+7;   //receive reg highest.//defined name time_rx7 for most significant bit (bit 7) for variable time_rx. After symbol @ there are calculation for the that bit address: &time_rx give us the address of variable time_rx, after multiplying with 8 we have the bit address of bit 0 of time_rx, and adding 7 give us the bit address of bit 7 of time_rx. Type casting (unsigned) used for avoiding signed result of multiplying operation.
+//unsigned char time_rx @ 0x30;        //define receive reg.
+//
+//static volatile bit time_rx7   @ (unsigned)&time_rx*8+7;   //receive reg highest.//defined name time_rx7 for most significant bit (bit 7) for variable time_rx. After symbol @ there are calculation for the that bit address: &time_rx give us the address of variable time_rx, after multiplying with 8 we have the bit address of bit 0 of time_rx, and adding 7 give us the bit address of bit 7 of time_rx. Type casting (unsigned) used for avoiding signed result of multiplying operation.
+unsigned char time_rx;
+bit time_rx7;
 
 void Port_init_rtc();                      //port initilize subroutine.
 void ds1302_init();                    //DS1302 initilize subroutine.

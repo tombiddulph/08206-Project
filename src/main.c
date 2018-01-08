@@ -100,7 +100,7 @@ void main()
    
    
     mainInit();
-        
+    clear_lines();
 
     Set_time_rtc(); 
     initTempSensor();                       //call system initialize function  
@@ -164,14 +164,6 @@ void Settings_page()
             break;
         }
    
-}
-
-void Temp_sensor_page()
-{
-    clear_lines();
-    Write_line("TEST", 0);
-    Delay_loop(90000);
-    
 }
 
 

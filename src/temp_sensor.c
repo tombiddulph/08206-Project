@@ -48,29 +48,7 @@ void delay(char x,char y)
 //is 14+£¨3*£¨Y-1£©+7£©*£¨X-1£©¡£                                                                                       
                                                                                                                         
 //--------------------------------------------------                                                                    
-//display function
-void display()
-{
- TRISA=0X00;                           //set A PORT all OUTPUT                          
- PORTD=RTC_table[shi];                     //display integer ten bit                        
- PORTA=0x3e;                                                                            
- delay(10,70);                                                                          
- PORTD=RTC_table[ge]&0X7F;                 //display integer Entries bit and decimal dot    
- PORTA=0x3d;                                                                            
- delay(10,70);                                                                          
- PORTD=RTC_table[shifen];                  //display decimal ten cent bit                   
- PORTA=0x3b;                                                                            
- delay(10,70);                                                                          
- PORTD=RTC_table[baifen];                  //display decimal hundred cent bit               
- PORTA=0x37;                                                                            
- delay(10,70);                                                                          
- PORTD=RTC_table[qianfen];                 //display decimal thousand  cent bit             
- PORTA=0x2f;                                                                            
- delay(10,70);                                                                          
- PORTD=RTC_table[wanfen];                  //display decimal myriad cent bit                
- PORTA=0x1f;
- delay(10,70);
-}
+
 
 //------------------------------------------------
 //system initialize function           
@@ -154,30 +132,8 @@ uch read_byte(void)
 
 
 
-int convertBinaryToDecimal(long long n)
-{
-    double decimalNumber = 0, i = 0, remainder;
-    while (n!=0)
-    {
-        remainder = n%10;
-        n /= 10;
-        decimalNumber += remainder*pow(2,i);
-        ++i;
-    }
-    return decimalNumber;
-}
 
-void tempConverter(uch ten, uch unit, uch a, uch b, uch c, uch d, char* temp)
-{
-    temp[0] = ten + 48;
-    temp[1] = unit + 48;
-    temp[2] = '.';
-    temp[3] = a + 48;
-    temp[4] = b + 48;
-    temp[5] = c+ 48;
-    temp[6] = d+ 48;
-    temp[7] = '\0';
-}
+
 
 
 //-------------------------------------------------

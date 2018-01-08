@@ -4,11 +4,7 @@ void Delay_loop(int j )
 {
     for (unsigned i=0; i<j; i++);
 }
-int convert_to_bit_pos(int pinNum)
-{
-   
-    return (1 << pinNum);
-}
+
 int convert_from_bit_pos(int bitPos)
 {
     int val = 0 ;
@@ -19,12 +15,7 @@ int convert_from_bit_pos(int bitPos)
     return val;
 }
 
-char *formatString(char *inputstr, char *format)
-{
-    char buf[16];
-    sprintf(buf, format, inputstr);
-    return *buf;
-}
+
 
 bool single_key_pressed(char byteVal)
 {
@@ -54,21 +45,6 @@ DateTime *convertDateFromArray(char input[])
      return &d;
 }
 
-
-int ButtonCheck()
-{
-    int result = (PORTB & BUTTON_MASK);
-        
-  
-        if(result && !(result & (result - 1))) // check to see if 1 and only 1 bit is set
-        {
-            lastPressed = result;
-            int portN = result == 8 ? 0 : result == 4 ? 1 : result == 2 ? 2 : 3; //convert hex value to port number
-            
-            return portN;
-        }
-    return -1;
-}
 
 void ButtonInit()
 {

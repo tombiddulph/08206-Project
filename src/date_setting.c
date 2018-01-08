@@ -28,7 +28,6 @@
 
 inline void set_leap_year_status();
 void Init();
-void Left_buttons();
 void Right_buttons();
 
 
@@ -37,14 +36,13 @@ void Right_buttons();
  */
 typedef enum  {DATE, TIME, OVERVIEW} DateTimeSettingState;
 typedef void(*display_function)(DateTime date, int lineNo);
-typedef void(*settings_function)(void);
 
 /*
  local variables
  */
 DateTimeSettingState currentDTstate;
 display_function write_functions[2] = {Write_Date_Settings, Write_Time_Settings};
-settings_function settings_functions[2] = { Left_buttons, Right_buttons };
+
 bool quit;
 bool date_changed;
 bool line_changed;
@@ -199,11 +197,6 @@ void Date_time_setting_loop()
     }
 }
 
-void Left_buttons()
-{
-    
-
-}
 
 
 void Right_buttons()

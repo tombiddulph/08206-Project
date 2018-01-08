@@ -27,11 +27,6 @@ enum CurrentPage { Home };
 void LCD_delay (int j) {
 for (unsigned i=0; i<j; i++);
 }
-int increase(int x)
-{
-    x++;
-    return x;
-}
 
 void cmd(char cmd)
 {
@@ -90,28 +85,12 @@ void Write_string(char a[])
 	}
 }
 
-void Write_float(float fl)
-{
- data(fl);
-}
-
-void Second_line(char param[])
-{
-    
-    cmd(LINE_2); // set cursor to 16 second line
-    Write_string(param);
-}
 void Write_line(char param[], int lineNo)
 {
     cmd(lines[lineNo]);
     Write_string(param);  
 }
 
-void clear_line(int lineNo)
-{
-    cmd(lines[lineNo]);
-    Write_string(BLANK_LINE);
-}
 
 void clear_lines()
 {
@@ -138,11 +117,7 @@ void Write_Time(int lineNo)
 }
 
 
-void Write_Date_Time_Settings(DateTime date, int lineNo)
-{
-    Write_Date_Settings(date, lineNo++);
-    Write_Time_Settings(date, lineNo);
-}
+
 
 void Write_Time_Settings(DateTime date, int lineNo)
 {
