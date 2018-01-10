@@ -35,16 +35,17 @@ extern bool DateChanged;
 extern int current_alarm_duration;
 extern bool activeZones[4];
 
-int ButtonCheck();
-void ButtonInit();
-void updateVariables();
+int ButtonCheck(void);
+void ButtonInit(void);
+void updateVariables(void);
 void Delay_loop(int j);
 unsigned char convert_from_bit_pos(unsigned char  bitPos);
 unsigned char convert_to_bit_pos(unsigned char pinNum);
 bool single_key_pressed(char byteVal);
+void ClearButtons(void);
 unsigned char convert_bcd_to_dec(unsigned char val);
 unsigned char convert_dec_to_bcd(unsigned char val);
-DateTime *convertDateFromArray(char input[]);
+DateTime *convertDateFromArray(unsigned char input[]);
 
 #endif
 

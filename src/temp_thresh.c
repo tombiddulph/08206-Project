@@ -11,8 +11,8 @@
 
 
 char threshold[7];;
-int threshold_temp_LHS = 0;
-int threshold_temp_RHS = 0;
+int threshold_temp_LHS;
+int threshold_temp_RHS;
 bool quit;
 
 
@@ -95,7 +95,7 @@ void tempThreshLoop()
     {
         Write_line("Thresh:", 0);
         char buf[16];
-        sprintf(buf, "%03d.%02d%cC", threshold_temp_LHS, threshold_temp_RHS, 248);
+        sprintf(buf, "%03d.%02d", threshold_temp_LHS, threshold_temp_RHS);
         Write_line(buf, 1);
         
         char  escape  = ((PORTE & BUTTON_MASK) << 4) | (PORTB & BUTTON_MASK) ;
