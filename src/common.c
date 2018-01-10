@@ -5,7 +5,7 @@ void Delay_loop(int j )
     for (unsigned i=0; i<j; i++);
 }
 
-int convert_from_bit_pos(int bitPos)
+unsigned char convert_from_bit_pos(unsigned char  bitPos)
 {
     int val = 0 ;
     while(bitPos >>= 1)
@@ -15,6 +15,10 @@ int convert_from_bit_pos(int bitPos)
     return val;
 }
 
+unsigned char convert_to_bit_pos(unsigned char pinNum)
+{
+   return (1 << pinNum);
+}
 
 
 bool single_key_pressed(char byteVal)

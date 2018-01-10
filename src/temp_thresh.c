@@ -102,7 +102,7 @@ void tempThreshLoop()
         char  choice  = (PORTB & BUTTON_MASK);
         
         char combined = (choice | escape);
-         updateVariables();
+        updateVariables();
          
         if(single_key_pressed(escape))
         {

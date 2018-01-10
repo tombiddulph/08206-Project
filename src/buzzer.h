@@ -10,7 +10,7 @@
 
 #define pin RC5
     
-void soundBuzzer();
+void soundBuzzer(int duration, int zone);
 void buzzerInit();
 
 

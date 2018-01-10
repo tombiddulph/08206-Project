@@ -50,83 +50,82 @@ void Home_page();
 void Settings_page();
 void Temp_sensor_page();
 void Alarm_duration_page();
- void tempCheck();
+void tempCheck();
 settings_ptr settings[4] = {Date_time_setting_loop, ZoneLoop, tempThreshLoop, alarm_duration_settings_page};
 page_ptr pages[2] = {Home_page, Settings_page};
 
-typedef enum  {HOME, SETTINGS} STATE;
+typedef enum
+{
+    HOME, SETTINGS
+} STATE;
 STATE currentState;
 int current_alarm_duration;
 
 
 //eeprom_write(0x01, 0xF0); //write 0xF0 to memory location 0x01
-    //char result = eeprom_read(0x01); //read from memory location 0x01
+//char result = eeprom_read(0x01); //read from memory location 0x01
+
 void mainInit()
 {
+    currentState = HOME;
     for(char i = 0; i < 4; i++)
     {
         activeZones[i] = false;
     }
-    
-     current_alarm_duration = 2;
-     initTempSensor();                       //call system initialize function  
-     initLCD();
-     ButtonInit();   
-     ZoneInit();
-     buzzerInit();
-     Port_init_rtc();                     //port initilize.
-     ds1302_init();                   //DS1302 initilize.
+
+    current_alarm_duration = 2;
+    initTempSensor(); //call system initialize function  
+    initLCD();
+    ButtonInit();
+    ZoneInit();
+    buzzerInit();
+    Port_init_rtc(); //port initilize.
+    ds1302_init(); //DS1302 initilize.
+    Set_time_rtc();
 }
 
- void updateVariables()
- {
-     get_temp();  
-     Get_time_rtc();
-     Update_Global_DateTime();    
-     tempCheck();
-     ZoneCheck();
-     
- }
- 
- void tempCheck()
+void updateVariables()
 {
-    temperatureAlarm = (( temp_LHS > threshold_temp_LHS) || (temp_LHS == threshold_temp_LHS && (temp_RHS > threshold_temp_RHS))); 
+    get_temp();
+    Get_time_rtc();
+    Update_Global_DateTime();
+    tempCheck();
+    ZoneCheck();
+
 }
 
+void tempCheck()
+{
+    temperatureAlarm = ((temp_LHS > threshold_temp_LHS) || (temp_LHS == threshold_temp_LHS && (temp_RHS > threshold_temp_RHS)));
+}
 
 void main()
-  {
-    currentState = HOME;
-   
-   
+{
     mainInit();
     clear_lines();
 
-    Set_time_rtc(); 
-    initTempSensor();                       //call system initialize function  
-   while(1)                                                                                                                                                                                        
-     { 
-      
-       pages[currentState]();    
-    }
-}  
 
+    //call system initialize function  
+    while (1)
+    {
+        pages[currentState]();
+    }
+}
 
 void Home_page()
 {
-    while(1)
+    while (1)
     {
-      updateVariables();
-      get_temp();
-      char buf[16];
-      sprintf(buf, "temp:%03d.%02d",temp_LHS, temp_RHS );
-      Write_line(buf, 0);
-      Write_Date(1);
-      Write_Time(2);
-      Get_time_rtc();
-      Update_Global_DateTime();
-      char choice  = (PORTB & BUTTON_MASK);
-                    
+        updateVariables();
+        get_temp();
+        char buf[16];
+        sprintf(buf, "temp:%03d.%02d", temp_LHS, temp_RHS);
+        Write_line(buf, 0);
+        Write_Date(1);
+        Write_Time(2);
+
+        char choice = (PORTB & BUTTON_MASK);
+
         if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
         {
             if(convert_from_bit_pos(choice) == 0)
@@ -138,35 +137,50 @@ void Home_page()
     }
 }
 
+void ClearButtons()
+{
+    TRISB0 = 0;
+    TRISB1 = 0;
+    TRISB2 = 0;
+    TRISB3 = 0;
+    PORTB = PORTB & 0xF0;
+    TRISB0 = 1;
+    TRISB1 = 1;
+    TRISB2 = 1;
+    TRISB3 = 1;
+}
+
 void Settings_page()
-{    
-        
-        while(1)
+{
+
+    while (1)
+    {
+        updateVariables();
+        Write_line("Date/Time", 0);
+        Write_line("Zones", 1);
+        Write_line("Temp", 2);
+        Write_line("Alarm duration", 3);
+
+        unsigned char choice = (PORTB & SETTINGS_MASK);
+
+        choice = (PORTB & SETTINGS_MASK);
+        if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
         {
-            updateVariables();
-            Write_line("Date/Time", 0);
-            Write_line("Zones", 1);
-            Write_line("Temp", 2);
-            Write_line("Alarm duration", 3);
+            Delay_loop(1000);
+            ClearButtons();
+            Delay_loop(1000);
+            settings[convert_from_bit_pos(choice)]();
+            clear_lines();
+            currentState = HOME;
+            return;
 
-            char  choice  = (PORTB & SETTINGS_MASK);
-
-            if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
-            {
-             
-                
-                settings[convert_from_bit_pos(choice)]();
-                clear_lines();
-                currentState = HOME;  
-                break;
-               
-            }    
-            break;
         }
-   
+        break;
+    }
+
 }
 
 
-   
-   
+
+
 
