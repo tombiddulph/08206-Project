@@ -1,8 +1,8 @@
 #include "Commonheader.h"
 
-void Delay_loop(int j)
+void Delay_loop(unsigned long j)
 {
-    for(unsigned i = 0; i < j; i++);
+    for(unsigned  long i = 0; i < j; i++);
 }
 
 unsigned char convert_from_bit_pos(unsigned char bitPos)

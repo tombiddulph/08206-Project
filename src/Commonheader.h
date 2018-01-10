@@ -16,8 +16,7 @@
 #define MOVE_RIGHT  0x04
 #define MOVE_LEFT   0x08
 
-typedef struct 
-{
+typedef struct {
     unsigned char Year;
     unsigned char Month;
     unsigned char Day;
@@ -38,8 +37,8 @@ extern bool activeZones[4];
 int ButtonCheck(void);
 void ButtonInit(void);
 void updateVariables(void);
-void Delay_loop(int j);
-unsigned char convert_from_bit_pos(unsigned char  bitPos);
+void Delay_loop(unsigned long j);
+unsigned char convert_from_bit_pos(unsigned char bitPos);
 unsigned char convert_to_bit_pos(unsigned char pinNum);
 bool single_key_pressed(char byteVal);
 void ClearButtons(void);
@@ -49,4 +48,3 @@ DateTime *convertDateFromArray(unsigned char input[]);
 
 #endif
 
-    

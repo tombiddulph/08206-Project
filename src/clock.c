@@ -179,7 +179,7 @@ void Update_Global_DateTime()
     unsigned char day, month, year;
     day = dateTime.Day;
     month = dateTime.Month;
-    month = dateTime.Year;
+    year = dateTime.Year;
 
 
     dateTime.Second = convert_bcd_to_dec(0x7F & *time++);

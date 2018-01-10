@@ -21,6 +21,7 @@
 #include "temp_thresh.h"
 
 
+
 #define BUTTON_MASK         0x0F
 #define SETTINGS_MASK       0x0F
 #define DATA_START_ADDRESS  0x01
@@ -57,20 +58,33 @@ typedef void (*settings_ptr)(void);
 typedef void (*page_ptr)(void);
 
 
-void Home_page();
-void Settings_page();
-void Temp_sensor_page();
-void Alarm_duration_page();
-void tempCheck();
+void home_page();
+void settings_page();
+void temp_sensor_page();
+void alarm_duration_page();
+void temp_check();
 void wait_for_button_press(char *message);
+void welcome_page();
+void load_settings();
+void save_settings();
 
-settings_ptr settings[4] = {Date_time_setting_loop, ZoneLoop, tempThreshLoop, alarm_duration_settings_page};
-page_ptr pages[2] = {Home_page, Settings_page};
+settings_ptr settings[4] = {
+                            Date_time_setting_loop,
+                            ZoneLoop, tempThreshLoop,
+                            alarm_duration_settings_page
+};
+
+page_ptr pages[3] = {
+                     welcome_page,
+                     home_page, settings_page
+};
 
 typedef enum
 {
-    HOME, SETTINGS
+    WELCOME, HOME, SETTINGS
 } STATE;
+
+
 STATE currentState;
 int current_alarm_duration;
 
@@ -81,7 +95,7 @@ const char *toContinue = "to continue";
 
 void mainInit()
 {
-    currentState = HOME;
+    currentState = WELCOME;
     for(char i = 0; i < 4; i++)
     {
         activeZones[i] = false;
@@ -98,9 +112,130 @@ void mainInit()
     Set_time_rtc();
     threshold_temp_LHS = 0;
     threshold_temp_RHS = 0;
+    cmd(DISPLAY_ON);
 }
 
-void SaveZones()
+void updateVariables()
+{
+    get_temp();
+    Get_time_rtc();
+    Update_Global_DateTime();
+    temp_check();
+    ZoneCheck();
+
+}
+
+void temp_check()
+{
+    temperatureAlarm = ((temp_LHS > threshold_temp_LHS) || (temp_LHS == threshold_temp_LHS && (temp_RHS > threshold_temp_RHS)));
+}
+
+void welcome_page()
+{
+    Write_line("Welcome to the", 0);
+    Write_line("Home Security", 1);
+    Write_line("Alarm System", 2);
+    while (1)
+    {
+        if((PORTB & BUTTON_MASK) || ((PORTE & BUTTON_MASK)))
+        {
+            currentState = HOME;
+            Delay_loop(10001);
+            ClearButtons();
+            Delay_loop(10001);
+            break;
+        }
+    }
+}
+
+void main()
+{
+    mainInit();
+    clear_lines();
+
+
+    while (1)
+    {
+        pages[currentState]();
+    }
+}
+
+void home_page()
+{
+    clear_lines();
+    while (1)
+    {
+        updateVariables();
+        get_temp();
+        char buf[16];
+        sprintf(buf, "temp:%03d.%02d", temp_LHS, temp_RHS);
+        Write_line(buf, 0);
+        Write_Date(1);
+        Write_Time(2);
+
+
+        if(PORTE & SAVE_SETTINGS)
+        {
+            save_settings();
+        }
+
+        if(PORTE & LOAD_SETTINGS)
+        {
+            load_settings();
+        }
+
+        char choice = (PORTB & BUTTON_MASK);
+
+        if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
+        {
+            if(convert_from_bit_pos(choice) == 0)
+            {
+                currentState = SETTINGS;
+
+                break;
+            }
+        }
+    }
+}
+
+void settings_page()
+{
+
+    while (1)
+    {
+        updateVariables();
+        Write_line("Date/Time", 0);
+        Write_line("Zones", 1);
+        Write_line("Temp", 2);
+        Write_line("Alarm duration", 3);
+
+        unsigned char choice = (PORTB & SETTINGS_MASK);
+        choice = (PORTB & SETTINGS_MASK);
+        if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
+        {
+            Delay_loop(1000);
+            ClearButtons();
+            Delay_loop(1000);
+            settings[convert_from_bit_pos(choice)]();
+            clear_lines();
+            currentState = HOME;
+            return;
+
+        }
+        if((PORTE & 0x07))
+        {
+            currentState = HOME;
+
+            return;
+        }
+
+
+        break;
+    }
+
+}
+
+void save_settings()
 {
 
     char i;
@@ -109,7 +244,7 @@ void SaveZones()
     {
         if(activeZones[i] == 1)
         {
-            zones |= 1 << i;
+            zones |= convert_to_bit_pos(i);
         }
     }
 
@@ -139,7 +274,7 @@ void SaveZones()
 
 }
 
-void LoadZones()
+void load_settings()
 {
     int i;
     volatile unsigned int value = 0;
@@ -160,114 +295,13 @@ void LoadZones()
     threshold_temp_RHS = load_data[THRESHOLD_UNITS];
     for(i = 3; i >= 0; i--)
     {
-        if((load_data[ZONES]) & (1 << i))
+        if((load_data[ZONES]) & (convert_to_bit_pos(i))) //check for set bits
         {
             activeZones[i] = 1;
         }
     }
 
     wait_for_button_press(loaded);
-}
-
-void updateVariables()
-{
-    get_temp();
-    Get_time_rtc();
-    Update_Global_DateTime();
-    tempCheck();
-    ZoneCheck();
-
-}
-
-void tempCheck()
-{
-    temperatureAlarm = ((temp_LHS > threshold_temp_LHS) || (temp_LHS == threshold_temp_LHS && (temp_RHS > threshold_temp_RHS)));
-}
-
-void main()
-{
-    mainInit();
-    clear_lines();
-
-
-    //call system initialize function  
-    while (1)
-    {
-        pages[currentState]();
-    }
-}
-
-void Home_page()
-{
-    clear_lines();
-    while (1)
-    {
-        updateVariables();
-        get_temp();
-        char buf[16];
-        sprintf(buf, "temp:%03d.%02d", temp_LHS, temp_RHS);
-        Write_line(buf, 0);
-        Write_Date(1);
-        Write_Time(2);
-
-
-        if(PORTE & 0x01)
-        {
-            SaveZones();
-        }
-
-        if(PORTE & 0x02)
-        {
-            LoadZones();
-        }
-
-        char choice = (PORTB & BUTTON_MASK);
-
-        if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
-        {
-            if(convert_from_bit_pos(choice) == 0)
-            {
-                currentState = SETTINGS;
-                break;
-            }
-        }
-    }
-}
-
-void Settings_page()
-{
-
-    while (1)
-    {
-        updateVariables();
-        Write_line("Date/Time", 0);
-        Write_line("Zones", 1);
-        Write_line("Temp", 2);
-        Write_line("Alarm duration", 3);
-
-        unsigned char choice = (PORTB & SETTINGS_MASK);
-        choice = (PORTB & SETTINGS_MASK);
-        if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
-        {
-            Delay_loop(1000);
-            ClearButtons();
-            Delay_loop(1000);
-            settings[convert_from_bit_pos(choice)]();
-            clear_lines();
-            currentState = HOME;
-            return;
-
-        }
-        if((PORTE & 0x07))
-        {
-            currentState = HOME;
-            return;
-        }
-
-
-        break;
-    }
-
 }
 
 void wait_for_button_press(char *message)
