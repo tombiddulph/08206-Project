@@ -8,12 +8,22 @@
 #define SAVE 0x10
 #define MAX_TEMP 124
 #define MIN_TEMP -54
+#define MAX_TIME 60
+#define MIN_TIME 0
 
 
 char threshold[7];;
 int threshold_temp_LHS;
 int threshold_temp_RHS;
-bool quit;
+int threshold_time = 1;
+bool quit, displayedOnce, negativeFlag;
+
+
+typedef enum  {THRESH_TEMP, THRESH_TIME, OVERVIEW, EXIT} ThermomiterSettingState;
+
+ThermomiterSettingState currentThermState;
+
+
 
 
 void update_threshold(char choice)
@@ -21,39 +31,59 @@ void update_threshold(char choice)
     switch(choice)
     {
         case(TEN_INCREMENT):
-            if(threshold_temp_LHS == MAX_TEMP)
+             if(threshold_temp_LHS == 0 && negativeFlag)
+             {
+                 negativeFlag = false;
+             }
+            else if(threshold_temp_LHS == -1)
             {
-                threshold_temp_LHS = MIN_TEMP;
-                
+                negativeFlag = true;
+                threshold_temp_LHS++;
             }
             else
             {
-                threshold_temp_LHS++;
+                
+                if(threshold_temp_LHS == MAX_TEMP)
+                {
+                    threshold_temp_LHS = MIN_TEMP;
+
+                }
+                else
+                {
+                    threshold_temp_LHS++;
+                }
             }
             break;
         case (TEN_DECREMENT):
-            if(threshold_temp_LHS == MIN_TEMP)
+            if(threshold_temp_LHS == 0)
             {
-                threshold_temp_LHS = MAX_TEMP;
+                if(!negativeFlag)
+                {
+                    negativeFlag = true;
+                }
+                else
+                {
+                    negativeFlag = false;
+                    threshold_temp_LHS--;
+                }
             }
             else
             {
-                threshold_temp_LHS--;
+                 if(threshold_temp_LHS == MIN_TEMP)
+                {
+                
+                 threshold_temp_LHS = MAX_TEMP;          
+                }
+                 else
+                {
+                    threshold_temp_LHS--;
+                }
             }
             break;
         case (UNIT_INCREMENT):
             if(threshold_temp_RHS == 99)
             {
                 threshold_temp_RHS = 0;
-                
-                if(threshold_temp_LHS == MAX_TEMP)
-                {
-                    threshold_temp_LHS = MIN_TEMP;
-                }
-                else
-                {
-                    threshold_temp_LHS++;
-                }
             }
             else
             {
@@ -64,21 +94,12 @@ void update_threshold(char choice)
             if(threshold_temp_RHS == 0)
             {
                 threshold_temp_RHS = 99;
-                
-                if(threshold_temp_LHS == MIN_TEMP)
-                {
-                    threshold_temp_LHS = MAX_TEMP;
-                }
-                else
-                {
-                    threshold_temp_LHS--;
-                }
             }
             else
             {
                 threshold_temp_RHS--;
             }     
-        break;
+            break;
         
         case (SAVE):
         quit = true;
@@ -87,48 +108,191 @@ void update_threshold(char choice)
     
 }
 
+void setThresh()
+{   
+    
+    
+    char buf[7];
+    sprintf(buf, "%s%03d.%02d", negativeFlag ? "-" : " ",  threshold_temp_LHS, threshold_temp_RHS);
+    Write_line(buf, 1);
+
+    char  escape  = ((PORTE & BUTTON_MASK) << 4) | (PORTB & BUTTON_MASK) ;
+  
+     escape  = ((PORTE & BUTTON_MASK) << 4) | (PORTB & BUTTON_MASK) ;
+    if(single_key_pressed(escape))
+    {
+        update_threshold(escape);
+
+
+        if(quit)
+        {
+            clear_lines();
+
+            char buf[16];
+            sprintf(buf ,"set to: %03d.%02d", threshold_temp_LHS, threshold_temp_RHS );
+
+            Write_line("Thresh temp", 0);
+            Write_line(buf, 1);
+            Write_line("Press a button", 2);
+            Write_line("to continue", 3);
+            
+            currentThermState = OVERVIEW;
+            quit = displayedOnce =  false;
+
+            while ((!(PORTB & BUTTON_MASK)) && (!(PORTE & 0x07)))
+            {
+                /* do nothing */
+            }
+              
+        clear_lines();
+        }
+    }
+}
+
+void updateTime()
+{
+    char  choice  = ((PORTE & BUTTON_MASK) << 4) | (PORTB & BUTTON_MASK) ;
+    
+    switch(choice)
+    {
+        case(TEN_INCREMENT):
+        {
+            if(threshold_time == MAX_TIME)
+            {
+                threshold_time = MIN_TIME;
+            }
+            else
+            {
+                threshold_time++;
+            }
+            break;
+        }
+        case (TEN_DECREMENT):
+        {
+            if(threshold_time == MIN_TIME)
+            {
+                threshold_time = MAX_TIME;
+            }
+            else
+            {
+                threshold_time--;
+            }
+            break;
+        }
+        case (SAVE):
+        {
+            quit = true;
+            break;
+        }
+    }
+    
+    
+    if(quit)
+    {
+        clear_lines();
+
+        char buf[16];
+        sprintf(buf, "set to: %02d", threshold_time);
+
+        Write_line("Thresh Time", 0);
+        Write_line(buf, 1);
+        Write_line("Press a button", 2);
+        Write_line("to continue", 3);
+
+        currentThermState = OVERVIEW;
+        quit = displayedOnce = false;
+
+        while ((!(PORTB & BUTTON_MASK)) && (!(PORTE & BUTTON_MASK)))
+        {
+            /* do nothing */
+        }
+        clear_lines();
+    }
+    else
+    {
+        char buf[2];
+        sprintf(buf, "%02d", threshold_time);
+        Write_line(buf, 1);
+    }
+    
+}
+
+void overviewPage()
+{
+    
+    
+    char  choice  = ((PORTE & BUTTON_MASK) << 4) | (PORTB & BUTTON_MASK) ;
+    
+    switch(choice)
+    {
+        case(TEN_INCREMENT):
+        {
+            currentThermState = THRESH_TEMP;
+            break;
+        }
+        case (TEN_DECREMENT):
+        {
+            currentThermState = THRESH_TIME;
+            break;
+        }
+        case(UNIT_INCREMENT):
+        {
+            currentThermState = EXIT;
+            break;
+        }
+    }
+}
+
 void tempThreshLoop()
 {
-    quit = false;
     clear_lines();
+    currentThermState = OVERVIEW;
+    quit = displayedOnce = false;
+    
+    
+    
     while(1)
     {
-        Write_line("Thresh:", 0);
-        char buf[16];
-        sprintf(buf, "%03d.%02d", threshold_temp_LHS, threshold_temp_RHS);
-        Write_line(buf, 1);
-        
-        char  escape  = ((PORTE & BUTTON_MASK) << 4) | (PORTB & BUTTON_MASK) ;
-        char  choice  = (PORTB & BUTTON_MASK);
-        
-        char combined = (choice | escape);
         updateVariables();
-         
-        if(single_key_pressed(escape))
+        switch(currentThermState)
         {
-            update_threshold(escape);
-           
-            
-            if(quit)
+            case(OVERVIEW):
             {
-                clear_lines();
-                
-                char buf[16];
-                sprintf(buf ,"set to: %03d.%02d", threshold_temp_LHS, threshold_temp_RHS );
-                
-                sprintf(threshold ,"%d.%d", threshold_temp_LHS, threshold_temp_RHS );
-                
-                Write_line("Thresh", 0);
-                Write_line(buf, 1);
-                Write_line("Press a button", 2);
-                Write_line("to continue", 3);
-                        
-                while ((!(PORTB & BUTTON_MASK)) && (!(PORTE & BUTTON_MASK)))
+                Write_line("1. Thresh Temp", 0);
+                Write_line("2. Thresh Time", 1);
+                Write_line("3. EXIT", 2);
+                overviewPage();
+                break;
+            }
+            case(THRESH_TEMP):
+            {
+                if(!displayedOnce)
                 {
-                    /* do nothing */
+                    clear_lines();
+                    Write_line("Thresh temp:", 0);
+                    displayedOnce = true;
+                }
+                setThresh();
+                break;
+            }
+            case(THRESH_TIME):
+            {
+                if(!displayedOnce)
+                {
+                    clear_lines();
+                    Write_line("Trigger time(s):", 0);
+                    char buf[16];
+                    sprintf(buf, "%02d ", threshold_time);
+                    
+                    displayedOnce = true;
                 }
                 
+                updateTime();
                 break;
+            }
+            case(EXIT):
+            {
+                return;
             }
         }
     }   
