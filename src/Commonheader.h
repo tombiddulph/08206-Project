@@ -30,6 +30,7 @@ int prevButt = -1;
 unsigned lastPressed = 9;
 
 extern DateTime dateTime;
+extern DateTime alarmDuration;
 extern bool DateChanged;
 extern int current_alarm_duration;
 extern bool activeZones[4];

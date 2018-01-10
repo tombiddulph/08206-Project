@@ -53,7 +53,7 @@ int temp_LHS;
 int temp_RHS;
 bool temperatureAlarm;
 bool activeZones[4];
-
+DateTime alarmDuration;
 typedef void (*settings_ptr)(void);
 typedef void (*page_ptr)(void);
 
@@ -101,15 +101,16 @@ void mainInit()
         activeZones[i] = false;
     }
 
-    current_alarm_duration = 2;
+    alarmDuration.Minute = 1;
+    alarmDuration.Second = 0;
     initTempSensor(); //call system initialize function  
     initLCD();
     ButtonInit();
     ZoneInit();
     buzzerInit();
-    Port_init_rtc(); //port initilize.
+    port_init_rtc(); //port initilize.
     ds1302_init(); //DS1302 initilize.
-    Set_time_rtc();
+    set_time_rtc();
     threshold_temp_LHS = 0;
     threshold_temp_RHS = 0;
     cmd(DISPLAY_ON);
@@ -118,7 +119,7 @@ void mainInit()
 void updateVariables()
 {
     get_temp();
-    Get_time_rtc();
+    get_time_rtc();
     Update_Global_DateTime();
     temp_check();
     ZoneCheck();
@@ -200,7 +201,6 @@ void home_page()
 
 void settings_page()
 {
-
     while (1)
     {
         updateVariables();
@@ -225,7 +225,6 @@ void settings_page()
         if((PORTE & 0x07))
         {
             currentState = HOME;
-
             return;
         }
 
@@ -238,7 +237,7 @@ void settings_page()
 void save_settings()
 {
 
-    char i;
+    unsigned char i;
     unsigned volatile char zones = 0;
     for(i = 0; i < 4; i++)
     {
@@ -259,8 +258,8 @@ void save_settings()
     save_Data[DATE_SECONDS] = (dateTime.Second);
     save_Data[ZONES] = zones;
     save_Data[ALARM_DURATION] = (unsigned char) current_alarm_duration;
-    save_Data[THRESHOLD_TENS] = threshold_temp_LHS + 0x36; //+ the offset to make sure it the value isn't negative
-    save_Data[THRESHOLD_UNITS] = threshold_temp_RHS;
+    save_Data[THRESHOLD_TENS] = (unsigned char)threshold_temp_LHS + 0x36; //+ the offset to make sure it the value isn't negative
+    save_Data[THRESHOLD_UNITS] = (unsigned char)threshold_temp_RHS;
 
 
     volatile unsigned char *ptr = save_Data;

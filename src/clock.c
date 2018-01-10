@@ -7,7 +7,6 @@
 
 #include "Commonheader.h"
 #include "clock.h"
-#include <xc.h>
 #include <string.h>
 #include <stdio.h>
 
@@ -31,7 +30,7 @@ void ds1302_init()
 //---------------------------------------------
 //set time.
 
-void Set_time_rtc()
+void set_time_rtc()
 {
     int i; //define the loop counter.
     RTC_RST = 1; //enable DS1302
@@ -46,7 +45,7 @@ void Set_time_rtc()
 //---------------------------------------------
 //get time.
 
-void Get_time_rtc()
+void get_time_rtc()
 {
     int i; //set loop counter.
     RTC_RST = 1; //enable DS1302
@@ -100,7 +99,7 @@ unsigned char read_time_rtc()
 //--------------------------------------------
 //pin define func
 
-void Port_init_rtc()
+void port_init_rtc()
 {
     //d port all output
     //ADCON1=0X06;                    //a port all i/o
@@ -183,18 +182,13 @@ void Update_Global_DateTime()
 
 
     dateTime.Second = convert_bcd_to_dec(0x7F & *time++);
-    delay_rtc();
     dateTime.Minute = convert_bcd_to_dec(0x7F & *time++);
-    delay_rtc();
     dateTime.Hour = convert_bcd_to_dec(0x3F & *time);
-    delay_rtc();
     dateTime.Day = convert_bcd_to_dec(0x3F & *date++);
-    delay_rtc();
     dateTime.Month = convert_bcd_to_dec(0x1F & *date++);
-    delay_rtc();
     *date++; //increment again to skip over the week
     dateTime.Year = convert_bcd_to_dec(0xFF & *date++);
-    delay_rtc();
+
 
     DateChanged = (day != dateTime.Day || month != dateTime.Month || year != dateTime.Year);
 

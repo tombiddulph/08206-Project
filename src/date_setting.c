@@ -58,7 +58,7 @@ DateTime newDate;
 int days_per_month [12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 char title[15];
 unsigned char command;
-unsigned char tmp;
+unsigned char sec;
 char date[6];
 int year;
 
