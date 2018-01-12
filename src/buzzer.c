@@ -6,14 +6,15 @@
 int current_alarm_duration;
 DateTime alarmDuration;
 bool quit;
-
+char alarmDurationMinutes;
+char alarmDurationSeconds;
 void buzzerInit()
 {
     TRISC5 = 0; /* Configure TRISB7 as o/p              */
     pin = 0;
 }
 
-void soundBuzzer(int duration, int zone)
+void soundBuzzer( int zone)
 {
     quit = false;
     clear_lines();
@@ -21,11 +22,25 @@ void soundBuzzer(int duration, int zone)
     sprintf(buf, "Zone %d", zone);
     Write_line(buf, 0);
     Write_line("activated", 1);
-    unsigned char currentSecond = dateTime.Second;
-    unsigned char currentMinute = dateTime.Minute;
-    DateTime timeLeft;
-    memcpy(&timeLeft, &alarmDuration, sizeof (dateTime));
 
+    unsigned char targetHour =
+            (dateTime.Minute + alarmDurationMinutes > 60) || (dateTime.Minute + alarmDurationMinutes > 60 && dateTime.Second + alarmDurationSeconds > 60) ?
+            dateTime.Hour + 1 : dateTime.Hour;
+
+    
+    unsigned char targetMin = dateTime.Minute + alarmDurationMinutes > 60 ? dateTime.Minute - alarmDurationMinutes : dateTime.Minute + alarmDurationMinutes;
+    unsigned char targetSec = dateTime.Second + alarmDurationSeconds > 60 ? dateTime.Second - alarmDurationSeconds : dateTime.Second + alarmDurationSeconds;
+
+    
+    if(targetMin < dateTime.Minute)
+    {
+        targetMin += 60;
+    }
+    unsigned char currentSec = dateTime.Second;
+    unsigned char countDownSecs = (((targetMin - dateTime.Minute)*60)%60) + dateTime.Second;
+
+    //unsigned char countDownsec = (targetMin - dateTime.Minute)
+    
     while (1)
     {
 
@@ -48,28 +63,20 @@ void soundBuzzer(int duration, int zone)
         get_time_rtc();
         Update_Global_DateTime();
 
-        unsigned char sec = dateTime.Second;
-        // unsigned char min = dateTime.Minute;
-        if(currentSecond != sec)
+      
+
+        if(dateTime.Hour == targetHour && dateTime.Minute == targetMin && dateTime.Second >= targetSec)
         {
-
-            currentSecond = sec;
-            --timeLeft.Second;
-
-            if(timeLeft.Minute == 0 && timeLeft.Second)
-            {
-                quit = true;
-            }
-
-            if(timeLeft.Second == 0)
-            {
-                --timeLeft.Minute;
-                timeLeft.Second = 59;
-            }
-            sprintf(buf, "Time left: %02d:%02d", timeLeft.Minute, timeLeft.Second);
-
+            quit = true;
+        }
+        else if(currentSec != dateTime.Second)
+        {
+            currentSec = dateTime.Second;
+            countDownSecs--;
+            sprintf(buf, "Time left %02d:%02d", targetMin - dateTime.Minute, countDownSecs % 60);
             Write_line(buf, 2);
         }
+        
         RC5 = 1;
         Delay_loop(1000);
         RC5 = 0;

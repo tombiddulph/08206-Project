@@ -10,8 +10,9 @@
 
 #include "Commonheader.h"
 
-extern int threshold_temp_LHS;
-extern int threshold_temp_RHS;      
+extern short threshold_temp_LHS;
+extern unsigned char threshold_temp_RHS;    
+extern unsigned char threshold_time;
 void tempThreshLoop();
 
 #endif	/* TEMP_THRESH_H */

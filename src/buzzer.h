@@ -9,8 +9,8 @@
 #define	BUZZER_H
 
 #define pin RC5
-    
-void soundBuzzer(int duration, int zone);
+#include <string.h>
+void soundBuzzer( int zone);
 void buzzerInit();
 
 

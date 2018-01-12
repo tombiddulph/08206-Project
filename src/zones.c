@@ -13,7 +13,7 @@
 bool temperatureAlarm;
 bool activeZones[4];
 bool sounded = false;
-int current_alarm_duration;
+
 
 void SetZone(int zone)
 {
@@ -63,7 +63,7 @@ void ZoneCheck()
 
         if(!sounded)
         {
-            soundBuzzer(current_alarm_duration, activatedZone);
+            soundBuzzer(activatedZone);
             sounded = true;
         }
 

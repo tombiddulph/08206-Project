@@ -49,8 +49,6 @@ bool single_key_pressed(char byteVal)
 
 DateTime *convertDateFromArray(unsigned char input[])
 {
-
-
     char *ptr = input;
     DateTime d;
     d.Day = *ptr++;
@@ -59,13 +57,6 @@ DateTime *convertDateFromArray(unsigned char input[])
     d.Hour = *ptr++;
     d.Minute = *ptr++;
     d.Second = *ptr;
-
-
-
-
-
-
-
     return &d;
 }
 

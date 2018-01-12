@@ -28,7 +28,7 @@
 
 inline void set_leap_year_status();
 void Init();
-void Right_buttons();
+void Update_values();
 
 /*
  type definitions
@@ -51,10 +51,10 @@ bool line_changed;
 bool new_date_time_set;
 bool leap_set;
 bool month_changed;
-int count = 0;
+int count;
 int line = 0;
-int cursor_position = 0x48;
-DateTime newDate;
+int cursor_position;
+
 int days_per_month [12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 char title[15];
 unsigned char command;
@@ -67,7 +67,8 @@ int year;
  */
 void Init()
 {
-
+    cursor_position =  START_CURSOR_POSITION;
+    count = 0;
     quit = false;
     date_changed = true;
     line_changed = true;
@@ -75,15 +76,15 @@ void Init()
     leap_set = false;
     clear_lines();
 
-    memcpy(&newDate, &dateTime, sizeof (dateTime)); /* copy the current date time */
 
 
-    date[DAY] = newDate.Day;
-    date[MONTH] = newDate.Month;
-    date[YEAR] = newDate.Year;
-    date[HOUR] = newDate.Hour;
-    date[MINUTE] = newDate.Minute;
-    date[SECOND] = newDate.Second;
+
+    date[DAY] = dateTime.Day;
+    date[MONTH] = dateTime.Month;
+    date[YEAR] = dateTime.Year;
+    date[HOUR] = dateTime.Hour;
+    date[MINUTE] = dateTime.Minute;
+    date[SECOND] = dateTime.Second;
 }
 
 void Date_time_setting_loop()
@@ -98,8 +99,9 @@ void Date_time_setting_loop()
     {
         if(currentDTstate == OVERVIEW)
         {
-            Write_line("1: Date", 0);
-            Write_line("2: Time", 1);
+            Write_line("1: DATE", 0);
+            Write_line("2: TIME", 1);
+            Write_line("3: EXIT", 2);
 
             command = RIGHT_BUTTONS & BUTTON_MASK;
             Delay_loop(9999);
@@ -116,13 +118,17 @@ void Date_time_setting_loop()
                     case (2):
                         currentDTstate = TIME;
                         break;
+                    case (4):
+                        return;
                 }
                 count = currentDTstate == 1 ? 3 : 0;
+                cmd(DISPLAY_CURSOR_BLINK_ON);
             }
 
 
 
-        } else
+        }
+        else
         {
             switch(currentDTstate)
             {
@@ -138,12 +144,12 @@ void Date_time_setting_loop()
             {
                 line_changed = false;
                 Write_line(title, 0);
-                write_functions[currentDTstate](newDate, 1);
+                write_functions[currentDTstate](*convertDateFromArray(date), 1);
             }
 
             if(date_changed)
             {
-                write_functions[currentDTstate](newDate, 1);
+                write_functions[currentDTstate](*convertDateFromArray(date), 1);
                 date_changed = false;
             }
 
@@ -158,16 +164,16 @@ void Date_time_setting_loop()
                 {
                     case (DATE):
                         Write_line("Date updated", 0);
-                        Write_updated_date_rtc(&newDate);
+                        Write_updated_date_rtc(convertDateFromArray(date));
                         break;
                     case (TIME):
-                        Write_line("Time update", 0);
-                        Write_updated_time_rtc(&newDate);
+                        Write_line("Time updated", 0);
+                        Write_updated_time_rtc(convertDateFromArray(date));
                         break;
                 }
                 Write_line("Press any key", 1);
                 Write_line("to continue", 2);
-
+                currentDTstate = OVERVIEW;
 
                 while (!(LEFT_BUTTONS & BUTTON_MASK) && !(RIGHT_BUTTONS & BUTTON_MASK))
                 {
@@ -175,28 +181,24 @@ void Date_time_setting_loop()
                 }
                 new_date_time_set = false;
                 line_changed = true;
-                cmd(DISPLAY_CURSOR_BLINK_ON);
-            }
-
-            if(quit)
-            {
                 cmd(DISPLAY_ON);
-                break;
             }
 
-
-            Right_buttons();
-
+           
 
 
-            newDate = *convertDateFromArray(date);
+            Update_values();
+
+
+
+           
 
 
         }
     }
 }
 
-void Right_buttons()
+void Update_values()
 {
 
 
@@ -216,7 +218,8 @@ void Right_buttons()
                     if(date[DAY] >= days_per_month[date[MONTH] - 1])
                     {
                         date[DAY] = 1;
-                    } else
+                    }
+                    else
                     {
                         date[DAY]++;
                     }
@@ -227,7 +230,8 @@ void Right_buttons()
                     if(date[MONTH] == 12)
                     {
                         date[MONTH] = 1;
-                    } else
+                    }
+                    else
                     {
                         date[MONTH]++;
                     }
@@ -249,7 +253,8 @@ void Right_buttons()
                     if(date[HOUR] == 23)
                     {
                         date[HOUR] = 0;
-                    } else
+                    }
+                    else
                     {
                         date[HOUR]++;
                     }
@@ -259,7 +264,8 @@ void Right_buttons()
                     if(date[count] == 59)
                     {
                         date[count] = 0;
-                    } else
+                    }
+                    else
                     {
                         date[count]++;
                     }
@@ -274,7 +280,8 @@ void Right_buttons()
                     if(date[DAY] == 1)
                     {
                         date[DAY] = days_per_month[date[MONTH] - 1];
-                    } else
+                    }
+                    else
                     {
                         date[DAY]--;
                     }
@@ -284,7 +291,8 @@ void Right_buttons()
                     if(date[MONTH] == 1)
                     {
                         date[MONTH] = 12;
-                    } else
+                    }
+                    else
                     {
                         date[MONTH]--;
                     }
@@ -306,7 +314,8 @@ void Right_buttons()
                     if(date[HOUR] == 0)
                     {
                         date[HOUR] = 23;
-                    } else
+                    }
+                    else
                     {
                         date[HOUR]--;
                     }
@@ -319,7 +328,8 @@ void Right_buttons()
                     if(date[count] == 0)
                     {
                         date[count] = 59;
-                    } else
+                    }
+                    else
                     {
                         date[count]--;
                     }
@@ -328,24 +338,27 @@ void Right_buttons()
             date_changed = true;
             break;
         case (MOVE_RIGHT):
-            if(line)
+            if(currentDTstate)
             {
                 if(count == 5)
                 {
                     count = 3;
                     cursor_position = START_CURSOR_POSITION;
-                } else
+                }
+                else
                 {
                     count++;
                     cursor_position += 2;
                 }
-            } else
+            }
+            else
             {
                 if(count == 2)
                 {
                     count = 0;
                     cursor_position = START_CURSOR_POSITION;
-                } else
+                }
+                else
                 {
                     count++;
                     cursor_position += 2;
@@ -354,24 +367,27 @@ void Right_buttons()
             break;
 
         case (MOVE_LEFT):
-            if(line)
+            if(currentDTstate)
             {
                 if(count == 3)
                 {
                     count = 5;
                     cursor_position = START_CURSOR_POSITION + 4;
-                } else
+                }
+                else
                 {
                     count--;
                     cursor_position -= 2;
                 }
-            } else
+            }
+            else
             {
                 if(count == 0)
                 {
                     count = 2;
                     cursor_position = START_CURSOR_POSITION + 4;
-                } else
+                }
+                else
                 {
                     count--;
                     cursor_position -= 2;
@@ -382,9 +398,6 @@ void Right_buttons()
             currentDTstate = 1 - currentDTstate;
             count = currentDTstate == 1 ? 3 : 0;
             line_changed = true;
-            break;
-        case (BACK):
-            quit = true;
             break;
         case (SET):
             new_date_time_set = true;
@@ -410,7 +423,8 @@ inline void set_leap_year_status()
             leap_set = true;
             month_changed = false;
         }
-    } else if(leap_set)
+    }
+    else if(leap_set)
     {
         days_per_month[1]--;
     }

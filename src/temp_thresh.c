@@ -12,10 +12,10 @@
 #define MIN_TIME 0
 
 
-char threshold[7];;
-int threshold_temp_LHS;
-int threshold_temp_RHS;
-int threshold_time = 1;
+
+short threshold_temp_LHS;
+unsigned char threshold_temp_RHS;
+unsigned char threshold_time = 1;
 bool quit, displayedOnce, negativeFlag;
 
 

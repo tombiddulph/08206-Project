@@ -37,12 +37,8 @@ const char rtc_table[]={0x00,  0x58, 0x12,  0x12,  0x12,    0x06,   0x17,   0x00
 //define the read time and date save table.
 char rtc_table1[7];
 
-char rtc_lcd_display_date_table[9];
-char rtc_lcd_display_time_table[9];
-//define the display code for display 0-9
-const char rtc_7_seg_display_table[]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90}; 
 
 DateTime dateTime;
-bool DateChanged;
+
 
 #endif

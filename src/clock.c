@@ -115,12 +115,6 @@ void port_init_rtc()
 
 }
 
-void delay_rtc() //
-{
-    int i; //define variable
-    for(i = 0x64; i--;); //delay
-}
-
 //-------------------------------------------
 //display
 
@@ -175,11 +169,7 @@ void Update_Global_DateTime()
     char *date = rtc_table1 + 3;
     char *time = rtc_table1;
 
-    unsigned char day, month, year;
-    day = dateTime.Day;
-    month = dateTime.Month;
-    year = dateTime.Year;
-
+ 
 
     dateTime.Second = convert_bcd_to_dec(0x7F & *time++);
     dateTime.Minute = convert_bcd_to_dec(0x7F & *time++);
@@ -190,7 +180,7 @@ void Update_Global_DateTime()
     dateTime.Year = convert_bcd_to_dec(0xFF & *date++);
 
 
-    DateChanged = (day != dateTime.Day || month != dateTime.Month || year != dateTime.Year);
+ 
 
 }
 

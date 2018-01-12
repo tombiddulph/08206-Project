@@ -24,7 +24,9 @@
 
 #define BUTTON_MASK         0x0F
 #define SETTINGS_MASK       0x0F
+
 #define DATA_START_ADDRESS  0x01
+
 #define DATE_DAY            0x00
 #define DATE_MONTH          0x01
 #define DATE_YEAR           0x02
@@ -32,28 +34,32 @@
 #define DATE_MINUTES        0x04
 #define DATE_SECONDS        0x05
 #define ZONES               0x06
-#define ALARM_DURATION      0x07
-#define THRESHOLD_TENS      0x08
-#define THRESHOLD_UNITS     0x09
+#define ALARM_DURATION_MINS 0x07
+#define ALARM_DURATION_SECS 0x08
+#define THRESHOLD_TENS      0x09
+#define THRESHOLD_UNITS     0x0A
+#define THRESHOLD_TIME      0x0B
 
 #define SAVE_SETTINGS       0x01
 #define LOAD_SETTINGS       0x02
 
 
 
-__EEPROM_DATA(0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88);
+__EEPROM_DATA(0x22, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88);
 
-extern char temperature[8];
-char previous_temp[8];
-int oldMatch = 10;
-char threshold[7];
-int threshold_temp_LHS;
-int threshold_temp_RHS;
-int temp_LHS;
-int temp_RHS;
+
+short threshold_temp_LHS;
+unsigned char threshold_temp_RHS;
+unsigned char threshold_time;
+char temp_LHS;
+unsigned char temp_RHS;
 bool temperatureAlarm;
+bool tempAlarmActivated;
+bool tempCountdown;
+char targetSec;
+char targetMin;
+char currentSecond;
 bool activeZones[4];
-DateTime alarmDuration;
 typedef void (*settings_ptr)(void);
 typedef void (*page_ptr)(void);
 
@@ -64,7 +70,6 @@ void temp_sensor_page();
 void alarm_duration_page();
 void temp_check();
 void wait_for_button_press(char *message);
-void welcome_page();
 void load_settings();
 void save_settings();
 
@@ -74,14 +79,14 @@ settings_ptr settings[4] = {
                             alarm_duration_settings_page
 };
 
-page_ptr pages[3] = {
-                     welcome_page,
+page_ptr pages[2] = {
+
                      home_page, settings_page
 };
 
 typedef enum
 {
-    WELCOME, HOME, SETTINGS
+    HOME, SETTINGS
 } STATE;
 
 
@@ -95,14 +100,14 @@ const char *toContinue = "to continue";
 
 void mainInit()
 {
-    currentState = WELCOME;
+    currentState = HOME;
     for(char i = 0; i < 4; i++)
     {
         activeZones[i] = false;
     }
 
-    alarmDuration.Minute = 1;
-    alarmDuration.Second = 0;
+    alarmDurationMinutes = 1;
+    alarmDurationSeconds = 0;
     initTempSensor(); //call system initialize function  
     initLCD();
     ButtonInit();
@@ -128,25 +133,31 @@ void updateVariables()
 
 void temp_check()
 {
-    temperatureAlarm = ((temp_LHS > threshold_temp_LHS) || (temp_LHS == threshold_temp_LHS && (temp_RHS > threshold_temp_RHS)));
-}
-
-void welcome_page()
-{
-    Write_line("Welcome to the", 0);
-    Write_line("Home Security", 1);
-    Write_line("Alarm System", 2);
-    while (1)
+    tempAlarmActivated = ((temp_LHS > threshold_temp_LHS) || (temp_LHS == threshold_temp_LHS && (temp_RHS > threshold_temp_RHS)));
+    if(activeZones[0] && tempAlarmActivated)
     {
-        if((PORTB & BUTTON_MASK) || ((PORTE & BUTTON_MASK)))
+        if(!tempCountdown)
         {
-            currentState = HOME;
-            Delay_loop(10001);
-            ClearButtons();
-            Delay_loop(10001);
-            break;
+            tempCountdown = true;
+            char secs = dateTime.Second + threshold_time;
+            targetMin = secs > 60 ? dateTime.Minute + 1 : dateTime.Minute;
+            targetSec = secs > 60 ? dateTime.Second - threshold_time : dateTime.Second + threshold_time;
         }
+        else
+        {
+            if(dateTime.Minute == targetMin && dateTime.Second >= targetSec)
+            {
+                temperatureAlarm = true;
+            }
+        }
+
     }
+    else
+    {
+        tempCountdown = false;
+        temperatureAlarm = false;
+    }
+
 }
 
 void main()
@@ -249,7 +260,7 @@ void save_settings()
 
 
 
-    volatile unsigned char save_Data[10];
+    volatile unsigned char save_Data[13];
     save_Data[DATE_DAY] = (dateTime.Day);
     save_Data[DATE_MONTH] = (dateTime.Month);
     save_Data[DATE_YEAR] = (dateTime.Year);
@@ -257,13 +268,14 @@ void save_settings()
     save_Data[DATE_MINUTES] = (dateTime.Minute);
     save_Data[DATE_SECONDS] = (dateTime.Second);
     save_Data[ZONES] = zones;
-    save_Data[ALARM_DURATION] = (unsigned char) current_alarm_duration;
-    save_Data[THRESHOLD_TENS] = (unsigned char)threshold_temp_LHS + 0x36; //+ the offset to make sure it the value isn't negative
-    save_Data[THRESHOLD_UNITS] = (unsigned char)threshold_temp_RHS;
-
+    save_Data[ALARM_DURATION_MINS] = alarmDurationMinutes;
+    save_Data[ALARM_DURATION_SECS] = alarmDurationSeconds;
+    save_Data[THRESHOLD_TENS] = (unsigned char) threshold_temp_LHS + 0x36; //+ the offset to make sure it the value isn't negative
+    save_Data[THRESHOLD_UNITS] = (unsigned char) threshold_temp_RHS;
+    save_Data[THRESHOLD_TIME] = threshold_time;
 
     volatile unsigned char *ptr = save_Data;
-    for(i = 0; i < 10; i++)
+    for(i = 0; i < 12; i++)
     {
         eeprom_write(DATA_START_ADDRESS + i, *ptr++);
         Delay_loop(1000);
@@ -275,26 +287,41 @@ void save_settings()
 
 void load_settings()
 {
-    int i;
-    volatile unsigned int value = 0;
+    if(eeprom_read(DATA_START_ADDRESS) == 0x22)
+    {
+        wait_for_button_press("No saved data");
+        return;
+    }
 
-    volatile unsigned char load_data[10];
+    short i;
+
+    volatile unsigned char load_data[13];
 
 
 
-    for(i = 0; i < 10; i++)
+    for(i = 0; i < 12; i++)
     {
         load_data[i] = eeprom_read(DATA_START_ADDRESS + i);
         Delay_loop(1000);
     }
-    current_alarm_duration = load_data[ALARM_DURATION];
+
+    Write_line("Test", 0);
+    //current_alarm_duration = load_data[ALARM_DURATION];
     DateTime date = *convertDateFromArray(load_data);
     Write_updated_date_time_rtc(&date);
+    alarmDurationMinutes = load_data[ALARM_DURATION_MINS];
+    alarmDurationSeconds = load_data[ALARM_DURATION_SECS];
     threshold_temp_LHS = load_data[THRESHOLD_TENS] - 0x36; //remove the offset
     threshold_temp_RHS = load_data[THRESHOLD_UNITS];
+    threshold_time = load_data[THRESHOLD_TIME];
+
+
+    char zones = load_data[ZONES];
+
     for(i = 3; i >= 0; i--)
     {
-        if((load_data[ZONES]) & (convert_to_bit_pos(i))) //check for set bits
+
+        if((zones) & (convert_to_bit_pos(i))) //check for set bits
         {
             activeZones[i] = 1;
         }
@@ -316,6 +343,7 @@ void wait_for_button_press(char *message)
     Delay_loop(10001);
     ClearButtons();
     Delay_loop(10001);
+    clear_lines();
 }
 
 

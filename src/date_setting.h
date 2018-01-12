@@ -11,7 +11,7 @@
 
 #include "clock.h"
 #include "lcd.h"
-
+#include <string.h>
 
 
 #define BUTTON_MASK 0x0F
@@ -19,9 +19,8 @@
 #define DECREMENT   0x02
 #define MOVE_RIGHT  0x04
 #define MOVE_LEFT   0x08
-#define TOGGLE_LINE 0x010
-#define BACK        0x020
-#define SET         0x040
+#define TOGGLE_LINE 0x020
+#define SET         0x010
 
 
 #define START_CURSOR_POSITION 0x48

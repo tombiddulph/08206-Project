@@ -9,7 +9,9 @@
 #define SAVE_DURATION       0x10
 
 bool quit;
-DateTime alarmDuration;
+
+char alarmDurationMinutes;
+char alarmDurationSeconds;
 
 void alarm_duration_settings_page()
 {
@@ -18,8 +20,8 @@ void alarm_duration_settings_page()
     while (1)
     {
         Write_line("ALARM DURATION:", 0);
-        char buf[5];
-        sprintf(buf, "%02d:%02d", alarmDuration.Minute, alarmDuration.Second);
+        char buf[16];
+        sprintf(buf, "%02d:%02d", alarmDurationMinutes, alarmDurationSeconds);
         Write_line(buf, 1);
 
 
@@ -30,58 +32,58 @@ void alarm_duration_settings_page()
             switch(choice)
             {
                 case(INCREMENT_MINUTES):
-                    if(alarmDuration.Minute == 30)
+                    if(alarmDurationMinutes == 30)
                     {
-                        alarmDuration.Minute = 1;
+                        alarmDurationMinutes = 1;
                     }
                     else
                     {
-                        alarmDuration.Minute++;
-                        if(alarmDuration.Minute == 30)
+                        alarmDurationMinutes++;
+                        if(alarmDurationMinutes == 30)
                         {
-                            alarmDuration.Second = 0;
+                            alarmDurationSeconds = 0;
                         }
                     }
                     break;
                 case (DECREMENT_MINUTES):
-                    if(alarmDuration.Minute == 1)
+                    if(alarmDurationMinutes == 1)
                     {
-                        alarmDuration.Minute = 30;
-                        alarmDuration.Second = 0;
+                        alarmDurationMinutes = 30;
+                        alarmDurationSeconds = 0;
                     }
                     else
                     {
-                        alarmDuration.Minute--;
+                        alarmDurationMinutes--;
                     }
                     break;
 
                 case (INCREMENT_SECONDS):
                 {
-                    if(alarmDuration.Second == 60)
+                    if(alarmDurationSeconds == 60)
                     {
-                        alarmDuration.Second = 0;
+                        alarmDurationSeconds = 0;
                     }
                     else
                     {
-                        if(alarmDuration.Minute != 30)
+                        if(alarmDurationMinutes != 30)
                         {
-                            alarmDuration.Second++;
+                            alarmDurationSeconds++;
                         }
                     }
                 }
                     break;
                 case (DECREMENT_SECONDS):
                 {
-                    if(alarmDuration.Second == 0)
+                    if(alarmDurationSeconds == 0)
                     {
-                        if(alarmDuration.Minute != 30)
+                        if(alarmDurationMinutes != 30)
                         {
-                            alarmDuration.Second = 60;
+                            alarmDurationSeconds = 60;
                         }
                     }
                     else
                     {
-                        alarmDuration.Second--;
+                        alarmDurationSeconds--;
                     }
                 }
                     break;
@@ -94,8 +96,8 @@ void alarm_duration_settings_page()
             {
                 clear_lines();
 
-                char buf[16];
-                sprintf(buf, "set to: %02d:%02d", alarmDuration.Minute, alarmDuration.Second);
+            
+                sprintf(buf, "set to: %02d:%02d", alarmDurationMinutes, alarmDurationSeconds);
 
                 Write_line("Alarm duration", 0);
                 Write_line(buf, 1);

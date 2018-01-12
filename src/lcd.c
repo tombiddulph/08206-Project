@@ -101,17 +101,17 @@ void clear_lines()
         Write_string(BLANK_LINE);
     }
 }
-
+char str[10];
 void Write_Date(int lineNo)
 {
-    char str[7];
+    
     sprintf(str, "%02d/%02d/%02d", dateTime.Day, dateTime.Month, dateTime.Year);
     Write_line(str, lineNo);
 }
 
 void Write_Time(int lineNo)
 {
-    char str[10];
+    
 
     sprintf(str, "%02d:%02d:%02d", dateTime.Hour, dateTime.Minute, dateTime.Second);
     Write_line(str, lineNo);
@@ -119,7 +119,7 @@ void Write_Time(int lineNo)
 
 void Write_Time_Settings(DateTime date, int lineNo)
 {
-    char str[7];
+    
     Write_line(" H   M  S", lineNo++);
     sprintf(str, "%02d  %02d  %02d", date.Hour, date.Minute, date.Second);
     Write_line(str, lineNo);
@@ -127,7 +127,6 @@ void Write_Time_Settings(DateTime date, int lineNo)
 
 void Write_Date_Settings(DateTime date, int lineNo)
 {
-    char str[7];
     Write_line(" D   M  Y", lineNo++);
     sprintf(str, "%02d  %02d  %02d", date.Day, date.Month, date.Year);
     Write_line(str, lineNo);

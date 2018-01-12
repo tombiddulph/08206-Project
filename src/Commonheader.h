@@ -4,9 +4,8 @@
 #include <xc.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <string.h>
 
-#define Pin(n) (1 << n) //convert from pin number to bit position
+
 #define BUTTON_MASK 0x0F
 
 
@@ -26,13 +25,10 @@ typedef struct {
 } DateTime;
 
 
-int prevButt = -1;
-unsigned lastPressed = 9;
 
 extern DateTime dateTime;
-extern DateTime alarmDuration;
-extern bool DateChanged;
-extern int current_alarm_duration;
+extern char alarmDurationMinutes;
+extern char alarmDurationSeconds;
 extern bool activeZones[4];
 
 int ButtonCheck(void);
