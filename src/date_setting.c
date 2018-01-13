@@ -37,7 +37,7 @@ typedef enum
 {
     DATE, TIME, OVERVIEW
 } DateTimeSettingState;
-typedef void(*display_function)(DateTime date, int lineNo);
+typedef void(*display_function)(DateTime *date, int lineNo);
 
 /*
  local variables
@@ -133,10 +133,10 @@ void Date_time_setting_loop()
             switch(currentDTstate)
             {
                 case (DATE):
-                    strcpy(title, "Date selection");
+                   // strcpy(title, "Date selection");
                     break;
                 case (TIME):
-                    strcpy(title, "Time selection");
+                   // strcpy(title, "Time selection");
                     break;
             }
 
@@ -144,12 +144,12 @@ void Date_time_setting_loop()
             {
                 line_changed = false;
                 Write_line(title, 0);
-                write_functions[currentDTstate](*convertDateFromArray(date), 1);
+                write_functions[currentDTstate](convertDateFromArray(date), 1);
             }
 
             if(date_changed)
             {
-                write_functions[currentDTstate](*convertDateFromArray(date), 1);
+                write_functions[currentDTstate](convertDateFromArray(date), 1);
                 date_changed = false;
             }
 

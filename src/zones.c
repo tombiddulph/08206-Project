@@ -81,11 +81,12 @@ void ZoneCheck()
 
 void Display_Zones()
 {
-    char buf[10];
-
+   
+    char buf[10] = " ";
+    char tmp[1];
     for(char i = 0; i < 4; i++)
     {
-        sprintf(buf, "Zone %d: %d", i, activeZones[i]);
+       // sprintf(buf, "Zone %d: %d", i, activeZones[i]);
         Write_line(buf, i);
     }
 }

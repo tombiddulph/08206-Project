@@ -11,8 +11,8 @@
 
 #define SET_CGRAM_ADDR (addr) return (0x40 | addr);
 
-#include <xc.h>
-#include <string.h>
+
+
 #include "lcd.h"
 
 
@@ -101,33 +101,93 @@ void clear_lines()
         Write_string(BLANK_LINE);
     }
 }
-char str[10];
+char str[16];
+
+//void DateTimeHelper(char output[], unsigned char first, unsigned char second, unsigned char third, char seperator[])
+//{
+//    char tmp[3];
+//
+//    int_to_string(tmp, first);
+//    concat_strings(tmp, seperator);
+//    concat_strings(output, tmp);
+//    int_to_string(tmp, second);
+//    concat_strings(tmp, seperator);
+//    concat_strings(output, tmp);
+//    int_to_string(tmp, third);
+//    concat_strings(output, tmp);
+//
+//}
+
+char tmp[3];
+char temstr[16] = "";
+
+void clear_strings()
+{
+  
+}
+
 void Write_Date(int lineNo)
 {
-    
-    sprintf(str, "%02d/%02d/%02d", dateTime.Day, dateTime.Month, dateTime.Year);
-    Write_line(str, lineNo);
+    //char *t = (atoi(dateTime.Day));
+    // sprintf(str, "%02d/%02d/%02d", dateTime.Day, dateTime.Month, dateTime.Year);
+
+
+    int_to_string(tmp, dateTime.Day);
+    concat_strings(tmp, "/");
+    concat_strings(temstr, tmp);
+    int_to_string(tmp, dateTime.Month);
+    concat_strings(tmp, "/");
+    concat_strings(temstr, tmp);
+    int_to_string(tmp, dateTime.Year);
+    concat_strings(temstr, tmp);
+
+
+    //DateTimeHelper(temstr, dateTime.Day, dateTime.Month, dateTime.Year, "/");
+    Write_line(temstr, lineNo);
 }
 
 void Write_Time(int lineNo)
 {
-    
 
-    sprintf(str, "%02d:%02d:%02d", dateTime.Hour, dateTime.Minute, dateTime.Second);
-    Write_line(str, lineNo);
+    int_to_string(tmp, dateTime.Hour);
+    concat_strings(tmp, ":");
+    concat_strings(temstr, tmp);
+    int_to_string(tmp, dateTime.Minute);
+    concat_strings(tmp, ":");
+    concat_strings(temstr, tmp);
+    int_to_string(tmp, dateTime.Second);
+    concat_strings(temstr, tmp);
+
+    Write_line(temstr, lineNo);
 }
 
-void Write_Time_Settings(DateTime date, int lineNo)
+const char * format = "%02d  %02d  %02d";
+
+void Write_Time_Settings(DateTime *date, int lineNo)
 {
-    
     Write_line(" H   M  S", lineNo++);
-    sprintf(str, "%02d  %02d  %02d", date.Hour, date.Minute, date.Second);
-    Write_line(str, lineNo);
+    int_to_string(tmp, date->Hour);
+    concat_strings(tmp, ":");
+    concat_strings(temstr, tmp);
+    int_to_string(tmp, date->Minute);
+    concat_strings(tmp, ":");
+    concat_strings(temstr, tmp);
+    int_to_string(tmp, date->Second);
+    concat_strings(temstr, tmp);
+    Write_line(temstr, lineNo);
 }
 
-void Write_Date_Settings(DateTime date, int lineNo)
+void Write_Date_Settings(DateTime *date, int lineNo)
 {
     Write_line(" D   M  Y", lineNo++);
-    sprintf(str, "%02d  %02d  %02d", date.Day, date.Month, date.Year);
-    Write_line(str, lineNo);
+    int_to_string(tmp, date->Day);
+    concat_strings(temstr, tmp);
+    concat_strings(temstr, "  ");
+    int_to_string(tmp, date->Month);
+    concat_strings(temstr, tmp);
+    concat_strings(temstr, "  ");
+    int_to_string(tmp, date->Year);
+    concat_strings(temstr, tmp);
+    Write_line(temstr, lineNo);
 }
+

@@ -11,7 +11,7 @@
 #define	TEMP_SENSOR_H
 
 #include <stdlib.h>
-#include <math.h>
+
 
 
 #define  uch unsigned char                   //                                          

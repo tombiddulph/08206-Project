@@ -1,8 +1,8 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include <xc.h>
-#include <stdio.h>
+#include <pic.h>
+//>
 #include <stdbool.h>
 
 
@@ -42,6 +42,7 @@ void ClearButtons(void);
 unsigned char convert_bcd_to_dec(unsigned char val);
 unsigned char convert_dec_to_bcd(unsigned char val);
 DateTime *convertDateFromArray(unsigned char input[]);
-
+void concat_strings(char *original, char *added);
+void int_to_string(char str[], unsigned char num);
 #endif
 

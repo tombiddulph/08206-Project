@@ -113,7 +113,7 @@ void setThresh()
     
     
     char buf[7];
-    sprintf(buf, "%s%03d.%02d", negativeFlag ? "-" : " ",  threshold_temp_LHS, threshold_temp_RHS);
+    //sprintf(buf, "%s%03d.%02d", negativeFlag ? "-" : " ",  threshold_temp_LHS, threshold_temp_RHS);
     Write_line(buf, 1);
 
     char  escape  = ((PORTE & BUTTON_MASK) << 4) | (PORTB & BUTTON_MASK) ;
@@ -129,7 +129,7 @@ void setThresh()
             clear_lines();
 
             char buf[16];
-            sprintf(buf ,"set to: %03d.%02d", threshold_temp_LHS, threshold_temp_RHS );
+            //sprintf(buf ,"set to: %03d.%02d", threshold_temp_LHS, threshold_temp_RHS );
 
             Write_line("Thresh temp", 0);
             Write_line(buf, 1);
@@ -192,7 +192,7 @@ void updateTime()
         clear_lines();
 
         char buf[16];
-        sprintf(buf, "set to: %02d", threshold_time);
+       // sprintf(buf, "set to: %02d", threshold_time);
 
         Write_line("Thresh Time", 0);
         Write_line(buf, 1);
@@ -211,7 +211,7 @@ void updateTime()
     else
     {
         char buf[2];
-        sprintf(buf, "%02d", threshold_time);
+       // sprintf(buf, "%02d", threshold_time);
         Write_line(buf, 1);
     }
     
@@ -282,7 +282,7 @@ void tempThreshLoop()
                     clear_lines();
                     Write_line("Trigger time(s):", 0);
                     char buf[16];
-                    sprintf(buf, "%02d ", threshold_time);
+                   // sprintf(buf, "%02d ", threshold_time);
                     
                     displayedOnce = true;
                 }

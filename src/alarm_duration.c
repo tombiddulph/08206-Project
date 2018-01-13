@@ -21,7 +21,7 @@ void alarm_duration_settings_page()
     {
         Write_line("ALARM DURATION:", 0);
         char buf[16];
-        sprintf(buf, "%02d:%02d", alarmDurationMinutes, alarmDurationSeconds);
+        //sprintf(buf, "%02d:%02d", alarmDurationMinutes, alarmDurationSeconds);
         Write_line(buf, 1);
 
 
@@ -97,7 +97,7 @@ void alarm_duration_settings_page()
                 clear_lines();
 
             
-                sprintf(buf, "set to: %02d:%02d", alarmDurationMinutes, alarmDurationSeconds);
+                //sprintf(buf, "set to: %02d:%02d", alarmDurationMinutes, alarmDurationSeconds);
 
                 Write_line("Alarm duration", 0);
                 Write_line(buf, 1);

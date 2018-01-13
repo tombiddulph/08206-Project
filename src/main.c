@@ -9,7 +9,7 @@
 #pragma config CPD = OFF        // Data EEPROM Memory Code Protection bit (Data EEPROM code protection off)
 #pragma config CP = OFF         // Flash Program Memory Code Protection bit (Code protection off)
 
-#include <xc.h>
+
 #include "temp_sensor.h"
 #include "lcd.h"
 #include "clock.h"
@@ -179,22 +179,28 @@ void home_page()
     {
         updateVariables();
         get_temp();
-        char buf[16];
-        sprintf(buf, "temp:%03d.%02d", temp_LHS, temp_RHS);
+        char buf[12] = "";      
+        char tmp[3];
+        concat_strings(buf, "temp:");
+        int_to_string(tmp, temp_LHS);
+        concat_strings(buf, tmp);
+        concat_strings(buf, ".");
+        int_to_string(tmp, temp_RHS);
+        concat_strings(buf, tmp);
         Write_line(buf, 0);
         Write_Date(1);
         Write_Time(2);
 
 
-        if(PORTE & SAVE_SETTINGS)
-        {
-            save_settings();
-        }
-
-        if(PORTE & LOAD_SETTINGS)
-        {
-            load_settings();
-        }
+//        if(PORTE & SAVE_SETTINGS)
+//        {
+//            save_settings();
+//        }
+//
+//        if(PORTE & LOAD_SETTINGS)
+//        {
+//            load_settings();
+//        }
 
         char choice = (PORTB & BUTTON_MASK);
 
@@ -245,90 +251,90 @@ void settings_page()
 
 }
 
-void save_settings()
-{
-
-    unsigned char i;
-    unsigned volatile char zones = 0;
-    for(i = 0; i < 4; i++)
-    {
-        if(activeZones[i] == 1)
-        {
-            zones |= convert_to_bit_pos(i);
-        }
-    }
-
-
-
-    volatile unsigned char save_Data[13];
-    save_Data[DATE_DAY] = (dateTime.Day);
-    save_Data[DATE_MONTH] = (dateTime.Month);
-    save_Data[DATE_YEAR] = (dateTime.Year);
-    save_Data[DATE_HOURS] = (dateTime.Hour);
-    save_Data[DATE_MINUTES] = (dateTime.Minute);
-    save_Data[DATE_SECONDS] = (dateTime.Second);
-    save_Data[ZONES] = zones;
-    save_Data[ALARM_DURATION_MINS] = alarmDurationMinutes;
-    save_Data[ALARM_DURATION_SECS] = alarmDurationSeconds;
-    save_Data[THRESHOLD_TENS] = (unsigned char) threshold_temp_LHS + 0x36; //+ the offset to make sure it the value isn't negative
-    save_Data[THRESHOLD_UNITS] = (unsigned char) threshold_temp_RHS;
-    save_Data[THRESHOLD_TIME] = threshold_time;
-
-    volatile unsigned char *ptr = save_Data;
-    for(i = 0; i < 12; i++)
-    {
-        eeprom_write(DATA_START_ADDRESS + i, *ptr++);
-        Delay_loop(1000);
-    }
-
-    wait_for_button_press(saved);
-
-}
-
-void load_settings()
-{
-    if(eeprom_read(DATA_START_ADDRESS) == 0x22)
-    {
-        wait_for_button_press("No saved data");
-        return;
-    }
-
-    short i;
-
-    volatile unsigned char load_data[13];
-
-
-
-    for(i = 0; i < 12; i++)
-    {
-        load_data[i] = eeprom_read(DATA_START_ADDRESS + i);
-        Delay_loop(1000);
-    }
-
-    Write_line("Test", 0);
-    //current_alarm_duration = load_data[ALARM_DURATION];
-    DateTime date = *convertDateFromArray(load_data);
-    Write_updated_date_time_rtc(&date);
-    alarmDurationMinutes = load_data[ALARM_DURATION_MINS];
-    alarmDurationSeconds = load_data[ALARM_DURATION_SECS];
-    threshold_temp_LHS = load_data[THRESHOLD_TENS] - 0x36; //remove the offset
-    threshold_temp_RHS = load_data[THRESHOLD_UNITS];
-    threshold_time = load_data[THRESHOLD_TIME];
-
-
-    char zones = load_data[ZONES];
-
-    for(i = 3; i >= 0; i--)
-    {
-
-        if((zones) & (convert_to_bit_pos(i))) //check for set bits
-        {
-            activeZones[i] = 1;
-        }
-    }
-
-    wait_for_button_press(loaded);
-}
+//void save_settings()
+//{
+//
+//    unsigned char i;
+//    unsigned volatile char zones = 0;
+//    for(i = 0; i < 4; i++)
+//    {
+//        if(activeZones[i] == 1)
+//        {
+//            zones |= convert_to_bit_pos(i);
+//        }
+//    }
+//
+//
+//
+//    volatile unsigned char save_Data[13];
+//    save_Data[DATE_DAY] = (dateTime.Day);
+//    save_Data[DATE_MONTH] = (dateTime.Month);
+//    save_Data[DATE_YEAR] = (dateTime.Year);
+//    save_Data[DATE_HOURS] = (dateTime.Hour);
+//    save_Data[DATE_MINUTES] = (dateTime.Minute);
+//    save_Data[DATE_SECONDS] = (dateTime.Second);
+//    save_Data[ZONES] = zones;
+//    save_Data[ALARM_DURATION_MINS] = alarmDurationMinutes;
+//    save_Data[ALARM_DURATION_SECS] = alarmDurationSeconds;
+//    save_Data[THRESHOLD_TENS] = (unsigned char) threshold_temp_LHS + 0x36; //+ the offset to make sure it the value isn't negative
+//    save_Data[THRESHOLD_UNITS] = (unsigned char) threshold_temp_RHS;
+//    save_Data[THRESHOLD_TIME] = threshold_time;
+//
+//    volatile unsigned char *ptr = save_Data;
+//    for(i = 0; i < 12; i++)
+//    {
+//        eeprom_write(DATA_START_ADDRESS + i, *ptr++);
+//        Delay_loop(1000);
+//    }
+//
+//    wait_for_button_press(saved);
+//
+//}
+//
+//void load_settings()
+//{
+//    if(eeprom_read(DATA_START_ADDRESS) == 0x22)
+//    {
+//        wait_for_button_press("No saved data");
+//        return;
+//    }
+//
+//    short i;
+//
+//    volatile unsigned char load_data[13];
+//
+//
+//
+//    for(i = 0; i < 12; i++)
+//    {
+//        load_data[i] = eeprom_read(DATA_START_ADDRESS + i);
+//        Delay_loop(1000);
+//    }
+//
+//    Write_line("Test", 0);
+//    //current_alarm_duration = load_data[ALARM_DURATION];
+//    DateTime date = *convertDateFromArray(load_data);
+//    Write_updated_date_time_rtc(&date);
+//    alarmDurationMinutes = load_data[ALARM_DURATION_MINS];
+//    alarmDurationSeconds = load_data[ALARM_DURATION_SECS];
+//    threshold_temp_LHS = load_data[THRESHOLD_TENS] - 0x36; //remove the offset
+//    threshold_temp_RHS = load_data[THRESHOLD_UNITS];
+//    threshold_time = load_data[THRESHOLD_TIME];
+//
+//
+//    char zones = load_data[ZONES];
+//
+//    for(i = 3; i >= 0; i--)
+//    {
+//
+//        if((zones) & (convert_to_bit_pos(i))) //check for set bits
+//        {
+//            activeZones[i] = 1;
+//        }
+//    }
+//
+//    wait_for_button_press(loaded);
+//}
 
 void wait_for_button_press(char *message)
 {

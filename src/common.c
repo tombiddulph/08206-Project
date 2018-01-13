@@ -2,8 +2,44 @@
 
 void Delay_loop(unsigned long j)
 {
-    for(unsigned  long i = 0; i < j; i++);
+    for(unsigned long i = 0; i < j; i++);
 }
+
+void concat_strings(char *original, char *added) 
+{
+    while(*original)
+    {
+        original++;
+    }
+    
+   while (*added)
+	{
+		*original = *added;
+		added++;
+		original++;
+	}
+	*original = '\0';
+ }
+
+void int_to_string(char str[], unsigned char num)
+{
+	int i, rem, len = 0, n;
+
+	n = num;
+	while (n != 0)
+	{
+		len++;
+		n /= 10;
+	}
+	for (i = 0; i < len; i++)
+	{
+		rem = num % 10;
+		num = num / 10;
+		str[len - (i + 1)] = rem + '0';
+	}
+	str[len] = '\0';
+}
+
 
 unsigned char convert_from_bit_pos(unsigned char bitPos)
 {
@@ -44,8 +80,6 @@ bool single_key_pressed(char byteVal)
 {
     return byteVal && !(byteVal & (byteVal - 1));
 }
-
-
 
 DateTime *convertDateFromArray(unsigned char input[])
 {

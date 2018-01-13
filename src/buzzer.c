@@ -18,8 +18,12 @@ void soundBuzzer( int zone)
 {
     quit = false;
     clear_lines();
-    char buf[16];
-    sprintf(buf, "Zone %d", zone);
+    char buf[16] = "";
+   // sprintf(buf, "Zone %d", zone);
+    char tmp[1];
+    int_to_string(tmp, zone);
+    concat_strings(buf, "Zone ");
+    concat_strings(buf, tmp);
     Write_line(buf, 0);
     Write_line("activated", 1);
 
@@ -73,7 +77,7 @@ void soundBuzzer( int zone)
         {
             currentSec = dateTime.Second;
             countDownSecs--;
-            sprintf(buf, "Time left %02d:%02d", targetMin - dateTime.Minute, countDownSecs % 60);
+            //sprintf(buf, "Time left %02d:%02d", targetMin - dateTime.Minute, countDownSecs % 60);
             Write_line(buf, 2);
         }
         
