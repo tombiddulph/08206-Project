@@ -30,7 +30,7 @@
 
 
 
-void LCD_delay (int j);
+
 void cmd(char cmd);
 void initLCD();
 void data(char data);

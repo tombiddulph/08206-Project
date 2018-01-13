@@ -79,10 +79,6 @@ settings_ptr settings[4] = {
                             alarm_duration_settings_page
 };
 
-page_ptr pages[2] = {
-
-                     home_page, settings_page
-};
 
 typedef enum
 {
@@ -168,7 +164,21 @@ void main()
 
     while (1)
     {
-        pages[currentState]();
+        switch(currentState)
+        {
+            case (HOME):
+            {
+                home_page();
+                break;
+            }
+            case (SETTINGS):
+            {   
+                settings_page();
+                break;
+            }
+
+        }
+     
     }
 }
 
@@ -179,7 +189,7 @@ void home_page()
     {
         updateVariables();
         get_temp();
-        char buf[12] = "";      
+        char buf[12] = "";
         char tmp[3];
         concat_strings(buf, "temp:");
         int_to_string(tmp, temp_LHS);
@@ -192,15 +202,15 @@ void home_page()
         Write_Time(2);
 
 
-//        if(PORTE & SAVE_SETTINGS)
-//        {
-//            save_settings();
-//        }
-//
-//        if(PORTE & LOAD_SETTINGS)
-//        {
-//            load_settings();
-//        }
+        //        if(PORTE & SAVE_SETTINGS)
+        //        {
+        //            save_settings();
+        //        }
+        //
+        //        if(PORTE & LOAD_SETTINGS)
+        //        {
+        //            load_settings();
+        //        }
 
         char choice = (PORTB & BUTTON_MASK);
 
@@ -339,7 +349,7 @@ void settings_page()
 void wait_for_button_press(char *message)
 {
     clear_lines();
-    Write_line(message, 0);
+    //Write_line(message, 0);
     Write_line("press a button", 1);
     Write_line("to continue", 2);
     while (!(PORTB & BUTTON_MASK) && (!(PORTE & BUTTON_MASK)))

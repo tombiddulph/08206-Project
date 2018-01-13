@@ -25,22 +25,19 @@ enum CurrentPage
     Home
 };
 
-void LCD_delay(int j)
-{
-    for(unsigned i = 0; i < j; i++);
-}
+
 
 void cmd(char cmd)
 {
     RS = 0;
     RW = 0;
     E = 0;
-    LCD_delay(50);
+    Delay_loop(50);
     E = 1;
     PORTD = cmd;
-    LCD_delay(50);
+    Delay_loop(50);
     E = 0;
-    LCD_delay(50);
+    Delay_loop(50);
 }
 
 void initLCD()
@@ -63,12 +60,12 @@ void data(char data)
     RS = 1;
     RW = 0;
     E = 0;
-    LCD_delay(50);
+    Delay_loop(50);
     E = 1;
     PORTD = data; // set cursor at start
-    LCD_delay(50);
+    Delay_loop(50);
     E = 0;
-    LCD_delay(50);
+    Delay_loop(50);
 }
 
 void Write_string(char a[])
