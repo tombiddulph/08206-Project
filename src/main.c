@@ -58,7 +58,7 @@ bool tempAlarmActivated;
 bool tempCountdown;
 char targetSec;
 char targetMin;
-char currentSecond;
+
 bool activeZones[4];
 typedef void (*settings_ptr)(void);
 typedef void (*page_ptr)(void);
@@ -327,7 +327,7 @@ void load_settings()
         }
     }
 
-    wait_for_button_press(loaded);
+    wait_for_button_press(&loaded);
 }
 
 void wait_for_button_press(char *message)

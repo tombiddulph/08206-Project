@@ -165,7 +165,8 @@ void Write_updated_time_rtc(DateTime *date)
 
 void Update_Global_DateTime()
 {
-
+    
+    get_time_rtc();
     char *date = rtc_table1 + 3;
     char *time = rtc_table1;
 

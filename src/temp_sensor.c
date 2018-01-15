@@ -148,7 +148,7 @@ uch read_byte(void)
 
 void get_temp()
 {
-    int i;
+   
     DQ_HIGH();
     reset(); //reset,wait for  18b20 responsion                                                                                                               
     write_byte(0XCC); //ignore ROM matching   skip command                                                                                                                         
@@ -170,9 +170,9 @@ void get_temp()
     if(TX & 0x20) wd = wd + 1250;
     if(TX & 0x10) wd = wd + 625; //hereinbefore four instructions are turn  decimal into BCD code                         
     shifen = wd / 1000; //ten cent bit                                                                           
-    baifen = (wd % 1000) / 100; //hundred cent bit                                                                       
+                                                                  
     qianfen = (wd % 100) / 10; //thousand cent bit                                                                      
-    wanfen = wd % 10; //myriad cent bit   
+   
 
 
 

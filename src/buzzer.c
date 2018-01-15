@@ -2,9 +2,9 @@
 #include "Commonheader.h"
 #include "clock.h"
 #include "lcd.h"
+#include <stdlib.h>
 
 int current_alarm_duration;
-DateTime alarmDuration;
 bool quit;
 char alarmDurationMinutes;
 char alarmDurationSeconds;
@@ -23,21 +23,11 @@ void soundBuzzer( int zone)
     Write_line(buf, 0);
     Write_line("activated", 1);
 
-    unsigned char targetHour =
-            (dateTime.Minute + alarmDurationMinutes > 60) || (dateTime.Minute + alarmDurationMinutes > 60 && dateTime.Second + alarmDurationSeconds > 60) ?
-            dateTime.Hour + 1 : dateTime.Hour;
-
     
-    unsigned char targetMin = dateTime.Minute + alarmDurationMinutes > 60 ? dateTime.Minute - alarmDurationMinutes : dateTime.Minute + alarmDurationMinutes;
-    unsigned char targetSec = dateTime.Second + alarmDurationSeconds > 60 ? dateTime.Second - alarmDurationSeconds : dateTime.Second + alarmDurationSeconds;
-
+    int totalSecs = (alarmDurationMinutes * 60) + alarmDurationSeconds;
+    char currentSec = dateTime.Second;
     
-    if(targetMin < dateTime.Minute)
-    {
-        targetMin += 60;
-    }
-    unsigned char currentSec = dateTime.Second;
-    unsigned char countDownSecs = (((targetMin - dateTime.Minute)*60)%60) + dateTime.Second;
+    
 
     //unsigned char countDownsec = (targetMin - dateTime.Minute)
     
@@ -65,15 +55,15 @@ void soundBuzzer( int zone)
 
       
 
-        if(dateTime.Hour == targetHour && dateTime.Minute == targetMin && dateTime.Second >= targetSec)
+        if(totalSecs == 0)
         {
             quit = true;
         }
         else if(currentSec != dateTime.Second)
         {
             currentSec = dateTime.Second;
-            countDownSecs--;
-            sprintf(buf, "Time left %02d:%02d", targetMin - dateTime.Minute, countDownSecs % 60);
+            --totalSecs;
+            sprintf(buf, "Time left %02d:%02d", totalSecs /60, totalSecs % 60);
             Write_line(buf, 2);
         }
         
