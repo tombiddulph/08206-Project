@@ -7,7 +7,7 @@
 //	   S10 the first bit set ON ,the other bits OFF
 
 //	   SW S5¡¢S6 must set ON, the other SWS must set OFF.
-#include <xc.h>
+#include "Commonheader.h"
 #include "temp_sensor.h"
 
 //THE configure of MCU,watchdog OFF,electrify delay OPEN,power down check OFF,
@@ -23,9 +23,9 @@ unsigned int wd; //temperature BCD code  after convert
 unsigned char shi; //integer ten bit                           
 unsigned char ge; //integer Entries bit                       
 unsigned char shifen; //ten cent bit                              
-unsigned char baifen; //hundred cent bit                          
+//unsigned char baifen; //hundred cent bit                          
 unsigned char qianfen; //thousand cent bit                         
-unsigned char wanfen; //myriad cent bit                           
+//unsigned char wanfen; //myriad cent bit                           
 
 char temp_LHS;
 unsigned char temp_RHS;
@@ -148,7 +148,7 @@ uch read_byte(void)
 
 void get_temp()
 {
-    int i;
+    //int i;
     DQ_HIGH();
     reset(); //reset,wait for  18b20 responsion                                                                                                               
     write_byte(0XCC); //ignore ROM matching   skip command                                                                                                                         
@@ -170,9 +170,9 @@ void get_temp()
     if(TX & 0x20) wd = wd + 1250;
     if(TX & 0x10) wd = wd + 625; //hereinbefore four instructions are turn  decimal into BCD code                         
     shifen = wd / 1000; //ten cent bit                                                                           
-    baifen = (wd % 1000) / 100; //hundred cent bit                                                                       
+    //baifen = (wd % 1000) / 100; //hundred cent bit                                                                       
     qianfen = (wd % 100) / 10; //thousand cent bit                                                                      
-    wanfen = wd % 10; //myriad cent bit   
+   // wanfen = wd % 10; //myriad cent bit   
 
 
 

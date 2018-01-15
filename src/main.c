@@ -45,6 +45,7 @@
 
 
 
+
 __EEPROM_DATA(0x22, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88);
 
 
@@ -58,11 +59,10 @@ bool tempAlarmActivated;
 bool tempCountdown;
 char targetSec;
 char targetMin;
-char currentSecond;
 bool activeZones[4];
 typedef void (*settings_ptr)(void);
 typedef void (*page_ptr)(void);
-
+DateTime *dateTime;
 
 void home_page();
 void settings_page();
@@ -74,35 +74,31 @@ void load_settings();
 void save_settings();
 
 settings_ptr settings[4] = {
-                            Date_time_setting_loop,
-                            ZoneLoop, tempThreshLoop,
-                            alarm_duration_settings_page
+    Date_time_setting_loop,
+    ZoneLoop, tempThreshLoop,
+    alarm_duration_settings_page
 };
 
 page_ptr pages[2] = {
 
-                     home_page, settings_page
+    home_page, settings_page
 };
 
-typedef enum
-{
+typedef enum {
     HOME, SETTINGS
 } STATE;
 
 
 STATE currentState;
-int current_alarm_duration;
+
 
 const char *saved = "Settings saved";
 const char *loaded = "Settings loaded";
 const char *buttonPress = "press a button";
-const char *toContinue = "to continue";
 
-void mainInit()
-{
+void mainInit() {
     currentState = HOME;
-    for(char i = 0; i < 4; i++)
-    {
+    for (char i = 0; i < 4; i++) {
         activeZones[i] = false;
     }
 
@@ -119,89 +115,83 @@ void mainInit()
     threshold_temp_LHS = 0;
     threshold_temp_RHS = 0;
     cmd(DISPLAY_ON);
+
+
 }
 
-void updateVariables()
-{
+void updateVariables() {
     get_temp();
     get_time_rtc();
-    Update_Global_DateTime();
+    get_current_date_time();
     temp_check();
     ZoneCheck();
 
 }
 
-void temp_check()
-{
+void temp_check() {
     tempAlarmActivated = ((temp_LHS > threshold_temp_LHS) || (temp_LHS == threshold_temp_LHS && (temp_RHS > threshold_temp_RHS)));
-    if(activeZones[0] && tempAlarmActivated)
-    {
-        if(!tempCountdown)
-        {
+    dateTime = get_current_date_time();
+    if (activeZones[0] && tempAlarmActivated) {
+        if (!tempCountdown) {
             tempCountdown = true;
-            char secs = dateTime.Second + threshold_time;
-            targetMin = secs > 60 ? dateTime.Minute + 1 : dateTime.Minute;
-            targetSec = secs > 60 ? dateTime.Second - threshold_time : dateTime.Second + threshold_time;
-        }
-        else
-        {
-            if(dateTime.Minute == targetMin && dateTime.Second >= targetSec)
-            {
+            
+            
+            char secs = dateTime->Second + threshold_time;
+            targetMin = secs > 60 ? dateTime->Minute + 1 : dateTime->Minute;
+            targetSec = secs > 60 ? dateTime->Second - threshold_time : dateTime->Second + threshold_time;
+        } else {
+            if (dateTime->Minute == targetMin && dateTime->Second >= targetSec) {
                 temperatureAlarm = true;
             }
         }
 
-    }
-    else
-    {
+    } else {
         tempCountdown = false;
         temperatureAlarm = false;
     }
 
 }
 
-void main()
-{
+void main() {
     mainInit();
     clear_lines();
 
 
-    while (1)
-    {
+    while (1) {
         pages[currentState]();
     }
 }
 
-void home_page()
-{
+void home_page() {
     clear_lines();
-    while (1)
-    {
+    while (1) {
         updateVariables();
-        get_temp();
-        char buf[16];
-        sprintf(buf, "temp:%03d.%02d", temp_LHS, temp_RHS);
+        char buf[12] = "";
+        char tmp[3];
+        concat_strings(buf, "temp:");
+        int_to_string(tmp, temp_LHS);
+        concat_strings(buf, tmp);
+        concat_strings(buf, ".");
+        int_to_string(tmp, temp_RHS);
+        concat_strings(buf, tmp);
         Write_line(buf, 0);
         Write_Date(1);
         Write_Time(2);
 
 
-        if(PORTE & SAVE_SETTINGS)
-        {
+        if (PORTE & SAVE_SETTINGS) {
             save_settings();
         }
 
-        if(PORTE & LOAD_SETTINGS)
-        {
+        if (PORTE & LOAD_SETTINGS) {
             load_settings();
         }
 
         char choice = (PORTB & BUTTON_MASK);
 
-        if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
+        if (single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
         {
-            if(convert_from_bit_pos(choice) == 0)
-            {
+            if (convert_from_bit_pos(choice) == 0) {
                 currentState = SETTINGS;
 
                 break;
@@ -210,10 +200,8 @@ void home_page()
     }
 }
 
-void settings_page()
-{
-    while (1)
-    {
+void settings_page() {
+    while (1) {
         updateVariables();
         Write_line("Date/Time", 0);
         Write_line("Zones", 1);
@@ -222,7 +210,7 @@ void settings_page()
 
         unsigned char choice = (PORTB & SETTINGS_MASK);
         choice = (PORTB & SETTINGS_MASK);
-        if(single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
+        if (single_key_pressed(choice)) // check to see if 1 and only 1 bit is set
         {
             Delay_loop(1000);
             ClearButtons();
@@ -233,8 +221,7 @@ void settings_page()
             return;
 
         }
-        if((PORTE & 0x07))
-        {
+        if ((PORTE & 0x07)) {
             currentState = HOME;
             return;
         }
@@ -245,15 +232,12 @@ void settings_page()
 
 }
 
-void save_settings()
-{
+void save_settings() {
 
     unsigned char i;
     unsigned volatile char zones = 0;
-    for(i = 0; i < 4; i++)
-    {
-        if(activeZones[i] == 1)
-        {
+    for (i = 0; i < 4; i++) {
+        if (activeZones[i] == 1) {
             zones |= convert_to_bit_pos(i);
         }
     }
@@ -261,12 +245,13 @@ void save_settings()
 
 
     volatile unsigned char save_Data[13];
-    save_Data[DATE_DAY] = (dateTime.Day);
-    save_Data[DATE_MONTH] = (dateTime.Month);
-    save_Data[DATE_YEAR] = (dateTime.Year);
-    save_Data[DATE_HOURS] = (dateTime.Hour);
-    save_Data[DATE_MINUTES] = (dateTime.Minute);
-    save_Data[DATE_SECONDS] = (dateTime.Second);
+    dateTime = get_current_date_time();
+    save_Data[DATE_DAY] = (dateTime->Day);
+    save_Data[DATE_MONTH] = (dateTime->Month);
+    save_Data[DATE_YEAR] = (dateTime->Year);
+    save_Data[DATE_HOURS] = (dateTime->Hour);
+    save_Data[DATE_MINUTES] = (dateTime->Minute);
+    save_Data[DATE_SECONDS] = (dateTime->Second);
     save_Data[ZONES] = zones;
     save_Data[ALARM_DURATION_MINS] = alarmDurationMinutes;
     save_Data[ALARM_DURATION_SECS] = alarmDurationSeconds;
@@ -275,8 +260,7 @@ void save_settings()
     save_Data[THRESHOLD_TIME] = threshold_time;
 
     volatile unsigned char *ptr = save_Data;
-    for(i = 0; i < 12; i++)
-    {
+    for (i = 0; i < 12; i++) {
         eeprom_write(DATA_START_ADDRESS + i, *ptr++);
         Delay_loop(1000);
     }
@@ -285,10 +269,8 @@ void save_settings()
 
 }
 
-void load_settings()
-{
-    if(eeprom_read(DATA_START_ADDRESS) == 0x22)
-    {
+void load_settings() {
+    if (eeprom_read(DATA_START_ADDRESS) == 0x22) {
         wait_for_button_press("No saved data");
         return;
     }
@@ -299,15 +281,14 @@ void load_settings()
 
 
 
-    for(i = 0; i < 12; i++)
-    {
+    for (i = 0; i < 12; i++) {
         load_data[i] = eeprom_read(DATA_START_ADDRESS + i);
         Delay_loop(1000);
     }
 
     Write_line("Test", 0);
     //current_alarm_duration = load_data[ALARM_DURATION];
-    DateTime date = *convertDateFromArray(load_data);
+    DateTime *date = convertDateFromArray(load_data);
     Write_updated_date_time_rtc(&date);
     alarmDurationMinutes = load_data[ALARM_DURATION_MINS];
     alarmDurationSeconds = load_data[ALARM_DURATION_SECS];
@@ -318,10 +299,9 @@ void load_settings()
 
     char zones = load_data[ZONES];
 
-    for(i = 3; i >= 0; i--)
-    {
+    for (i = 3; i >= 0; i--) {
 
-        if((zones) & (convert_to_bit_pos(i))) //check for set bits
+        if ((zones) & (convert_to_bit_pos(i))) //check for set bits
         {
             activeZones[i] = 1;
         }
@@ -330,14 +310,12 @@ void load_settings()
     wait_for_button_press(loaded);
 }
 
-void wait_for_button_press(char *message)
-{
+void wait_for_button_press(char *message) {
     clear_lines();
     Write_line(message, 0);
-    Write_line("press a button", 1);
+    Write_line(buttonPress, 1);
     Write_line("to continue", 2);
-    while (!(PORTB & BUTTON_MASK) && (!(PORTE & BUTTON_MASK)))
-    {
+    while (!(PORTB & BUTTON_MASK) && (!(PORTE & BUTTON_MASK))) {
         /* do nothing */
     }
     Delay_loop(10001);

@@ -14,63 +14,52 @@ bool temperatureAlarm;
 bool activeZones[4];
 bool sounded = false;
 
-
-void SetZone(int zone)
-{
+void SetZone(char zone) {
     activeZones[zone] = !activeZones[zone];
 }
 
-void ZoneInit()
-{
+void ZoneInit() {
     TRISC = 0x0F;
     PORTC = 0x00;
 }
 
-void ZoneCheck()
-{
-    Update_Global_DateTime();
+void ZoneCheck() {
+    DateTime *dateTime = get_current_date_time();
 
-    if((dateTime.Hour < 8 || dateTime.Hour > 20) || (dateTime.Hour == 19 && dateTime.Minute >= 30))
-    {
+
+    if ((dateTime->Hour < 8 || dateTime->Hour > 20) || (dateTime->Hour == 19 && dateTime->Minute >= 30)) {
         return;
     }
 
-    int finalMask = 0;
+    char finalMask = 0;
 
     char mask = 0x01;
 
-    for(int i = 0; i < 4; ++i)
-    {
-        if(activeZones[i])
-        {
+    for (char i = 0; i < 4; ++i) {
+        if (activeZones[i]) {
             finalMask |= mask;
         }
         mask = mask << 1;
     }
 
 
-    if(((PORTC & ZONE_MASK) | temperatureAlarm) & finalMask)
-    {
+    if (((PORTC & ZONE_MASK) | temperatureAlarm) & finalMask) {
 
         char activatedZone;
-        if(temperatureAlarm & finalMask)
-        {
+        if (temperatureAlarm & finalMask) {
             activatedZone = 0;
-        } else
-        {
+        } else {
             activatedZone = convert_from_bit_pos(PORTC & ZONE_MASK);
         }
 
-        if(!sounded)
-        {
+        if (!sounded) {
             soundBuzzer(activatedZone);
             sounded = true;
         }
 
 
     }
-    if(PORTC & ZONE_MASK)
-    {
+    if (PORTC & ZONE_MASK) {
         TRISC = 0x00;
         PORTC = 0x00;
         TRISC = 0x0F;
@@ -79,24 +68,28 @@ void ZoneCheck()
 
 }
 
-void Display_Zones()
-{
-    char buf[10];
+void Display_Zones() {
+    char buf[10] = "";
+    char zone[1] = "";
+    char active[1] = "";
+    for (char i = 0; i < 4; i++) {
+        int_to_string(zone, i);
+        int_to_string(activeZones[i], active);
+        concat_strings(buf, "Zone ");
+        concat_strings(buf, zone);
+        concat_strings(buf, ": ");
+        concat_strings(buf, active);
 
-    for(char i = 0; i < 4; i++)
-    {
-        sprintf(buf, "Zone %d: %d", i, activeZones[i]);
         Write_line(buf, i);
+         //sprintf(buf, "Zone %d: %d", i, activeZones[i]);
     }
 }
 
-void ZoneLoop()
-{
+void ZoneLoop() {
     Display_Zones();
-    
 
-    while (1)
-    {
+
+    while (1) {
         int butt = -1;
 
         unsigned command = (PORTB & BUTTON_MASK);
@@ -104,19 +97,16 @@ void ZoneLoop()
         command = (PORTB & BUTTON_MASK);
         unsigned exit = (PORTE & EXIT_MASK);
 
-        if(exit)
-        {
+        if (exit) {
             break;
         }
 
-        if(sounded)
-        {
+        if (sounded) {
             sounded = false;
             Display_Zones();
         }
 
-        if(single_key_pressed(command))
-        {
+        if (single_key_pressed(command)) {
             butt = convert_from_bit_pos(command);
             SetZone(butt);
             Display_Zones();

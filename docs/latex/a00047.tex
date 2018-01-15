@@ -1,0 +1,272 @@
+\subsection{temp\+\_\+sensor.\+c File Reference}
+\label{a00047}\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+{\ttfamily \#include $<$xc.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}temp\+\_\+sensor.\+h\char`\"{}}\newline
+Include dependency graph for temp\+\_\+sensor.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{a00048}
+\end{center}
+\end{figure}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ delay} (char x, char y)
+\item 
+void \textbf{ init\+Temp\+Sensor} ()
+\item 
+void \textbf{ reset} (void)
+\item 
+void \textbf{ write\+\_\+byte} (\textbf{ uch} val)
+\item 
+\textbf{ uch} \textbf{ read\+\_\+byte} (void)
+\item 
+void \textbf{ get\+\_\+temp} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \textbf{ T\+LV} =0
+\item 
+unsigned char \textbf{ T\+HV} =0
+\item 
+unsigned char \textbf{ TZ} =0
+\item 
+unsigned char \textbf{ TX} =0
+\item 
+unsigned int \textbf{ wd}
+\item 
+unsigned char \textbf{ shi}
+\item 
+unsigned char \textbf{ ge}
+\item 
+unsigned char \textbf{ shifen}
+\item 
+unsigned char \textbf{ baifen}
+\item 
+unsigned char \textbf{ qianfen}
+\item 
+unsigned char \textbf{ wanfen}
+\item 
+unsigned char \textbf{ R\+T\+C\+\_\+table} [10] =\{0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90\}
+\item 
+char \textbf{ temperature} [8] = \char`\"{} \char`\"{}
+\item 
+int \textbf{ temp\+\_\+\+L\+HS}
+\item 
+int \textbf{ temp\+\_\+\+R\+HS}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Function Documentation}
+\mbox{\label{a00047_a0bdd09d004d02b67ac952b8da05e8115}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!delay@{delay}}
+\index{delay@{delay}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{delay()}
+{\footnotesize\ttfamily void delay (\begin{DoxyParamCaption}\item[{char}]{x,  }\item[{char}]{y }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00047_a0bdd09d004d02b67ac952b8da05e8115_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00047_a7c1c39f9031c3ab344bbd9fa8a85479e}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!get\+\_\+temp@{get\+\_\+temp}}
+\index{get\+\_\+temp@{get\+\_\+temp}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{get\+\_\+temp()}
+{\footnotesize\ttfamily void get\+\_\+temp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{a00047_a7c1c39f9031c3ab344bbd9fa8a85479e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00047_a7c1c39f9031c3ab344bbd9fa8a85479e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00047_a6f113d0c9396301bb878730ed4018e44}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!init\+Temp\+Sensor@{init\+Temp\+Sensor}}
+\index{init\+Temp\+Sensor@{init\+Temp\+Sensor}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{init\+Temp\+Sensor()}
+{\footnotesize\ttfamily void init\+Temp\+Sensor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{a00047_a6f113d0c9396301bb878730ed4018e44_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00047_ab39a58e9f8e972b890434144956e4f5d}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!read\+\_\+byte@{read\+\_\+byte}}
+\index{read\+\_\+byte@{read\+\_\+byte}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{read\+\_\+byte()}
+{\footnotesize\ttfamily \textbf{ uch} read\+\_\+byte (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{a00047_ab39a58e9f8e972b890434144956e4f5d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00047_ab39a58e9f8e972b890434144956e4f5d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00047_a3aea9deb2a0bfea9ff05a898f4822e31}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!reset@{reset}}
+\index{reset@{reset}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{reset()}
+{\footnotesize\ttfamily void reset (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{a00047_a3aea9deb2a0bfea9ff05a898f4822e31_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00047_a3aea9deb2a0bfea9ff05a898f4822e31_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00047_ae8485e14c60e10731e2a3dcdc723b099}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!write\+\_\+byte@{write\+\_\+byte}}
+\index{write\+\_\+byte@{write\+\_\+byte}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{write\+\_\+byte()}
+{\footnotesize\ttfamily void write\+\_\+byte (\begin{DoxyParamCaption}\item[{\textbf{ uch}}]{val }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{a00047_ae8485e14c60e10731e2a3dcdc723b099_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00047_ae8485e14c60e10731e2a3dcdc723b099_icgraph}
+\end{center}
+\end{figure}
+
+
+\subsubsection{Variable Documentation}
+\mbox{\label{a00047_a2f5f1bfe20a936c734e18ed92ba9ab8a}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!baifen@{baifen}}
+\index{baifen@{baifen}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{baifen}
+{\footnotesize\ttfamily unsigned char baifen}
+
+\mbox{\label{a00047_aacc718b9b08ad36f34a1e15859bf8201}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!ge@{ge}}
+\index{ge@{ge}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{ge}
+{\footnotesize\ttfamily unsigned char ge}
+
+\mbox{\label{a00047_a73e602966ae318e8ed2fe5c34a5d5e3e}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!qianfen@{qianfen}}
+\index{qianfen@{qianfen}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{qianfen}
+{\footnotesize\ttfamily unsigned char qianfen}
+
+\mbox{\label{a00047_abd01c43c2f92525053ed8350c613a08e}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!R\+T\+C\+\_\+table@{R\+T\+C\+\_\+table}}
+\index{R\+T\+C\+\_\+table@{R\+T\+C\+\_\+table}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{R\+T\+C\+\_\+table}
+{\footnotesize\ttfamily unsigned char R\+T\+C\+\_\+table[10] =\{0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90\}}
+
+\mbox{\label{a00047_af178085804fdbeed4ed6033b9bb5cdb2}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!shi@{shi}}
+\index{shi@{shi}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{shi}
+{\footnotesize\ttfamily unsigned char shi}
+
+\mbox{\label{a00047_a1a1b4518a4e414000a2b100dceb166d9}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!shifen@{shifen}}
+\index{shifen@{shifen}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{shifen}
+{\footnotesize\ttfamily unsigned char shifen}
+
+\mbox{\label{a00047_addfbe952b825ea116a2e601f08703759}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!temp\+\_\+\+L\+HS@{temp\+\_\+\+L\+HS}}
+\index{temp\+\_\+\+L\+HS@{temp\+\_\+\+L\+HS}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{temp\+\_\+\+L\+HS}
+{\footnotesize\ttfamily int temp\+\_\+\+L\+HS}
+
+\mbox{\label{a00047_ad703226793daed4d0a856d5e2c9ebfee}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!temp\+\_\+\+R\+HS@{temp\+\_\+\+R\+HS}}
+\index{temp\+\_\+\+R\+HS@{temp\+\_\+\+R\+HS}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{temp\+\_\+\+R\+HS}
+{\footnotesize\ttfamily int temp\+\_\+\+R\+HS}
+
+\mbox{\label{a00047_a220174992ee28a3acbed1ddf9c887ddd}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!temperature@{temperature}}
+\index{temperature@{temperature}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{temperature}
+{\footnotesize\ttfamily char temperature[8] = \char`\"{} \char`\"{}}
+
+\mbox{\label{a00047_a65a619ec18e20477517dad9c4c747ce2}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!T\+HV@{T\+HV}}
+\index{T\+HV@{T\+HV}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{T\+HV}
+{\footnotesize\ttfamily unsigned char T\+HV =0}
+
+\mbox{\label{a00047_a13df55b1680a7106ee5d200f7b7bd0e4}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!T\+LV@{T\+LV}}
+\index{T\+LV@{T\+LV}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{T\+LV}
+{\footnotesize\ttfamily unsigned char T\+LV =0}
+
+\mbox{\label{a00047_a4f05f4f60634eaac3528ae3db3050e44}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!TX@{TX}}
+\index{TX@{TX}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{TX}
+{\footnotesize\ttfamily unsigned char TX =0}
+
+\mbox{\label{a00047_a1c62c3e50686d4bd2e6cf1076d8c3d9a}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!TZ@{TZ}}
+\index{TZ@{TZ}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{TZ}
+{\footnotesize\ttfamily unsigned char TZ =0}
+
+\mbox{\label{a00047_a0ac085a72c5d01bcb0f8634753ca8899}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!wanfen@{wanfen}}
+\index{wanfen@{wanfen}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{wanfen}
+{\footnotesize\ttfamily unsigned char wanfen}
+
+\mbox{\label{a00047_a083a2d27d21ee31bc447f1d4260b94ba}} 
+\index{temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}!wd@{wd}}
+\index{wd@{wd}!temp\+\_\+sensor.\+c@{temp\+\_\+sensor.\+c}}
+\paragraph{wd}
+{\footnotesize\ttfamily unsigned int wd}
+

@@ -1,0 +1,253 @@
+\subsection{rtc.\+h File Reference}
+\label{a00044}\index{rtc.\+h@{rtc.\+h}}
+{\ttfamily \#include $<$pic.\+h$>$}\newline
+Include dependency graph for rtc.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=118pt]{a00045}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=116pt]{a00046}
+\end{center}
+\end{figure}
+\subsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ R\+T\+C\+\_\+\+IO}~R\+B4
+\item 
+\#define \textbf{ R\+T\+C\+\_\+\+C\+LK}~R\+B0
+\item 
+\#define \textbf{ R\+T\+C\+\_\+\+R\+ST}~R\+B5
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ port\+\_\+init\+\_\+rtc} ()
+\item 
+void \textbf{ ds1302\+\_\+init} ()
+\item 
+void \textbf{ set\+\_\+time\+\_\+rtc} ()
+\item 
+void \textbf{ get\+\_\+time\+\_\+rtc} ()
+\item 
+void \textbf{ display\+\_\+rtc} ()
+\item 
+void \textbf{ time\+\_\+write\+\_\+rtc} (unsigned char time\+\_\+tx)
+\item 
+unsigned char \textbf{ time\+\_\+read\+\_\+rtc} ()
+\item 
+void \textbf{ delay\+\_\+rtc} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \textbf{ time\+\_\+rx}
+\item 
+const char \textbf{ rtc\+\_\+table} [$\,$] =\{0x00,0x58,0x12,0x8,0x3,0x06,0x06,0x00\}
+\item 
+char \textbf{ rtc\+\_\+table1} [7]
+\item 
+const char \textbf{ rtc\+\_\+display\+\_\+table} [$\,$] =\{0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90\}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Macro Definition Documentation}
+\mbox{\label{a00044_a80e62c38e7452c92057864f26034ee82}} 
+\index{rtc.\+h@{rtc.\+h}!R\+T\+C\+\_\+\+C\+LK@{R\+T\+C\+\_\+\+C\+LK}}
+\index{R\+T\+C\+\_\+\+C\+LK@{R\+T\+C\+\_\+\+C\+LK}!rtc.\+h@{rtc.\+h}}
+\paragraph{R\+T\+C\+\_\+\+C\+LK}
+{\footnotesize\ttfamily \#define R\+T\+C\+\_\+\+C\+LK~R\+B0}
+
+\mbox{\label{a00044_a4e7388c98e6856978dbc5b2e5cb5bed4}} 
+\index{rtc.\+h@{rtc.\+h}!R\+T\+C\+\_\+\+IO@{R\+T\+C\+\_\+\+IO}}
+\index{R\+T\+C\+\_\+\+IO@{R\+T\+C\+\_\+\+IO}!rtc.\+h@{rtc.\+h}}
+\paragraph{R\+T\+C\+\_\+\+IO}
+{\footnotesize\ttfamily \#define R\+T\+C\+\_\+\+IO~R\+B4}
+
+\mbox{\label{a00044_a1615ada9d76f57d41ce419e9e1e25c8b}} 
+\index{rtc.\+h@{rtc.\+h}!R\+T\+C\+\_\+\+R\+ST@{R\+T\+C\+\_\+\+R\+ST}}
+\index{R\+T\+C\+\_\+\+R\+ST@{R\+T\+C\+\_\+\+R\+ST}!rtc.\+h@{rtc.\+h}}
+\paragraph{R\+T\+C\+\_\+\+R\+ST}
+{\footnotesize\ttfamily \#define R\+T\+C\+\_\+\+R\+ST~R\+B5}
+
+
+
+\subsubsection{Function Documentation}
+\mbox{\label{a00044_a30a11d605a2fcfe8fc79c4f0a17a20cf}} 
+\index{rtc.\+h@{rtc.\+h}!delay\+\_\+rtc@{delay\+\_\+rtc}}
+\index{delay\+\_\+rtc@{delay\+\_\+rtc}!rtc.\+h@{rtc.\+h}}
+\paragraph{delay\+\_\+rtc()}
+{\footnotesize\ttfamily void delay\+\_\+rtc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{a00044_a30a11d605a2fcfe8fc79c4f0a17a20cf_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00044_a304536cc402df7d7fc7328f36f746f16}} 
+\index{rtc.\+h@{rtc.\+h}!display\+\_\+rtc@{display\+\_\+rtc}}
+\index{display\+\_\+rtc@{display\+\_\+rtc}!rtc.\+h@{rtc.\+h}}
+\paragraph{display\+\_\+rtc()}
+{\footnotesize\ttfamily void display\+\_\+rtc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{a00044_a304536cc402df7d7fc7328f36f746f16_cgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00044_a0665eb059e742e4bb5a419144336e147}} 
+\index{rtc.\+h@{rtc.\+h}!ds1302\+\_\+init@{ds1302\+\_\+init}}
+\index{ds1302\+\_\+init@{ds1302\+\_\+init}!rtc.\+h@{rtc.\+h}}
+\paragraph{ds1302\+\_\+init()}
+{\footnotesize\ttfamily void ds1302\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{a00044_a0665eb059e742e4bb5a419144336e147_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{a00044_a0665eb059e742e4bb5a419144336e147_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00044_a628868f4036626e8fa1b055bf56dc2f1}} 
+\index{rtc.\+h@{rtc.\+h}!get\+\_\+time\+\_\+rtc@{get\+\_\+time\+\_\+rtc}}
+\index{get\+\_\+time\+\_\+rtc@{get\+\_\+time\+\_\+rtc}!rtc.\+h@{rtc.\+h}}
+\paragraph{get\+\_\+time\+\_\+rtc()}
+{\footnotesize\ttfamily void get\+\_\+time\+\_\+rtc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00044_a628868f4036626e8fa1b055bf56dc2f1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00044_a628868f4036626e8fa1b055bf56dc2f1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00044_a4144a5333b1a934957b78e4b2d0f8695}} 
+\index{rtc.\+h@{rtc.\+h}!port\+\_\+init\+\_\+rtc@{port\+\_\+init\+\_\+rtc}}
+\index{port\+\_\+init\+\_\+rtc@{port\+\_\+init\+\_\+rtc}!rtc.\+h@{rtc.\+h}}
+\paragraph{port\+\_\+init\+\_\+rtc()}
+{\footnotesize\ttfamily void port\+\_\+init\+\_\+rtc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{a00044_a4144a5333b1a934957b78e4b2d0f8695_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00044_af48611801cb8ae30f21f4263183355a4}} 
+\index{rtc.\+h@{rtc.\+h}!set\+\_\+time\+\_\+rtc@{set\+\_\+time\+\_\+rtc}}
+\index{set\+\_\+time\+\_\+rtc@{set\+\_\+time\+\_\+rtc}!rtc.\+h@{rtc.\+h}}
+\paragraph{set\+\_\+time\+\_\+rtc()}
+{\footnotesize\ttfamily void set\+\_\+time\+\_\+rtc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{a00044_af48611801cb8ae30f21f4263183355a4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=311pt]{a00044_af48611801cb8ae30f21f4263183355a4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00044_addeadab81b94cc879a2d7f1310fad7cd}} 
+\index{rtc.\+h@{rtc.\+h}!time\+\_\+read\+\_\+rtc@{time\+\_\+read\+\_\+rtc}}
+\index{time\+\_\+read\+\_\+rtc@{time\+\_\+read\+\_\+rtc}!rtc.\+h@{rtc.\+h}}
+\paragraph{time\+\_\+read\+\_\+rtc()}
+{\footnotesize\ttfamily unsigned char time\+\_\+read\+\_\+rtc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{a00044_addeadab81b94cc879a2d7f1310fad7cd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{a00044_addeadab81b94cc879a2d7f1310fad7cd_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00044_a67147f11d1f34a31e84b38dd81ccb553}} 
+\index{rtc.\+h@{rtc.\+h}!time\+\_\+write\+\_\+rtc@{time\+\_\+write\+\_\+rtc}}
+\index{time\+\_\+write\+\_\+rtc@{time\+\_\+write\+\_\+rtc}!rtc.\+h@{rtc.\+h}}
+\paragraph{time\+\_\+write\+\_\+rtc()}
+{\footnotesize\ttfamily void time\+\_\+write\+\_\+rtc (\begin{DoxyParamCaption}\item[{unsigned char}]{time\+\_\+tx }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{a00044_a67147f11d1f34a31e84b38dd81ccb553_icgraph}
+\end{center}
+\end{figure}
+
+
+\subsubsection{Variable Documentation}
+\mbox{\label{a00044_a9bb4adf28009b0a805e868850da2cf4b}} 
+\index{rtc.\+h@{rtc.\+h}!rtc\+\_\+display\+\_\+table@{rtc\+\_\+display\+\_\+table}}
+\index{rtc\+\_\+display\+\_\+table@{rtc\+\_\+display\+\_\+table}!rtc.\+h@{rtc.\+h}}
+\paragraph{rtc\+\_\+display\+\_\+table}
+{\footnotesize\ttfamily const char rtc\+\_\+display\+\_\+table[$\,$] =\{0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90\}}
+
+\mbox{\label{a00044_a021cd228e8beae68982b7c03acf5d060}} 
+\index{rtc.\+h@{rtc.\+h}!rtc\+\_\+table@{rtc\+\_\+table}}
+\index{rtc\+\_\+table@{rtc\+\_\+table}!rtc.\+h@{rtc.\+h}}
+\paragraph{rtc\+\_\+table}
+{\footnotesize\ttfamily const char rtc\+\_\+table[$\,$] =\{0x00,0x58,0x12,0x8,0x3,0x06,0x06,0x00\}}
+
+\mbox{\label{a00044_a3c5af18aaa8845c69095c105f0ca8997}} 
+\index{rtc.\+h@{rtc.\+h}!rtc\+\_\+table1@{rtc\+\_\+table1}}
+\index{rtc\+\_\+table1@{rtc\+\_\+table1}!rtc.\+h@{rtc.\+h}}
+\paragraph{rtc\+\_\+table1}
+{\footnotesize\ttfamily char rtc\+\_\+table1[7]}
+
+\mbox{\label{a00044_a878db895116fbbee698e727062540d31}} 
+\index{rtc.\+h@{rtc.\+h}!time\+\_\+rx@{time\+\_\+rx}}
+\index{time\+\_\+rx@{time\+\_\+rx}!rtc.\+h@{rtc.\+h}}
+\paragraph{time\+\_\+rx}
+{\footnotesize\ttfamily unsigned char time\+\_\+rx}
+

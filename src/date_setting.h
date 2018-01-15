@@ -11,7 +11,6 @@
 
 #include "clock.h"
 #include "lcd.h"
-#include <string.h>
 
 
 #define BUTTON_MASK 0x0F

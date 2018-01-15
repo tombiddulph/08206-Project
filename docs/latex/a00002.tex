@@ -1,0 +1,103 @@
+\subsection{alarm\+\_\+duration.\+c File Reference}
+\label{a00002}\index{alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}}
+{\ttfamily \#include \char`\"{}alarm\+\_\+duration.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Commonheader.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lcd.\+h\char`\"{}}\newline
+Include dependency graph for alarm\+\_\+duration.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00003}
+\end{center}
+\end{figure}
+\subsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+M\+I\+N\+U\+T\+ES}~0x01
+\item 
+\#define \textbf{ D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+M\+I\+N\+U\+T\+ES}~0x02
+\item 
+\#define \textbf{ I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+S\+E\+C\+O\+N\+DS}~0x04
+\item 
+\#define \textbf{ D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+S\+E\+C\+O\+N\+DS}~0x08
+\item 
+\#define \textbf{ S\+A\+V\+E\+\_\+\+D\+U\+R\+A\+T\+I\+ON}~0x10
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ alarm\+\_\+duration\+\_\+settings\+\_\+page} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+bool \textbf{ quit}
+\item 
+\textbf{ Date\+Time} \textbf{ alarm\+Duration}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Macro Definition Documentation}
+\mbox{\label{a00002_acc0fb1eee8deff23f5172ddd3b90b754}} 
+\index{alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}!D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+M\+I\+N\+U\+T\+ES@{D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+M\+I\+N\+U\+T\+ES}}
+\index{D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+M\+I\+N\+U\+T\+ES@{D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+M\+I\+N\+U\+T\+ES}!alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}}
+\paragraph{D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+M\+I\+N\+U\+T\+ES}
+{\footnotesize\ttfamily \#define D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+M\+I\+N\+U\+T\+ES~0x02}
+
+\mbox{\label{a00002_a6c5f782df537f7854f6531797fa5c183}} 
+\index{alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}!D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+S\+E\+C\+O\+N\+DS@{D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+S\+E\+C\+O\+N\+DS}}
+\index{D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+S\+E\+C\+O\+N\+DS@{D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+S\+E\+C\+O\+N\+DS}!alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}}
+\paragraph{D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+S\+E\+C\+O\+N\+DS}
+{\footnotesize\ttfamily \#define D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+S\+E\+C\+O\+N\+DS~0x08}
+
+\mbox{\label{a00002_a7766f73f1e8b4b229d8850a1957b182b}} 
+\index{alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}!I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+M\+I\+N\+U\+T\+ES@{I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+M\+I\+N\+U\+T\+ES}}
+\index{I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+M\+I\+N\+U\+T\+ES@{I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+M\+I\+N\+U\+T\+ES}!alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}}
+\paragraph{I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+M\+I\+N\+U\+T\+ES}
+{\footnotesize\ttfamily \#define I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+M\+I\+N\+U\+T\+ES~0x01}
+
+\mbox{\label{a00002_a4ad0fc3b9c9f838ac4ed4612bc0e6956}} 
+\index{alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}!I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+S\+E\+C\+O\+N\+DS@{I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+S\+E\+C\+O\+N\+DS}}
+\index{I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+S\+E\+C\+O\+N\+DS@{I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+S\+E\+C\+O\+N\+DS}!alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}}
+\paragraph{I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+S\+E\+C\+O\+N\+DS}
+{\footnotesize\ttfamily \#define I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+S\+E\+C\+O\+N\+DS~0x04}
+
+\mbox{\label{a00002_ad3e3bf2c56a15bd578c00f02f4803c4a}} 
+\index{alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}!S\+A\+V\+E\+\_\+\+D\+U\+R\+A\+T\+I\+ON@{S\+A\+V\+E\+\_\+\+D\+U\+R\+A\+T\+I\+ON}}
+\index{S\+A\+V\+E\+\_\+\+D\+U\+R\+A\+T\+I\+ON@{S\+A\+V\+E\+\_\+\+D\+U\+R\+A\+T\+I\+ON}!alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}}
+\paragraph{S\+A\+V\+E\+\_\+\+D\+U\+R\+A\+T\+I\+ON}
+{\footnotesize\ttfamily \#define S\+A\+V\+E\+\_\+\+D\+U\+R\+A\+T\+I\+ON~0x10}
+
+
+
+\subsubsection{Function Documentation}
+\mbox{\label{a00002_adc10f1c6bb2de8f4dd4d65901c941c0f}} 
+\index{alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}!alarm\+\_\+duration\+\_\+settings\+\_\+page@{alarm\+\_\+duration\+\_\+settings\+\_\+page}}
+\index{alarm\+\_\+duration\+\_\+settings\+\_\+page@{alarm\+\_\+duration\+\_\+settings\+\_\+page}!alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}}
+\paragraph{alarm\+\_\+duration\+\_\+settings\+\_\+page()}
+{\footnotesize\ttfamily void alarm\+\_\+duration\+\_\+settings\+\_\+page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00002_adc10f1c6bb2de8f4dd4d65901c941c0f_cgraph}
+\end{center}
+\end{figure}
+
+
+\subsubsection{Variable Documentation}
+\mbox{\label{a00002_a01c2a28170e998893c6428276cb87ae2}} 
+\index{alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}!alarm\+Duration@{alarm\+Duration}}
+\index{alarm\+Duration@{alarm\+Duration}!alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}}
+\paragraph{alarm\+Duration}
+{\footnotesize\ttfamily \textbf{ Date\+Time} alarm\+Duration}
+
+\mbox{\label{a00002_ac746fa6ad48d19984a159f14bec028a3}} 
+\index{alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}!quit@{quit}}
+\index{quit@{quit}!alarm\+\_\+duration.\+c@{alarm\+\_\+duration.\+c}}
+\paragraph{quit}
+{\footnotesize\ttfamily bool quit}
+

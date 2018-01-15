@@ -13,60 +13,56 @@ bool quit;
 char alarmDurationMinutes;
 char alarmDurationSeconds;
 
-void alarm_duration_settings_page()
-{
+void write_remaining() {
+    Write_line("ALARM DURATION:", 0);
+    char buf[16] = "";
+    char mins[2] = "";
+    char secs[2] = "";
+    int_to_string(mins, alarmDurationMinutes);
+    int_to_string(secs, alarmDurationSeconds);
+    concat_strings(buf, mins);
+    concat_strings(buf, ":");
+    concat_strings(buf, secs);
+    //sprintf(buf, "%02d:%02d", alarmDurationMinutes, alarmDurationSeconds);
+    Write_line(buf, 1);
+}
+
+void alarm_duration_settings_page() {
     quit = false;
     clear_lines();
-    while (1)
-    {
-        Write_line("ALARM DURATION:", 0);
-        char buf[16];
-        sprintf(buf, "%02d:%02d", alarmDurationMinutes, alarmDurationSeconds);
-        Write_line(buf, 1);
+    while (1) {
 
+        write_remaining();
 
         char choice = ((PORTE & 0x07) << 4) | (PORTB & BUTTON_MASK);
 
-        if(single_key_pressed(choice))
-        {
-            switch(choice)
-            {
+        if (single_key_pressed(choice)) {
+            switch (choice) {
                 case(INCREMENT_MINUTES):
-                    if(alarmDurationMinutes == 30)
-                    {
+                    if (alarmDurationMinutes == 30) {
                         alarmDurationMinutes = 1;
-                    }
-                    else
-                    {
+                    } else {
                         alarmDurationMinutes++;
-                        if(alarmDurationMinutes == 30)
-                        {
+                        if (alarmDurationMinutes == 30) {
                             alarmDurationSeconds = 0;
                         }
                     }
                     break;
                 case (DECREMENT_MINUTES):
-                    if(alarmDurationMinutes == 1)
-                    {
+                    if (alarmDurationMinutes == 1) {
                         alarmDurationMinutes = 30;
                         alarmDurationSeconds = 0;
-                    }
-                    else
-                    {
+                    } else {
                         alarmDurationMinutes--;
                     }
                     break;
 
                 case (INCREMENT_SECONDS):
                 {
-                    if(alarmDurationSeconds == 60)
-                    {
+                    if (alarmDurationSeconds == 60) {
                         alarmDurationSeconds = 0;
-                    }
-                    else
-                    {
-                        if(alarmDurationMinutes != 30)
-                        {
+                    } else {
+                        if (alarmDurationMinutes != 30) {
                             alarmDurationSeconds++;
                         }
                     }
@@ -74,15 +70,11 @@ void alarm_duration_settings_page()
                     break;
                 case (DECREMENT_SECONDS):
                 {
-                    if(alarmDurationSeconds == 0)
-                    {
-                        if(alarmDurationMinutes != 30)
-                        {
+                    if (alarmDurationSeconds == 0) {
+                        if (alarmDurationMinutes != 30) {
                             alarmDurationSeconds = 60;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         alarmDurationSeconds--;
                     }
                 }
@@ -92,20 +84,18 @@ void alarm_duration_settings_page()
                     break;
             }
 
-            if(quit)
-            {
+            if (quit) {
                 clear_lines();
 
-            
-                sprintf(buf, "set to: %02d:%02d", alarmDurationMinutes, alarmDurationSeconds);
+
+                // sprintf(buf, "set to: %02d:%02d", alarmDurationMinutes, alarmDurationSeconds);
 
                 Write_line("Alarm duration", 0);
-                Write_line(buf, 1);
+                write_remaining();
                 Write_line("press a button", 2);
                 Write_line("to continue", 3);
 
-                while (!(PORTB & BUTTON_MASK) && (!(PORTE & 0x7)))
-                {
+                while (!(PORTB & BUTTON_MASK) && (!(PORTE & 0x7))) {
                     /* do nothing */
                 }
 

@@ -1,0 +1,350 @@
+\subsection{clock.\+h File Reference}
+\label{a00017}\index{clock.\+h@{clock.\+h}}
+{\ttfamily \#include $<$xc.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Commonheader.\+h\char`\"{}}\newline
+Include dependency graph for clock.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{a00018}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00019}
+\end{center}
+\end{figure}
+\subsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ R\+T\+C\+\_\+\+IO}~R\+B4
+\item 
+\#define \textbf{ R\+T\+C\+\_\+\+C\+LK}~R\+C4
+\item 
+\#define \textbf{ R\+T\+C\+\_\+\+R\+ST}~R\+B5
+\item 
+\#define \textbf{ R\+T\+C\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+W\+R\+I\+TE}~0x8E
+\item 
+\#define \textbf{ R\+T\+C\+\_\+\+L\+O\+W\+\_\+\+M\+A\+SK}~0x0F
+\item 
+\#define \textbf{ R\+T\+C\+\_\+\+H\+I\+G\+H\+\_\+\+M\+A\+SK}~0x\+F0
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bit \textbf{ time\+\_\+rx7} (unsigned) \&\textbf{ time\+\_\+rx} $\ast$8+7
+\item 
+void \textbf{ port\+\_\+init\+\_\+rtc} ()
+\item 
+void \textbf{ ds1302\+\_\+init} ()
+\item 
+void \textbf{ set\+\_\+time\+\_\+rtc} ()
+\item 
+void \textbf{ get\+\_\+time\+\_\+rtc} ()
+\item 
+void \textbf{ Update\+\_\+\+Global\+\_\+\+Date\+Time} ()
+\item 
+void \textbf{ Write\+\_\+updated\+\_\+date\+\_\+time\+\_\+rtc} (\textbf{ Date\+Time} $\ast$\textbf{ date})
+\item 
+void \textbf{ Write\+\_\+updated\+\_\+date\+\_\+rtc} (\textbf{ Date\+Time} $\ast$\textbf{ date})
+\item 
+void \textbf{ Write\+\_\+updated\+\_\+time\+\_\+rtc} (\textbf{ Date\+Time} $\ast$\textbf{ date})
+\item 
+void \textbf{ Write\+\_\+date\+Time\+\_\+rtc} (\textbf{ Date\+Time} $\ast$\textbf{ date})
+\item 
+void \textbf{ write\+\_\+time\+\_\+rtc} (unsigned char time\+\_\+tx)
+\item 
+unsigned char \textbf{ read\+\_\+time\+\_\+rtc} ()
+\item 
+void \textbf{ delay\+\_\+rtc} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \textbf{ time\+\_\+rx}
+\item 
+const char \textbf{ rtc\+\_\+table} [$\,$] =\{0x00, 0x58, 0x12, 0x12, 0x12, 0x06, 0x17, 0x00\}
+\item 
+char \textbf{ rtc\+\_\+table1} [7]
+\item 
+char \textbf{ rtc\+\_\+lcd\+\_\+display\+\_\+date\+\_\+table} [9]
+\item 
+char \textbf{ rtc\+\_\+lcd\+\_\+display\+\_\+time\+\_\+table} [9]
+\item 
+const char \textbf{ rtc\+\_\+7\+\_\+seg\+\_\+display\+\_\+table} [$\,$] =\{0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90\}
+\item 
+\textbf{ Date\+Time} \textbf{ date\+Time}
+\item 
+bool \textbf{ Date\+Changed}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Macro Definition Documentation}
+\mbox{\label{a00017_a80e62c38e7452c92057864f26034ee82}} 
+\index{clock.\+h@{clock.\+h}!R\+T\+C\+\_\+\+C\+LK@{R\+T\+C\+\_\+\+C\+LK}}
+\index{R\+T\+C\+\_\+\+C\+LK@{R\+T\+C\+\_\+\+C\+LK}!clock.\+h@{clock.\+h}}
+\paragraph{R\+T\+C\+\_\+\+C\+LK}
+{\footnotesize\ttfamily \#define R\+T\+C\+\_\+\+C\+LK~R\+C4}
+
+\mbox{\label{a00017_a089dd813e4790e77ef2b640e865cd390}} 
+\index{clock.\+h@{clock.\+h}!R\+T\+C\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+W\+R\+I\+TE@{R\+T\+C\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+W\+R\+I\+TE}}
+\index{R\+T\+C\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+W\+R\+I\+TE@{R\+T\+C\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+W\+R\+I\+TE}!clock.\+h@{clock.\+h}}
+\paragraph{R\+T\+C\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+W\+R\+I\+TE}
+{\footnotesize\ttfamily \#define R\+T\+C\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+W\+R\+I\+TE~0x8E}
+
+\mbox{\label{a00017_af7f4ebf8c48ec52f601d7f0ab359887e}} 
+\index{clock.\+h@{clock.\+h}!R\+T\+C\+\_\+\+H\+I\+G\+H\+\_\+\+M\+A\+SK@{R\+T\+C\+\_\+\+H\+I\+G\+H\+\_\+\+M\+A\+SK}}
+\index{R\+T\+C\+\_\+\+H\+I\+G\+H\+\_\+\+M\+A\+SK@{R\+T\+C\+\_\+\+H\+I\+G\+H\+\_\+\+M\+A\+SK}!clock.\+h@{clock.\+h}}
+\paragraph{R\+T\+C\+\_\+\+H\+I\+G\+H\+\_\+\+M\+A\+SK}
+{\footnotesize\ttfamily \#define R\+T\+C\+\_\+\+H\+I\+G\+H\+\_\+\+M\+A\+SK~0x\+F0}
+
+\mbox{\label{a00017_a4e7388c98e6856978dbc5b2e5cb5bed4}} 
+\index{clock.\+h@{clock.\+h}!R\+T\+C\+\_\+\+IO@{R\+T\+C\+\_\+\+IO}}
+\index{R\+T\+C\+\_\+\+IO@{R\+T\+C\+\_\+\+IO}!clock.\+h@{clock.\+h}}
+\paragraph{R\+T\+C\+\_\+\+IO}
+{\footnotesize\ttfamily \#define R\+T\+C\+\_\+\+IO~R\+B4}
+
+\mbox{\label{a00017_a779d126cf8a210658268556194e708b3}} 
+\index{clock.\+h@{clock.\+h}!R\+T\+C\+\_\+\+L\+O\+W\+\_\+\+M\+A\+SK@{R\+T\+C\+\_\+\+L\+O\+W\+\_\+\+M\+A\+SK}}
+\index{R\+T\+C\+\_\+\+L\+O\+W\+\_\+\+M\+A\+SK@{R\+T\+C\+\_\+\+L\+O\+W\+\_\+\+M\+A\+SK}!clock.\+h@{clock.\+h}}
+\paragraph{R\+T\+C\+\_\+\+L\+O\+W\+\_\+\+M\+A\+SK}
+{\footnotesize\ttfamily \#define R\+T\+C\+\_\+\+L\+O\+W\+\_\+\+M\+A\+SK~0x0F}
+
+\mbox{\label{a00017_a1615ada9d76f57d41ce419e9e1e25c8b}} 
+\index{clock.\+h@{clock.\+h}!R\+T\+C\+\_\+\+R\+ST@{R\+T\+C\+\_\+\+R\+ST}}
+\index{R\+T\+C\+\_\+\+R\+ST@{R\+T\+C\+\_\+\+R\+ST}!clock.\+h@{clock.\+h}}
+\paragraph{R\+T\+C\+\_\+\+R\+ST}
+{\footnotesize\ttfamily \#define R\+T\+C\+\_\+\+R\+ST~R\+B5}
+
+
+
+\subsubsection{Function Documentation}
+\mbox{\label{a00017_a30a11d605a2fcfe8fc79c4f0a17a20cf}} 
+\index{clock.\+h@{clock.\+h}!delay\+\_\+rtc@{delay\+\_\+rtc}}
+\index{delay\+\_\+rtc@{delay\+\_\+rtc}!clock.\+h@{clock.\+h}}
+\paragraph{delay\+\_\+rtc()}
+{\footnotesize\ttfamily void delay\+\_\+rtc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\label{a00017_a0665eb059e742e4bb5a419144336e147}} 
+\index{clock.\+h@{clock.\+h}!ds1302\+\_\+init@{ds1302\+\_\+init}}
+\index{ds1302\+\_\+init@{ds1302\+\_\+init}!clock.\+h@{clock.\+h}}
+\paragraph{ds1302\+\_\+init()}
+{\footnotesize\ttfamily void ds1302\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\label{a00017_a628868f4036626e8fa1b055bf56dc2f1}} 
+\index{clock.\+h@{clock.\+h}!get\+\_\+time\+\_\+rtc@{get\+\_\+time\+\_\+rtc}}
+\index{get\+\_\+time\+\_\+rtc@{get\+\_\+time\+\_\+rtc}!clock.\+h@{clock.\+h}}
+\paragraph{get\+\_\+time\+\_\+rtc()}
+{\footnotesize\ttfamily void get\+\_\+time\+\_\+rtc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\label{a00017_a4144a5333b1a934957b78e4b2d0f8695}} 
+\index{clock.\+h@{clock.\+h}!port\+\_\+init\+\_\+rtc@{port\+\_\+init\+\_\+rtc}}
+\index{port\+\_\+init\+\_\+rtc@{port\+\_\+init\+\_\+rtc}!clock.\+h@{clock.\+h}}
+\paragraph{port\+\_\+init\+\_\+rtc()}
+{\footnotesize\ttfamily void port\+\_\+init\+\_\+rtc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\label{a00017_add06d1f93d90576fa369c2401c1d4aed}} 
+\index{clock.\+h@{clock.\+h}!read\+\_\+time\+\_\+rtc@{read\+\_\+time\+\_\+rtc}}
+\index{read\+\_\+time\+\_\+rtc@{read\+\_\+time\+\_\+rtc}!clock.\+h@{clock.\+h}}
+\paragraph{read\+\_\+time\+\_\+rtc()}
+{\footnotesize\ttfamily unsigned char read\+\_\+time\+\_\+rtc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{a00017_add06d1f93d90576fa369c2401c1d4aed_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00017_add06d1f93d90576fa369c2401c1d4aed_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00017_af48611801cb8ae30f21f4263183355a4}} 
+\index{clock.\+h@{clock.\+h}!set\+\_\+time\+\_\+rtc@{set\+\_\+time\+\_\+rtc}}
+\index{set\+\_\+time\+\_\+rtc@{set\+\_\+time\+\_\+rtc}!clock.\+h@{clock.\+h}}
+\paragraph{set\+\_\+time\+\_\+rtc()}
+{\footnotesize\ttfamily void set\+\_\+time\+\_\+rtc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\label{a00017_a64b918d8106cc55aaced41002a03eeec}} 
+\index{clock.\+h@{clock.\+h}!time\+\_\+rx7@{time\+\_\+rx7}}
+\index{time\+\_\+rx7@{time\+\_\+rx7}!clock.\+h@{clock.\+h}}
+\paragraph{time\+\_\+rx7()}
+{\footnotesize\ttfamily bit time\+\_\+rx7 (\begin{DoxyParamCaption}\item[{unsigned}]{ }\end{DoxyParamCaption}) \&}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00017_a64b918d8106cc55aaced41002a03eeec_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00017_a93b2ace39d0d582b18b136c908d8f092}} 
+\index{clock.\+h@{clock.\+h}!Update\+\_\+\+Global\+\_\+\+Date\+Time@{Update\+\_\+\+Global\+\_\+\+Date\+Time}}
+\index{Update\+\_\+\+Global\+\_\+\+Date\+Time@{Update\+\_\+\+Global\+\_\+\+Date\+Time}!clock.\+h@{clock.\+h}}
+\paragraph{Update\+\_\+\+Global\+\_\+\+Date\+Time()}
+{\footnotesize\ttfamily void Update\+\_\+\+Global\+\_\+\+Date\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{a00017_a93b2ace39d0d582b18b136c908d8f092_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00017_a93b2ace39d0d582b18b136c908d8f092_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00017_a4445924dfb1ef2a828793deff1d6efc0}} 
+\index{clock.\+h@{clock.\+h}!Write\+\_\+date\+Time\+\_\+rtc@{Write\+\_\+date\+Time\+\_\+rtc}}
+\index{Write\+\_\+date\+Time\+\_\+rtc@{Write\+\_\+date\+Time\+\_\+rtc}!clock.\+h@{clock.\+h}}
+\paragraph{Write\+\_\+date\+Time\+\_\+rtc()}
+{\footnotesize\ttfamily void Write\+\_\+date\+Time\+\_\+rtc (\begin{DoxyParamCaption}\item[{\textbf{ Date\+Time} $\ast$}]{date }\end{DoxyParamCaption})}
+
+\mbox{\label{a00017_aadecf4eb7d23c63d1216ced71440654e}} 
+\index{clock.\+h@{clock.\+h}!write\+\_\+time\+\_\+rtc@{write\+\_\+time\+\_\+rtc}}
+\index{write\+\_\+time\+\_\+rtc@{write\+\_\+time\+\_\+rtc}!clock.\+h@{clock.\+h}}
+\paragraph{write\+\_\+time\+\_\+rtc()}
+{\footnotesize\ttfamily void write\+\_\+time\+\_\+rtc (\begin{DoxyParamCaption}\item[{unsigned char}]{time\+\_\+tx }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00017_aadecf4eb7d23c63d1216ced71440654e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00017_a7ae143903216d08d3f0c07b95e21c21b}} 
+\index{clock.\+h@{clock.\+h}!Write\+\_\+updated\+\_\+date\+\_\+rtc@{Write\+\_\+updated\+\_\+date\+\_\+rtc}}
+\index{Write\+\_\+updated\+\_\+date\+\_\+rtc@{Write\+\_\+updated\+\_\+date\+\_\+rtc}!clock.\+h@{clock.\+h}}
+\paragraph{Write\+\_\+updated\+\_\+date\+\_\+rtc()}
+{\footnotesize\ttfamily void Write\+\_\+updated\+\_\+date\+\_\+rtc (\begin{DoxyParamCaption}\item[{\textbf{ Date\+Time} $\ast$}]{date }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{a00017_a7ae143903216d08d3f0c07b95e21c21b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00017_a7ae143903216d08d3f0c07b95e21c21b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00017_ad20fe32d70b509ba8f7f24a572e34f3f}} 
+\index{clock.\+h@{clock.\+h}!Write\+\_\+updated\+\_\+date\+\_\+time\+\_\+rtc@{Write\+\_\+updated\+\_\+date\+\_\+time\+\_\+rtc}}
+\index{Write\+\_\+updated\+\_\+date\+\_\+time\+\_\+rtc@{Write\+\_\+updated\+\_\+date\+\_\+time\+\_\+rtc}!clock.\+h@{clock.\+h}}
+\paragraph{Write\+\_\+updated\+\_\+date\+\_\+time\+\_\+rtc()}
+{\footnotesize\ttfamily void Write\+\_\+updated\+\_\+date\+\_\+time\+\_\+rtc (\begin{DoxyParamCaption}\item[{\textbf{ Date\+Time} $\ast$}]{date }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{a00017_ad20fe32d70b509ba8f7f24a572e34f3f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00017_ad20fe32d70b509ba8f7f24a572e34f3f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00017_a2f6bf3793293cc3f2c09a91c3725a8af}} 
+\index{clock.\+h@{clock.\+h}!Write\+\_\+updated\+\_\+time\+\_\+rtc@{Write\+\_\+updated\+\_\+time\+\_\+rtc}}
+\index{Write\+\_\+updated\+\_\+time\+\_\+rtc@{Write\+\_\+updated\+\_\+time\+\_\+rtc}!clock.\+h@{clock.\+h}}
+\paragraph{Write\+\_\+updated\+\_\+time\+\_\+rtc()}
+{\footnotesize\ttfamily void Write\+\_\+updated\+\_\+time\+\_\+rtc (\begin{DoxyParamCaption}\item[{\textbf{ Date\+Time} $\ast$}]{date }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{a00017_a2f6bf3793293cc3f2c09a91c3725a8af_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00017_a2f6bf3793293cc3f2c09a91c3725a8af_icgraph}
+\end{center}
+\end{figure}
+
+
+\subsubsection{Variable Documentation}
+\mbox{\label{a00017_acaf1b7d1c378b3ba535f7989083a8c7e}} 
+\index{clock.\+h@{clock.\+h}!Date\+Changed@{Date\+Changed}}
+\index{Date\+Changed@{Date\+Changed}!clock.\+h@{clock.\+h}}
+\paragraph{Date\+Changed}
+{\footnotesize\ttfamily bool Date\+Changed}
+
+\mbox{\label{a00017_a129e222d3019ef1ee0f6a7b86a51ae74}} 
+\index{clock.\+h@{clock.\+h}!date\+Time@{date\+Time}}
+\index{date\+Time@{date\+Time}!clock.\+h@{clock.\+h}}
+\paragraph{date\+Time}
+{\footnotesize\ttfamily \textbf{ Date\+Time} date\+Time}
+
+\mbox{\label{a00017_a57e83b1737eee63187e56acce600136c}} 
+\index{clock.\+h@{clock.\+h}!rtc\+\_\+7\+\_\+seg\+\_\+display\+\_\+table@{rtc\+\_\+7\+\_\+seg\+\_\+display\+\_\+table}}
+\index{rtc\+\_\+7\+\_\+seg\+\_\+display\+\_\+table@{rtc\+\_\+7\+\_\+seg\+\_\+display\+\_\+table}!clock.\+h@{clock.\+h}}
+\paragraph{rtc\+\_\+7\+\_\+seg\+\_\+display\+\_\+table}
+{\footnotesize\ttfamily const char rtc\+\_\+7\+\_\+seg\+\_\+display\+\_\+table[$\,$] =\{0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90\}}
+
+\mbox{\label{a00017_a87a59dfc82addeccd290c9b7e487f2a8}} 
+\index{clock.\+h@{clock.\+h}!rtc\+\_\+lcd\+\_\+display\+\_\+date\+\_\+table@{rtc\+\_\+lcd\+\_\+display\+\_\+date\+\_\+table}}
+\index{rtc\+\_\+lcd\+\_\+display\+\_\+date\+\_\+table@{rtc\+\_\+lcd\+\_\+display\+\_\+date\+\_\+table}!clock.\+h@{clock.\+h}}
+\paragraph{rtc\+\_\+lcd\+\_\+display\+\_\+date\+\_\+table}
+{\footnotesize\ttfamily char rtc\+\_\+lcd\+\_\+display\+\_\+date\+\_\+table[9]}
+
+\mbox{\label{a00017_a49d6b1894d5636b2587cfbbfab0eba31}} 
+\index{clock.\+h@{clock.\+h}!rtc\+\_\+lcd\+\_\+display\+\_\+time\+\_\+table@{rtc\+\_\+lcd\+\_\+display\+\_\+time\+\_\+table}}
+\index{rtc\+\_\+lcd\+\_\+display\+\_\+time\+\_\+table@{rtc\+\_\+lcd\+\_\+display\+\_\+time\+\_\+table}!clock.\+h@{clock.\+h}}
+\paragraph{rtc\+\_\+lcd\+\_\+display\+\_\+time\+\_\+table}
+{\footnotesize\ttfamily char rtc\+\_\+lcd\+\_\+display\+\_\+time\+\_\+table[9]}
+
+\mbox{\label{a00017_a021cd228e8beae68982b7c03acf5d060}} 
+\index{clock.\+h@{clock.\+h}!rtc\+\_\+table@{rtc\+\_\+table}}
+\index{rtc\+\_\+table@{rtc\+\_\+table}!clock.\+h@{clock.\+h}}
+\paragraph{rtc\+\_\+table}
+{\footnotesize\ttfamily const char rtc\+\_\+table[$\,$] =\{0x00, 0x58, 0x12, 0x12, 0x12, 0x06, 0x17, 0x00\}}
+
+\mbox{\label{a00017_a3c5af18aaa8845c69095c105f0ca8997}} 
+\index{clock.\+h@{clock.\+h}!rtc\+\_\+table1@{rtc\+\_\+table1}}
+\index{rtc\+\_\+table1@{rtc\+\_\+table1}!clock.\+h@{clock.\+h}}
+\paragraph{rtc\+\_\+table1}
+{\footnotesize\ttfamily char rtc\+\_\+table1[7]}
+
+\mbox{\label{a00017_a878db895116fbbee698e727062540d31}} 
+\index{clock.\+h@{clock.\+h}!time\+\_\+rx@{time\+\_\+rx}}
+\index{time\+\_\+rx@{time\+\_\+rx}!clock.\+h@{clock.\+h}}
+\paragraph{time\+\_\+rx}
+{\footnotesize\ttfamily unsigned char time\+\_\+rx}
+

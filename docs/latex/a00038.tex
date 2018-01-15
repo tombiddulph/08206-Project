@@ -1,0 +1,602 @@
+\subsection{main.\+c File Reference}
+\label{a00038}\index{main.\+c@{main.\+c}}
+{\ttfamily \#include $<$xc.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}temp\+\_\+sensor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lcd.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}clock.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Commonheader.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}date\+\_\+setting.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}zones.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}buzzer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}alarm\+\_\+duration.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}temp\+\_\+thresh.\+h\char`\"{}}\newline
+Include dependency graph for main.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00039}
+\end{center}
+\end{figure}
+\subsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ B\+U\+T\+T\+O\+N\+\_\+\+M\+A\+SK}~0x0F
+\item 
+\#define \textbf{ S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+M\+A\+SK}~0x0F
+\item 
+\#define \textbf{ D\+A\+T\+A\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS}~0x01
+\item 
+\#define \textbf{ D\+A\+T\+E\+\_\+\+D\+AY}~0x00
+\item 
+\#define \textbf{ D\+A\+T\+E\+\_\+\+M\+O\+N\+TH}~0x01
+\item 
+\#define \textbf{ D\+A\+T\+E\+\_\+\+Y\+E\+AR}~0x02
+\item 
+\#define \textbf{ D\+A\+T\+E\+\_\+\+H\+O\+U\+RS}~0x03
+\item 
+\#define \textbf{ D\+A\+T\+E\+\_\+\+M\+I\+N\+U\+T\+ES}~0x04
+\item 
+\#define \textbf{ D\+A\+T\+E\+\_\+\+S\+E\+C\+O\+N\+DS}~0x05
+\item 
+\#define \textbf{ Z\+O\+N\+ES}~0x06
+\item 
+\#define \textbf{ A\+L\+A\+R\+M\+\_\+\+D\+U\+R\+A\+T\+I\+ON}~0x07
+\item 
+\#define \textbf{ T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+E\+NS}~0x08
+\item 
+\#define \textbf{ T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+U\+N\+I\+TS}~0x09
+\item 
+\#define \textbf{ S\+A\+V\+E\+\_\+\+S\+E\+T\+T\+I\+N\+GS}~0x01
+\item 
+\#define \textbf{ L\+O\+A\+D\+\_\+\+S\+E\+T\+T\+I\+N\+GS}~0x02
+\end{DoxyCompactItemize}
+\subsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ \textbf{ settings\+\_\+ptr}) (void)
+\item 
+typedef void($\ast$ \textbf{ page\+\_\+ptr}) (void)
+\end{DoxyCompactItemize}
+\subsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \textbf{ S\+T\+A\+TE} \{ \textbf{ W\+E\+L\+C\+O\+ME}, 
+\textbf{ H\+O\+ME}, 
+\textbf{ S\+E\+T\+T\+I\+N\+GS}
+ \}
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ \+\_\+\+\_\+\+E\+E\+P\+R\+O\+M\+\_\+\+D\+A\+TA} (0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88)
+\item 
+void \textbf{ home\+\_\+page} ()
+\item 
+void \textbf{ settings\+\_\+page} ()
+\item 
+void \textbf{ temp\+\_\+sensor\+\_\+page} ()
+\item 
+void \textbf{ alarm\+\_\+duration\+\_\+page} ()
+\item 
+void \textbf{ temp\+\_\+check} ()
+\item 
+void \textbf{ wait\+\_\+for\+\_\+button\+\_\+press} (char $\ast$message)
+\item 
+void \textbf{ welcome\+\_\+page} ()
+\item 
+void \textbf{ load\+\_\+settings} ()
+\item 
+void \textbf{ save\+\_\+settings} ()
+\item 
+void \textbf{ main\+Init} ()
+\item 
+void \textbf{ update\+Variables} ()
+\item 
+void \textbf{ main} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \textbf{ temperature} [8]
+\item 
+char \textbf{ previous\+\_\+temp} [8]
+\item 
+int \textbf{ old\+Match} = 10
+\item 
+char \textbf{ threshold} [7]
+\item 
+int \textbf{ threshold\+\_\+temp\+\_\+\+L\+HS}
+\item 
+int \textbf{ threshold\+\_\+temp\+\_\+\+R\+HS}
+\item 
+int \textbf{ temp\+\_\+\+L\+HS}
+\item 
+int \textbf{ temp\+\_\+\+R\+HS}
+\item 
+bool \textbf{ temperature\+Alarm}
+\item 
+bool \textbf{ active\+Zones} [4]
+\item 
+\textbf{ Date\+Time} \textbf{ alarm\+Duration}
+\item 
+\textbf{ settings\+\_\+ptr} \textbf{ settings} [4]
+\item 
+\textbf{ page\+\_\+ptr} \textbf{ pages} [3]
+\item 
+\textbf{ S\+T\+A\+TE} \textbf{ current\+State}
+\item 
+int \textbf{ current\+\_\+alarm\+\_\+duration}
+\item 
+const char $\ast$ \textbf{ saved} = \char`\"{}Settings saved\char`\"{}
+\item 
+const char $\ast$ \textbf{ loaded} = \char`\"{}Settings loaded\char`\"{}
+\item 
+const char $\ast$ \textbf{ button\+Press} = \char`\"{}press a button\char`\"{}
+\item 
+const char $\ast$ \textbf{ to\+Continue} = \char`\"{}to continue\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Macro Definition Documentation}
+\mbox{\label{a00038_a8a7e8976331b80fcd3334af0e72182a8}} 
+\index{main.\+c@{main.\+c}!A\+L\+A\+R\+M\+\_\+\+D\+U\+R\+A\+T\+I\+ON@{A\+L\+A\+R\+M\+\_\+\+D\+U\+R\+A\+T\+I\+ON}}
+\index{A\+L\+A\+R\+M\+\_\+\+D\+U\+R\+A\+T\+I\+ON@{A\+L\+A\+R\+M\+\_\+\+D\+U\+R\+A\+T\+I\+ON}!main.\+c@{main.\+c}}
+\paragraph{A\+L\+A\+R\+M\+\_\+\+D\+U\+R\+A\+T\+I\+ON}
+{\footnotesize\ttfamily \#define A\+L\+A\+R\+M\+\_\+\+D\+U\+R\+A\+T\+I\+ON~0x07}
+
+\mbox{\label{a00038_afe20026ae95d143f6354cd1bb5b7a0a9}} 
+\index{main.\+c@{main.\+c}!B\+U\+T\+T\+O\+N\+\_\+\+M\+A\+SK@{B\+U\+T\+T\+O\+N\+\_\+\+M\+A\+SK}}
+\index{B\+U\+T\+T\+O\+N\+\_\+\+M\+A\+SK@{B\+U\+T\+T\+O\+N\+\_\+\+M\+A\+SK}!main.\+c@{main.\+c}}
+\paragraph{B\+U\+T\+T\+O\+N\+\_\+\+M\+A\+SK}
+{\footnotesize\ttfamily \#define B\+U\+T\+T\+O\+N\+\_\+\+M\+A\+SK~0x0F}
+
+\mbox{\label{a00038_a63bd9e0033206752a45cdfd5256e62be}} 
+\index{main.\+c@{main.\+c}!D\+A\+T\+A\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS@{D\+A\+T\+A\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS}}
+\index{D\+A\+T\+A\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS@{D\+A\+T\+A\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS}!main.\+c@{main.\+c}}
+\paragraph{D\+A\+T\+A\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS}
+{\footnotesize\ttfamily \#define D\+A\+T\+A\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS~0x01}
+
+\mbox{\label{a00038_adbe3bb367e6930598ea73b8396877afb}} 
+\index{main.\+c@{main.\+c}!D\+A\+T\+E\+\_\+\+D\+AY@{D\+A\+T\+E\+\_\+\+D\+AY}}
+\index{D\+A\+T\+E\+\_\+\+D\+AY@{D\+A\+T\+E\+\_\+\+D\+AY}!main.\+c@{main.\+c}}
+\paragraph{D\+A\+T\+E\+\_\+\+D\+AY}
+{\footnotesize\ttfamily \#define D\+A\+T\+E\+\_\+\+D\+AY~0x00}
+
+\mbox{\label{a00038_aa9bf87698cf999a86a8afa617e47409a}} 
+\index{main.\+c@{main.\+c}!D\+A\+T\+E\+\_\+\+H\+O\+U\+RS@{D\+A\+T\+E\+\_\+\+H\+O\+U\+RS}}
+\index{D\+A\+T\+E\+\_\+\+H\+O\+U\+RS@{D\+A\+T\+E\+\_\+\+H\+O\+U\+RS}!main.\+c@{main.\+c}}
+\paragraph{D\+A\+T\+E\+\_\+\+H\+O\+U\+RS}
+{\footnotesize\ttfamily \#define D\+A\+T\+E\+\_\+\+H\+O\+U\+RS~0x03}
+
+\mbox{\label{a00038_a9b389c85779098f706f2a0e4cba7db3a}} 
+\index{main.\+c@{main.\+c}!D\+A\+T\+E\+\_\+\+M\+I\+N\+U\+T\+ES@{D\+A\+T\+E\+\_\+\+M\+I\+N\+U\+T\+ES}}
+\index{D\+A\+T\+E\+\_\+\+M\+I\+N\+U\+T\+ES@{D\+A\+T\+E\+\_\+\+M\+I\+N\+U\+T\+ES}!main.\+c@{main.\+c}}
+\paragraph{D\+A\+T\+E\+\_\+\+M\+I\+N\+U\+T\+ES}
+{\footnotesize\ttfamily \#define D\+A\+T\+E\+\_\+\+M\+I\+N\+U\+T\+ES~0x04}
+
+\mbox{\label{a00038_a0b06ff76319527fc9af8eb302243f105}} 
+\index{main.\+c@{main.\+c}!D\+A\+T\+E\+\_\+\+M\+O\+N\+TH@{D\+A\+T\+E\+\_\+\+M\+O\+N\+TH}}
+\index{D\+A\+T\+E\+\_\+\+M\+O\+N\+TH@{D\+A\+T\+E\+\_\+\+M\+O\+N\+TH}!main.\+c@{main.\+c}}
+\paragraph{D\+A\+T\+E\+\_\+\+M\+O\+N\+TH}
+{\footnotesize\ttfamily \#define D\+A\+T\+E\+\_\+\+M\+O\+N\+TH~0x01}
+
+\mbox{\label{a00038_a4e2e6d9fa731abb0a1b71e0a47cb5f33}} 
+\index{main.\+c@{main.\+c}!D\+A\+T\+E\+\_\+\+S\+E\+C\+O\+N\+DS@{D\+A\+T\+E\+\_\+\+S\+E\+C\+O\+N\+DS}}
+\index{D\+A\+T\+E\+\_\+\+S\+E\+C\+O\+N\+DS@{D\+A\+T\+E\+\_\+\+S\+E\+C\+O\+N\+DS}!main.\+c@{main.\+c}}
+\paragraph{D\+A\+T\+E\+\_\+\+S\+E\+C\+O\+N\+DS}
+{\footnotesize\ttfamily \#define D\+A\+T\+E\+\_\+\+S\+E\+C\+O\+N\+DS~0x05}
+
+\mbox{\label{a00038_acc43f47686acda4986d467226614895a}} 
+\index{main.\+c@{main.\+c}!D\+A\+T\+E\+\_\+\+Y\+E\+AR@{D\+A\+T\+E\+\_\+\+Y\+E\+AR}}
+\index{D\+A\+T\+E\+\_\+\+Y\+E\+AR@{D\+A\+T\+E\+\_\+\+Y\+E\+AR}!main.\+c@{main.\+c}}
+\paragraph{D\+A\+T\+E\+\_\+\+Y\+E\+AR}
+{\footnotesize\ttfamily \#define D\+A\+T\+E\+\_\+\+Y\+E\+AR~0x02}
+
+\mbox{\label{a00038_ade546968e95e794ad3fcd2ac690de31a}} 
+\index{main.\+c@{main.\+c}!L\+O\+A\+D\+\_\+\+S\+E\+T\+T\+I\+N\+GS@{L\+O\+A\+D\+\_\+\+S\+E\+T\+T\+I\+N\+GS}}
+\index{L\+O\+A\+D\+\_\+\+S\+E\+T\+T\+I\+N\+GS@{L\+O\+A\+D\+\_\+\+S\+E\+T\+T\+I\+N\+GS}!main.\+c@{main.\+c}}
+\paragraph{L\+O\+A\+D\+\_\+\+S\+E\+T\+T\+I\+N\+GS}
+{\footnotesize\ttfamily \#define L\+O\+A\+D\+\_\+\+S\+E\+T\+T\+I\+N\+GS~0x02}
+
+\mbox{\label{a00038_a3b2babac205b2ac55c58e412be4642c8}} 
+\index{main.\+c@{main.\+c}!S\+A\+V\+E\+\_\+\+S\+E\+T\+T\+I\+N\+GS@{S\+A\+V\+E\+\_\+\+S\+E\+T\+T\+I\+N\+GS}}
+\index{S\+A\+V\+E\+\_\+\+S\+E\+T\+T\+I\+N\+GS@{S\+A\+V\+E\+\_\+\+S\+E\+T\+T\+I\+N\+GS}!main.\+c@{main.\+c}}
+\paragraph{S\+A\+V\+E\+\_\+\+S\+E\+T\+T\+I\+N\+GS}
+{\footnotesize\ttfamily \#define S\+A\+V\+E\+\_\+\+S\+E\+T\+T\+I\+N\+GS~0x01}
+
+\mbox{\label{a00038_a4fed4f01e2f70ef4693bb8310ab408f3}} 
+\index{main.\+c@{main.\+c}!S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+M\+A\+SK@{S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+M\+A\+SK}}
+\index{S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+M\+A\+SK@{S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+M\+A\+SK}!main.\+c@{main.\+c}}
+\paragraph{S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+M\+A\+SK}
+{\footnotesize\ttfamily \#define S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+M\+A\+SK~0x0F}
+
+\mbox{\label{a00038_a38634bdac1ab931af2c886e0a8f4efbd}} 
+\index{main.\+c@{main.\+c}!T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+E\+NS@{T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+E\+NS}}
+\index{T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+E\+NS@{T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+E\+NS}!main.\+c@{main.\+c}}
+\paragraph{T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+E\+NS}
+{\footnotesize\ttfamily \#define T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+E\+NS~0x08}
+
+\mbox{\label{a00038_aab08e4541eece765cfac7215045f96e2}} 
+\index{main.\+c@{main.\+c}!T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+U\+N\+I\+TS@{T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+U\+N\+I\+TS}}
+\index{T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+U\+N\+I\+TS@{T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+U\+N\+I\+TS}!main.\+c@{main.\+c}}
+\paragraph{T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+U\+N\+I\+TS}
+{\footnotesize\ttfamily \#define T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+U\+N\+I\+TS~0x09}
+
+\mbox{\label{a00038_ad4e4861b2280099658c2b1e097e6a2ab}} 
+\index{main.\+c@{main.\+c}!Z\+O\+N\+ES@{Z\+O\+N\+ES}}
+\index{Z\+O\+N\+ES@{Z\+O\+N\+ES}!main.\+c@{main.\+c}}
+\paragraph{Z\+O\+N\+ES}
+{\footnotesize\ttfamily \#define Z\+O\+N\+ES~0x06}
+
+
+
+\subsubsection{Typedef Documentation}
+\mbox{\label{a00038_a40dbf358613f79e8e25bbdf11ca430ad}} 
+\index{main.\+c@{main.\+c}!page\+\_\+ptr@{page\+\_\+ptr}}
+\index{page\+\_\+ptr@{page\+\_\+ptr}!main.\+c@{main.\+c}}
+\paragraph{page\+\_\+ptr}
+{\footnotesize\ttfamily typedef void($\ast$ page\+\_\+ptr) (void)}
+
+\mbox{\label{a00038_a003b40565e920dfcf369226a7d8d9e8c}} 
+\index{main.\+c@{main.\+c}!settings\+\_\+ptr@{settings\+\_\+ptr}}
+\index{settings\+\_\+ptr@{settings\+\_\+ptr}!main.\+c@{main.\+c}}
+\paragraph{settings\+\_\+ptr}
+{\footnotesize\ttfamily typedef void($\ast$ settings\+\_\+ptr) (void)}
+
+
+
+\subsubsection{Enumeration Type Documentation}
+\mbox{\label{a00038_a275a67132f10277ada3a0ee3d616b647}} 
+\index{main.\+c@{main.\+c}!S\+T\+A\+TE@{S\+T\+A\+TE}}
+\index{S\+T\+A\+TE@{S\+T\+A\+TE}!main.\+c@{main.\+c}}
+\paragraph{S\+T\+A\+TE}
+{\footnotesize\ttfamily enum \textbf{ S\+T\+A\+TE}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{W\+E\+L\+C\+O\+ME@{W\+E\+L\+C\+O\+ME}!main.\+c@{main.\+c}}\index{main.\+c@{main.\+c}!W\+E\+L\+C\+O\+ME@{W\+E\+L\+C\+O\+ME}}}\mbox{\label{a00038_a275a67132f10277ada3a0ee3d616b647abca60c4e61e4ab663aca230a716b15eb}} 
+W\+E\+L\+C\+O\+ME&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{H\+O\+ME@{H\+O\+ME}!main.\+c@{main.\+c}}\index{main.\+c@{main.\+c}!H\+O\+ME@{H\+O\+ME}}}\mbox{\label{a00038_a275a67132f10277ada3a0ee3d616b647a8f280224da64e98f2d52d50ec43bc197}} 
+H\+O\+ME&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{S\+E\+T\+T\+I\+N\+GS@{S\+E\+T\+T\+I\+N\+GS}!main.\+c@{main.\+c}}\index{main.\+c@{main.\+c}!S\+E\+T\+T\+I\+N\+GS@{S\+E\+T\+T\+I\+N\+GS}}}\mbox{\label{a00038_a275a67132f10277ada3a0ee3d616b647ac678338caea29d77d56be2ea56325610}} 
+S\+E\+T\+T\+I\+N\+GS&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\subsubsection{Function Documentation}
+\mbox{\label{a00038_a73a5d6747d4c527062fbf87125d2cd03}} 
+\index{main.\+c@{main.\+c}!\+\_\+\+\_\+\+E\+E\+P\+R\+O\+M\+\_\+\+D\+A\+TA@{\+\_\+\+\_\+\+E\+E\+P\+R\+O\+M\+\_\+\+D\+A\+TA}}
+\index{\+\_\+\+\_\+\+E\+E\+P\+R\+O\+M\+\_\+\+D\+A\+TA@{\+\_\+\+\_\+\+E\+E\+P\+R\+O\+M\+\_\+\+D\+A\+TA}!main.\+c@{main.\+c}}
+\paragraph{\+\_\+\+\_\+\+E\+E\+P\+R\+O\+M\+\_\+\+D\+A\+T\+A()}
+{\footnotesize\ttfamily \+\_\+\+\_\+\+E\+E\+P\+R\+O\+M\+\_\+\+D\+A\+TA (\begin{DoxyParamCaption}\item[{0x11}]{,  }\item[{0x22}]{,  }\item[{0x33}]{,  }\item[{0x44}]{,  }\item[{0x55}]{,  }\item[{0x66}]{,  }\item[{0x77}]{,  }\item[{0x88}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{a00038_af02de1a4f3739f457ed4aa92ccf71387}} 
+\index{main.\+c@{main.\+c}!alarm\+\_\+duration\+\_\+page@{alarm\+\_\+duration\+\_\+page}}
+\index{alarm\+\_\+duration\+\_\+page@{alarm\+\_\+duration\+\_\+page}!main.\+c@{main.\+c}}
+\paragraph{alarm\+\_\+duration\+\_\+page()}
+{\footnotesize\ttfamily void alarm\+\_\+duration\+\_\+page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\label{a00038_a8d5652ab83eb295668bc20a3ad293236}} 
+\index{main.\+c@{main.\+c}!home\+\_\+page@{home\+\_\+page}}
+\index{home\+\_\+page@{home\+\_\+page}!main.\+c@{main.\+c}}
+\paragraph{home\+\_\+page()}
+{\footnotesize\ttfamily void home\+\_\+page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00038_a8d5652ab83eb295668bc20a3ad293236_cgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00038_a457486e8b8211e75970f756106ebff2c}} 
+\index{main.\+c@{main.\+c}!load\+\_\+settings@{load\+\_\+settings}}
+\index{load\+\_\+settings@{load\+\_\+settings}!main.\+c@{main.\+c}}
+\paragraph{load\+\_\+settings()}
+{\footnotesize\ttfamily void load\+\_\+settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00038_a457486e8b8211e75970f756106ebff2c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=257pt]{a00038_a457486e8b8211e75970f756106ebff2c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00038_acdef7a1fd863a6d3770c1268cb06add3}} 
+\index{main.\+c@{main.\+c}!main@{main}}
+\index{main@{main}!main.\+c@{main.\+c}}
+\paragraph{main()}
+{\footnotesize\ttfamily void main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00038_acdef7a1fd863a6d3770c1268cb06add3_cgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00038_a88b0add1a6947e73e483af43e2203766}} 
+\index{main.\+c@{main.\+c}!main\+Init@{main\+Init}}
+\index{main\+Init@{main\+Init}!main.\+c@{main.\+c}}
+\paragraph{main\+Init()}
+{\footnotesize\ttfamily void main\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00038_a88b0add1a6947e73e483af43e2203766_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{a00038_a88b0add1a6947e73e483af43e2203766_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00038_a4ea9ddbddca3d537bf00dcbd508a6434}} 
+\index{main.\+c@{main.\+c}!save\+\_\+settings@{save\+\_\+settings}}
+\index{save\+\_\+settings@{save\+\_\+settings}!main.\+c@{main.\+c}}
+\paragraph{save\+\_\+settings()}
+{\footnotesize\ttfamily void save\+\_\+settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00038_a4ea9ddbddca3d537bf00dcbd508a6434_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{a00038_a4ea9ddbddca3d537bf00dcbd508a6434_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00038_af290e08d29e4fa8a86d020c45b6c7552}} 
+\index{main.\+c@{main.\+c}!settings\+\_\+page@{settings\+\_\+page}}
+\index{settings\+\_\+page@{settings\+\_\+page}!main.\+c@{main.\+c}}
+\paragraph{settings\+\_\+page()}
+{\footnotesize\ttfamily void settings\+\_\+page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00038_af290e08d29e4fa8a86d020c45b6c7552_cgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00038_a4b26f408a34637904178d99db3f715f7}} 
+\index{main.\+c@{main.\+c}!temp\+\_\+check@{temp\+\_\+check}}
+\index{temp\+\_\+check@{temp\+\_\+check}!main.\+c@{main.\+c}}
+\paragraph{temp\+\_\+check()}
+{\footnotesize\ttfamily void temp\+\_\+check (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00038_a4b26f408a34637904178d99db3f715f7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00038_a257b3d360a2b1086e490c28e03133cb9}} 
+\index{main.\+c@{main.\+c}!temp\+\_\+sensor\+\_\+page@{temp\+\_\+sensor\+\_\+page}}
+\index{temp\+\_\+sensor\+\_\+page@{temp\+\_\+sensor\+\_\+page}!main.\+c@{main.\+c}}
+\paragraph{temp\+\_\+sensor\+\_\+page()}
+{\footnotesize\ttfamily void temp\+\_\+sensor\+\_\+page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\label{a00038_a58a141413d55108017a06b4a4290b956}} 
+\index{main.\+c@{main.\+c}!update\+Variables@{update\+Variables}}
+\index{update\+Variables@{update\+Variables}!main.\+c@{main.\+c}}
+\paragraph{update\+Variables()}
+{\footnotesize\ttfamily void update\+Variables (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00038_a58a141413d55108017a06b4a4290b956_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{a00038_a58a141413d55108017a06b4a4290b956_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00038_a59a5b2f0e89c6de897d4bd5d10bc8142}} 
+\index{main.\+c@{main.\+c}!wait\+\_\+for\+\_\+button\+\_\+press@{wait\+\_\+for\+\_\+button\+\_\+press}}
+\index{wait\+\_\+for\+\_\+button\+\_\+press@{wait\+\_\+for\+\_\+button\+\_\+press}!main.\+c@{main.\+c}}
+\paragraph{wait\+\_\+for\+\_\+button\+\_\+press()}
+{\footnotesize\ttfamily void wait\+\_\+for\+\_\+button\+\_\+press (\begin{DoxyParamCaption}\item[{char $\ast$}]{message }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00038_a59a5b2f0e89c6de897d4bd5d10bc8142_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00038_a59a5b2f0e89c6de897d4bd5d10bc8142_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00038_a723001bc88b48bfcff69fbe437fd73f5}} 
+\index{main.\+c@{main.\+c}!welcome\+\_\+page@{welcome\+\_\+page}}
+\index{welcome\+\_\+page@{welcome\+\_\+page}!main.\+c@{main.\+c}}
+\paragraph{welcome\+\_\+page()}
+{\footnotesize\ttfamily void welcome\+\_\+page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00038_a723001bc88b48bfcff69fbe437fd73f5_cgraph}
+\end{center}
+\end{figure}
+
+
+\subsubsection{Variable Documentation}
+\mbox{\label{a00038_a0c777c89cc8b06ddc6c0176f2c31033f}} 
+\index{main.\+c@{main.\+c}!active\+Zones@{active\+Zones}}
+\index{active\+Zones@{active\+Zones}!main.\+c@{main.\+c}}
+\paragraph{active\+Zones}
+{\footnotesize\ttfamily bool active\+Zones[4]}
+
+\mbox{\label{a00038_a01c2a28170e998893c6428276cb87ae2}} 
+\index{main.\+c@{main.\+c}!alarm\+Duration@{alarm\+Duration}}
+\index{alarm\+Duration@{alarm\+Duration}!main.\+c@{main.\+c}}
+\paragraph{alarm\+Duration}
+{\footnotesize\ttfamily \textbf{ Date\+Time} alarm\+Duration}
+
+\mbox{\label{a00038_a26d7bf4341f1b2513d5b8d9744c60764}} 
+\index{main.\+c@{main.\+c}!button\+Press@{button\+Press}}
+\index{button\+Press@{button\+Press}!main.\+c@{main.\+c}}
+\paragraph{button\+Press}
+{\footnotesize\ttfamily const char$\ast$ button\+Press = \char`\"{}press a button\char`\"{}}
+
+\mbox{\label{a00038_ab073eeb8d5a2147ef91fab51d73ab4b2}} 
+\index{main.\+c@{main.\+c}!current\+\_\+alarm\+\_\+duration@{current\+\_\+alarm\+\_\+duration}}
+\index{current\+\_\+alarm\+\_\+duration@{current\+\_\+alarm\+\_\+duration}!main.\+c@{main.\+c}}
+\paragraph{current\+\_\+alarm\+\_\+duration}
+{\footnotesize\ttfamily int current\+\_\+alarm\+\_\+duration}
+
+\mbox{\label{a00038_a175d1d31145856e5ca293a3a7c2795ee}} 
+\index{main.\+c@{main.\+c}!current\+State@{current\+State}}
+\index{current\+State@{current\+State}!main.\+c@{main.\+c}}
+\paragraph{current\+State}
+{\footnotesize\ttfamily \textbf{ S\+T\+A\+TE} current\+State}
+
+\mbox{\label{a00038_a040c589558f4195d2ba58a9f297cb3eb}} 
+\index{main.\+c@{main.\+c}!loaded@{loaded}}
+\index{loaded@{loaded}!main.\+c@{main.\+c}}
+\paragraph{loaded}
+{\footnotesize\ttfamily const char$\ast$ loaded = \char`\"{}Settings loaded\char`\"{}}
+
+\mbox{\label{a00038_a618c9ac6927b7a3dbfafc45840c0bbba}} 
+\index{main.\+c@{main.\+c}!old\+Match@{old\+Match}}
+\index{old\+Match@{old\+Match}!main.\+c@{main.\+c}}
+\paragraph{old\+Match}
+{\footnotesize\ttfamily int old\+Match = 10}
+
+\mbox{\label{a00038_a210daff3ebb00fce7bbc352084aefd18}} 
+\index{main.\+c@{main.\+c}!pages@{pages}}
+\index{pages@{pages}!main.\+c@{main.\+c}}
+\paragraph{pages}
+{\footnotesize\ttfamily \textbf{ page\+\_\+ptr} pages[3]}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+                     welcome_page,
+                     home_page, settings_page
+\}
+\end{DoxyCode}
+\mbox{\label{a00038_af60039f6b7db05855c68ac3cf44ecec1}} 
+\index{main.\+c@{main.\+c}!previous\+\_\+temp@{previous\+\_\+temp}}
+\index{previous\+\_\+temp@{previous\+\_\+temp}!main.\+c@{main.\+c}}
+\paragraph{previous\+\_\+temp}
+{\footnotesize\ttfamily char previous\+\_\+temp[8]}
+
+\mbox{\label{a00038_af3ff9fb0595b9a1d25efd15d5692ad5a}} 
+\index{main.\+c@{main.\+c}!saved@{saved}}
+\index{saved@{saved}!main.\+c@{main.\+c}}
+\paragraph{saved}
+{\footnotesize\ttfamily const char$\ast$ saved = \char`\"{}Settings saved\char`\"{}}
+
+\mbox{\label{a00038_a0df696e97fa7851678660922afea1a0b}} 
+\index{main.\+c@{main.\+c}!settings@{settings}}
+\index{settings@{settings}!main.\+c@{main.\+c}}
+\paragraph{settings}
+{\footnotesize\ttfamily \textbf{ settings\+\_\+ptr} settings[4]}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+                            Date_time_setting_loop,
+                            ZoneLoop, tempThreshLoop,
+                            alarm_duration_settings_page
+\}
+\end{DoxyCode}
+\mbox{\label{a00038_addfbe952b825ea116a2e601f08703759}} 
+\index{main.\+c@{main.\+c}!temp\+\_\+\+L\+HS@{temp\+\_\+\+L\+HS}}
+\index{temp\+\_\+\+L\+HS@{temp\+\_\+\+L\+HS}!main.\+c@{main.\+c}}
+\paragraph{temp\+\_\+\+L\+HS}
+{\footnotesize\ttfamily int temp\+\_\+\+L\+HS}
+
+\mbox{\label{a00038_ad703226793daed4d0a856d5e2c9ebfee}} 
+\index{main.\+c@{main.\+c}!temp\+\_\+\+R\+HS@{temp\+\_\+\+R\+HS}}
+\index{temp\+\_\+\+R\+HS@{temp\+\_\+\+R\+HS}!main.\+c@{main.\+c}}
+\paragraph{temp\+\_\+\+R\+HS}
+{\footnotesize\ttfamily int temp\+\_\+\+R\+HS}
+
+\mbox{\label{a00038_a220174992ee28a3acbed1ddf9c887ddd}} 
+\index{main.\+c@{main.\+c}!temperature@{temperature}}
+\index{temperature@{temperature}!main.\+c@{main.\+c}}
+\paragraph{temperature}
+{\footnotesize\ttfamily char temperature[8]}
+
+\mbox{\label{a00038_ac27797d8a2dc3cbb89f4c80502b4d0b2}} 
+\index{main.\+c@{main.\+c}!temperature\+Alarm@{temperature\+Alarm}}
+\index{temperature\+Alarm@{temperature\+Alarm}!main.\+c@{main.\+c}}
+\paragraph{temperature\+Alarm}
+{\footnotesize\ttfamily bool temperature\+Alarm}
+
+\mbox{\label{a00038_adc70276b5fdc17a08b73d4b81bd71990}} 
+\index{main.\+c@{main.\+c}!threshold@{threshold}}
+\index{threshold@{threshold}!main.\+c@{main.\+c}}
+\paragraph{threshold}
+{\footnotesize\ttfamily char threshold[7]}
+
+\mbox{\label{a00038_aa3414c4147d0a1cf8f2c58d3a0c5a4d6}} 
+\index{main.\+c@{main.\+c}!threshold\+\_\+temp\+\_\+\+L\+HS@{threshold\+\_\+temp\+\_\+\+L\+HS}}
+\index{threshold\+\_\+temp\+\_\+\+L\+HS@{threshold\+\_\+temp\+\_\+\+L\+HS}!main.\+c@{main.\+c}}
+\paragraph{threshold\+\_\+temp\+\_\+\+L\+HS}
+{\footnotesize\ttfamily int threshold\+\_\+temp\+\_\+\+L\+HS}
+
+\mbox{\label{a00038_a338067300132c1c55cde90a9d1f15521}} 
+\index{main.\+c@{main.\+c}!threshold\+\_\+temp\+\_\+\+R\+HS@{threshold\+\_\+temp\+\_\+\+R\+HS}}
+\index{threshold\+\_\+temp\+\_\+\+R\+HS@{threshold\+\_\+temp\+\_\+\+R\+HS}!main.\+c@{main.\+c}}
+\paragraph{threshold\+\_\+temp\+\_\+\+R\+HS}
+{\footnotesize\ttfamily int threshold\+\_\+temp\+\_\+\+R\+HS}
+
+\mbox{\label{a00038_a886a2720ee78fd694194bd09772ada43}} 
+\index{main.\+c@{main.\+c}!to\+Continue@{to\+Continue}}
+\index{to\+Continue@{to\+Continue}!main.\+c@{main.\+c}}
+\paragraph{to\+Continue}
+{\footnotesize\ttfamily const char$\ast$ to\+Continue = \char`\"{}to continue\char`\"{}}
+

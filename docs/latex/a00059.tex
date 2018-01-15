@@ -1,0 +1,201 @@
+\subsection{zones.\+c File Reference}
+\label{a00059}\index{zones.\+c@{zones.\+c}}
+{\ttfamily \#include \char`\"{}Commonheader.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}zones.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}buzzer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lcd.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}clock.\+h\char`\"{}}\newline
+Include dependency graph for zones.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{a00060}
+\end{center}
+\end{figure}
+\subsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ Z\+O\+N\+E0}~0x01
+\item 
+\#define \textbf{ Z\+O\+N\+E1}~0x02
+\item 
+\#define \textbf{ Z\+O\+N\+E2}~0x04
+\item 
+\#define \textbf{ Z\+O\+N\+E3}~0x08
+\item 
+\#define \textbf{ E\+X\+I\+T\+\_\+\+M\+A\+SK}~0x1
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ Set\+Zone} (int zone)
+\item 
+void \textbf{ Zone\+Init} ()
+\item 
+void \textbf{ Zone\+Check} ()
+\item 
+void \textbf{ Display\+\_\+\+Zones} ()
+\item 
+void \textbf{ Zone\+Loop} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+bool \textbf{ temperature\+Alarm}
+\item 
+bool \textbf{ active\+Zones} [4]
+\item 
+bool \textbf{ sounded} = false
+\item 
+int \textbf{ current\+\_\+alarm\+\_\+duration}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Macro Definition Documentation}
+\mbox{\label{a00059_aba22d804907583c6c89f8f1e4cfbaa2d}} 
+\index{zones.\+c@{zones.\+c}!E\+X\+I\+T\+\_\+\+M\+A\+SK@{E\+X\+I\+T\+\_\+\+M\+A\+SK}}
+\index{E\+X\+I\+T\+\_\+\+M\+A\+SK@{E\+X\+I\+T\+\_\+\+M\+A\+SK}!zones.\+c@{zones.\+c}}
+\paragraph{E\+X\+I\+T\+\_\+\+M\+A\+SK}
+{\footnotesize\ttfamily \#define E\+X\+I\+T\+\_\+\+M\+A\+SK~0x1}
+
+\mbox{\label{a00059_a06c04947834ee242f5e178b30c8f0643}} 
+\index{zones.\+c@{zones.\+c}!Z\+O\+N\+E0@{Z\+O\+N\+E0}}
+\index{Z\+O\+N\+E0@{Z\+O\+N\+E0}!zones.\+c@{zones.\+c}}
+\paragraph{Z\+O\+N\+E0}
+{\footnotesize\ttfamily \#define Z\+O\+N\+E0~0x01}
+
+\mbox{\label{a00059_afefcabfb130a243e06dbea99ffbfe4f5}} 
+\index{zones.\+c@{zones.\+c}!Z\+O\+N\+E1@{Z\+O\+N\+E1}}
+\index{Z\+O\+N\+E1@{Z\+O\+N\+E1}!zones.\+c@{zones.\+c}}
+\paragraph{Z\+O\+N\+E1}
+{\footnotesize\ttfamily \#define Z\+O\+N\+E1~0x02}
+
+\mbox{\label{a00059_aa74139205f47c6fc3fa32a099e63a379}} 
+\index{zones.\+c@{zones.\+c}!Z\+O\+N\+E2@{Z\+O\+N\+E2}}
+\index{Z\+O\+N\+E2@{Z\+O\+N\+E2}!zones.\+c@{zones.\+c}}
+\paragraph{Z\+O\+N\+E2}
+{\footnotesize\ttfamily \#define Z\+O\+N\+E2~0x04}
+
+\mbox{\label{a00059_a471cb0bbd2e54887e741302774e67f45}} 
+\index{zones.\+c@{zones.\+c}!Z\+O\+N\+E3@{Z\+O\+N\+E3}}
+\index{Z\+O\+N\+E3@{Z\+O\+N\+E3}!zones.\+c@{zones.\+c}}
+\paragraph{Z\+O\+N\+E3}
+{\footnotesize\ttfamily \#define Z\+O\+N\+E3~0x08}
+
+
+
+\subsubsection{Function Documentation}
+\mbox{\label{a00059_a444b4ddad4c861dcfe350158ffe5d854}} 
+\index{zones.\+c@{zones.\+c}!Display\+\_\+\+Zones@{Display\+\_\+\+Zones}}
+\index{Display\+\_\+\+Zones@{Display\+\_\+\+Zones}!zones.\+c@{zones.\+c}}
+\paragraph{Display\+\_\+\+Zones()}
+{\footnotesize\ttfamily void Display\+\_\+\+Zones (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00059_a444b4ddad4c861dcfe350158ffe5d854_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=255pt]{a00059_a444b4ddad4c861dcfe350158ffe5d854_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00059_aac9584e7c43e5e7dfe6f740d2e52a545}} 
+\index{zones.\+c@{zones.\+c}!Set\+Zone@{Set\+Zone}}
+\index{Set\+Zone@{Set\+Zone}!zones.\+c@{zones.\+c}}
+\paragraph{Set\+Zone()}
+{\footnotesize\ttfamily void Set\+Zone (\begin{DoxyParamCaption}\item[{int}]{zone }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{a00059_aac9584e7c43e5e7dfe6f740d2e52a545_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00059_aefe3a1f3ce1ce2aef86b493a3331bf2e}} 
+\index{zones.\+c@{zones.\+c}!Zone\+Check@{Zone\+Check}}
+\index{Zone\+Check@{Zone\+Check}!zones.\+c@{zones.\+c}}
+\paragraph{Zone\+Check()}
+{\footnotesize\ttfamily void Zone\+Check (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00059_aefe3a1f3ce1ce2aef86b493a3331bf2e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00059_aefe3a1f3ce1ce2aef86b493a3331bf2e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00059_aad1cb50e4ddc412138066d4c3b4d9529}} 
+\index{zones.\+c@{zones.\+c}!Zone\+Init@{Zone\+Init}}
+\index{Zone\+Init@{Zone\+Init}!zones.\+c@{zones.\+c}}
+\paragraph{Zone\+Init()}
+{\footnotesize\ttfamily void Zone\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{a00059_aad1cb50e4ddc412138066d4c3b4d9529_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00059_abccb53860a5e66a86e77b648e47cc4c4}} 
+\index{zones.\+c@{zones.\+c}!Zone\+Loop@{Zone\+Loop}}
+\index{Zone\+Loop@{Zone\+Loop}!zones.\+c@{zones.\+c}}
+\paragraph{Zone\+Loop()}
+{\footnotesize\ttfamily void Zone\+Loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00059_abccb53860a5e66a86e77b648e47cc4c4_cgraph}
+\end{center}
+\end{figure}
+
+
+\subsubsection{Variable Documentation}
+\mbox{\label{a00059_a0c777c89cc8b06ddc6c0176f2c31033f}} 
+\index{zones.\+c@{zones.\+c}!active\+Zones@{active\+Zones}}
+\index{active\+Zones@{active\+Zones}!zones.\+c@{zones.\+c}}
+\paragraph{active\+Zones}
+{\footnotesize\ttfamily bool active\+Zones[4]}
+
+\mbox{\label{a00059_ab073eeb8d5a2147ef91fab51d73ab4b2}} 
+\index{zones.\+c@{zones.\+c}!current\+\_\+alarm\+\_\+duration@{current\+\_\+alarm\+\_\+duration}}
+\index{current\+\_\+alarm\+\_\+duration@{current\+\_\+alarm\+\_\+duration}!zones.\+c@{zones.\+c}}
+\paragraph{current\+\_\+alarm\+\_\+duration}
+{\footnotesize\ttfamily int current\+\_\+alarm\+\_\+duration}
+
+\mbox{\label{a00059_a81b4554cff497d82df27f90e08edb01f}} 
+\index{zones.\+c@{zones.\+c}!sounded@{sounded}}
+\index{sounded@{sounded}!zones.\+c@{zones.\+c}}
+\paragraph{sounded}
+{\footnotesize\ttfamily bool sounded = false}
+
+\mbox{\label{a00059_ac27797d8a2dc3cbb89f4c80502b4d0b2}} 
+\index{zones.\+c@{zones.\+c}!temperature\+Alarm@{temperature\+Alarm}}
+\index{temperature\+Alarm@{temperature\+Alarm}!zones.\+c@{zones.\+c}}
+\paragraph{temperature\+Alarm}
+{\footnotesize\ttfamily bool temperature\+Alarm}
+

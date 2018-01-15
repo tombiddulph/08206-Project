@@ -1,0 +1,378 @@
+\subsection{date\+\_\+setting.\+c File Reference}
+\label{a00026}\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+{\ttfamily \#include \char`\"{}date\+\_\+setting.\+h\char`\"{}}\newline
+Include dependency graph for date\+\_\+setting.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{a00027}
+\end{center}
+\end{figure}
+\subsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ D\+A\+T\+E\+\_\+\+O\+F\+F\+S\+ET}~0
+\item 
+\#define \textbf{ T\+I\+M\+E\+\_\+\+O\+F\+F\+S\+ET}~2
+\item 
+\#define \textbf{ L\+E\+F\+T\+\_\+\+B\+U\+T\+T\+O\+NS}~P\+O\+R\+TE
+\item 
+\#define \textbf{ R\+I\+G\+H\+T\+\_\+\+B\+U\+T\+T\+O\+NS}~P\+O\+R\+TB
+\item 
+\#define \textbf{ D\+AY}~0
+\item 
+\#define \textbf{ M\+O\+N\+TH}~1
+\item 
+\#define \textbf{ Y\+E\+AR}~2
+\item 
+\#define \textbf{ H\+O\+UR}~3
+\item 
+\#define \textbf{ M\+I\+N\+U\+TE}~4
+\item 
+\#define \textbf{ S\+E\+C\+O\+ND}~5
+\end{DoxyCompactItemize}
+\subsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ \textbf{ display\+\_\+function}) (\textbf{ Date\+Time} \textbf{ date}, int line\+No)
+\end{DoxyCompactItemize}
+\subsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \textbf{ Date\+Time\+Setting\+State} \{ \textbf{ D\+A\+TE}, 
+\textbf{ T\+I\+ME}, 
+\textbf{ O\+V\+E\+R\+V\+I\+EW}
+ \}
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ set\+\_\+leap\+\_\+year\+\_\+status} ()
+\item 
+void \textbf{ Init} ()
+\item 
+void \textbf{ Right\+\_\+buttons} ()
+\item 
+void \textbf{ Date\+\_\+time\+\_\+setting\+\_\+loop} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Date\+Time\+Setting\+State} \textbf{ current\+D\+Tstate}
+\item 
+\textbf{ display\+\_\+function} \textbf{ write\+\_\+functions} [2] = \{\textbf{ Write\+\_\+\+Date\+\_\+\+Settings}, \textbf{ Write\+\_\+\+Time\+\_\+\+Settings}\}
+\item 
+bool \textbf{ quit}
+\item 
+bool \textbf{ date\+\_\+changed}
+\item 
+bool \textbf{ line\+\_\+changed}
+\item 
+bool \textbf{ new\+\_\+date\+\_\+time\+\_\+set}
+\item 
+bool \textbf{ leap\+\_\+set}
+\item 
+bool \textbf{ month\+\_\+changed}
+\item 
+int \textbf{ count} = 0
+\item 
+int \textbf{ line} = 0
+\item 
+int \textbf{ cursor\+\_\+position} = 0x48
+\item 
+\textbf{ Date\+Time} \textbf{ new\+Date}
+\item 
+int \textbf{ days\+\_\+per\+\_\+month} [12] = \{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31\}
+\item 
+char \textbf{ title} [15]
+\item 
+unsigned char \textbf{ command}
+\item 
+unsigned char \textbf{ sec}
+\item 
+char \textbf{ date} [6]
+\item 
+int \textbf{ year}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Macro Definition Documentation}
+\mbox{\label{a00026_a4902403b9625ad0ff39668861e9d0b8e}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!D\+A\+T\+E\+\_\+\+O\+F\+F\+S\+ET@{D\+A\+T\+E\+\_\+\+O\+F\+F\+S\+ET}}
+\index{D\+A\+T\+E\+\_\+\+O\+F\+F\+S\+ET@{D\+A\+T\+E\+\_\+\+O\+F\+F\+S\+ET}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{D\+A\+T\+E\+\_\+\+O\+F\+F\+S\+ET}
+{\footnotesize\ttfamily \#define D\+A\+T\+E\+\_\+\+O\+F\+F\+S\+ET~0}
+
+\mbox{\label{a00026_a509a01c55cbe47386fe24602b7c7fda1}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!D\+AY@{D\+AY}}
+\index{D\+AY@{D\+AY}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{D\+AY}
+{\footnotesize\ttfamily \#define D\+AY~0}
+
+\mbox{\label{a00026_a4698ae12cf6a8acb5886fffd0ec897e6}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!H\+O\+UR@{H\+O\+UR}}
+\index{H\+O\+UR@{H\+O\+UR}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{H\+O\+UR}
+{\footnotesize\ttfamily \#define H\+O\+UR~3}
+
+\mbox{\label{a00026_a9b885de9f143efd0c862ceb054256536}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!L\+E\+F\+T\+\_\+\+B\+U\+T\+T\+O\+NS@{L\+E\+F\+T\+\_\+\+B\+U\+T\+T\+O\+NS}}
+\index{L\+E\+F\+T\+\_\+\+B\+U\+T\+T\+O\+NS@{L\+E\+F\+T\+\_\+\+B\+U\+T\+T\+O\+NS}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{L\+E\+F\+T\+\_\+\+B\+U\+T\+T\+O\+NS}
+{\footnotesize\ttfamily \#define L\+E\+F\+T\+\_\+\+B\+U\+T\+T\+O\+NS~P\+O\+R\+TE}
+
+\mbox{\label{a00026_ac1454fa04f41c693f39425697a137d82}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!M\+I\+N\+U\+TE@{M\+I\+N\+U\+TE}}
+\index{M\+I\+N\+U\+TE@{M\+I\+N\+U\+TE}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{M\+I\+N\+U\+TE}
+{\footnotesize\ttfamily \#define M\+I\+N\+U\+TE~4}
+
+\mbox{\label{a00026_a3729d06495d9713592f79f3122c9e677}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!M\+O\+N\+TH@{M\+O\+N\+TH}}
+\index{M\+O\+N\+TH@{M\+O\+N\+TH}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{M\+O\+N\+TH}
+{\footnotesize\ttfamily \#define M\+O\+N\+TH~1}
+
+\mbox{\label{a00026_a68881b6085c880930037b20764fe5aee}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!R\+I\+G\+H\+T\+\_\+\+B\+U\+T\+T\+O\+NS@{R\+I\+G\+H\+T\+\_\+\+B\+U\+T\+T\+O\+NS}}
+\index{R\+I\+G\+H\+T\+\_\+\+B\+U\+T\+T\+O\+NS@{R\+I\+G\+H\+T\+\_\+\+B\+U\+T\+T\+O\+NS}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{R\+I\+G\+H\+T\+\_\+\+B\+U\+T\+T\+O\+NS}
+{\footnotesize\ttfamily \#define R\+I\+G\+H\+T\+\_\+\+B\+U\+T\+T\+O\+NS~P\+O\+R\+TB}
+
+\mbox{\label{a00026_a94212be2394d2d37d9dfd33d07d82dba}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!S\+E\+C\+O\+ND@{S\+E\+C\+O\+ND}}
+\index{S\+E\+C\+O\+ND@{S\+E\+C\+O\+ND}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{S\+E\+C\+O\+ND}
+{\footnotesize\ttfamily \#define S\+E\+C\+O\+ND~5}
+
+\mbox{\label{a00026_af575bc8343fa3a770ab179a56be676da}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!T\+I\+M\+E\+\_\+\+O\+F\+F\+S\+ET@{T\+I\+M\+E\+\_\+\+O\+F\+F\+S\+ET}}
+\index{T\+I\+M\+E\+\_\+\+O\+F\+F\+S\+ET@{T\+I\+M\+E\+\_\+\+O\+F\+F\+S\+ET}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{T\+I\+M\+E\+\_\+\+O\+F\+F\+S\+ET}
+{\footnotesize\ttfamily \#define T\+I\+M\+E\+\_\+\+O\+F\+F\+S\+ET~2}
+
+\mbox{\label{a00026_a5871356500f559add06ea81d60331b1b}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!Y\+E\+AR@{Y\+E\+AR}}
+\index{Y\+E\+AR@{Y\+E\+AR}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{Y\+E\+AR}
+{\footnotesize\ttfamily \#define Y\+E\+AR~2}
+
+
+
+\subsubsection{Typedef Documentation}
+\mbox{\label{a00026_a6ebd6f799e81d74b1234de4b4512a53b}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!display\+\_\+function@{display\+\_\+function}}
+\index{display\+\_\+function@{display\+\_\+function}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{display\+\_\+function}
+{\footnotesize\ttfamily typedef void($\ast$ display\+\_\+function) (\textbf{ Date\+Time} \textbf{ date}, int line\+No)}
+
+
+
+\subsubsection{Enumeration Type Documentation}
+\mbox{\label{a00026_ac5dae8cd38301984200b2b9615bb3fe5}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!Date\+Time\+Setting\+State@{Date\+Time\+Setting\+State}}
+\index{Date\+Time\+Setting\+State@{Date\+Time\+Setting\+State}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{Date\+Time\+Setting\+State}
+{\footnotesize\ttfamily enum \textbf{ Date\+Time\+Setting\+State}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D\+A\+TE@{D\+A\+TE}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!D\+A\+TE@{D\+A\+TE}}}\mbox{\label{a00026_ac5dae8cd38301984200b2b9615bb3fe5a0ace72efd9e987dfd807365d0ca50141}} 
+D\+A\+TE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+I\+ME@{T\+I\+ME}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!T\+I\+ME@{T\+I\+ME}}}\mbox{\label{a00026_ac5dae8cd38301984200b2b9615bb3fe5ae9e4c627760f36823cdd153c24229157}} 
+T\+I\+ME&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{O\+V\+E\+R\+V\+I\+EW@{O\+V\+E\+R\+V\+I\+EW}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!O\+V\+E\+R\+V\+I\+EW@{O\+V\+E\+R\+V\+I\+EW}}}\mbox{\label{a00026_ac5dae8cd38301984200b2b9615bb3fe5ab1eb7a6917170ab35f0a2b74982419fc}} 
+O\+V\+E\+R\+V\+I\+EW&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\subsubsection{Function Documentation}
+\mbox{\label{a00026_a9dc57df410d5474edcc75f449aa0b960}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!Date\+\_\+time\+\_\+setting\+\_\+loop@{Date\+\_\+time\+\_\+setting\+\_\+loop}}
+\index{Date\+\_\+time\+\_\+setting\+\_\+loop@{Date\+\_\+time\+\_\+setting\+\_\+loop}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{Date\+\_\+time\+\_\+setting\+\_\+loop()}
+{\footnotesize\ttfamily void Date\+\_\+time\+\_\+setting\+\_\+loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00026_a9dc57df410d5474edcc75f449aa0b960_cgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00026_a1e3b6d38df0786ccf7f938d60e386aae}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!Init@{Init}}
+\index{Init@{Init}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{Init()}
+{\footnotesize\ttfamily void Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00026_a1e3b6d38df0786ccf7f938d60e386aae_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{a00026_a1e3b6d38df0786ccf7f938d60e386aae_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00026_a5c01f8b6feb96baa4580a82f5c32c16e}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!Right\+\_\+buttons@{Right\+\_\+buttons}}
+\index{Right\+\_\+buttons@{Right\+\_\+buttons}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{Right\+\_\+buttons()}
+{\footnotesize\ttfamily void Right\+\_\+buttons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00026_a5c01f8b6feb96baa4580a82f5c32c16e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{a00026_a5c01f8b6feb96baa4580a82f5c32c16e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00026_a80accba9dc1e620801d10506e76cc182}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!set\+\_\+leap\+\_\+year\+\_\+status@{set\+\_\+leap\+\_\+year\+\_\+status}}
+\index{set\+\_\+leap\+\_\+year\+\_\+status@{set\+\_\+leap\+\_\+year\+\_\+status}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{set\+\_\+leap\+\_\+year\+\_\+status()}
+{\footnotesize\ttfamily void set\+\_\+leap\+\_\+year\+\_\+status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00026_a80accba9dc1e620801d10506e76cc182_icgraph}
+\end{center}
+\end{figure}
+
+
+\subsubsection{Variable Documentation}
+\mbox{\label{a00026_af48e0311746bc01574a90f142220e748}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!command@{command}}
+\index{command@{command}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{command}
+{\footnotesize\ttfamily unsigned char command}
+
+\mbox{\label{a00026_ad43c3812e6d13e0518d9f8b8f463ffcf}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!count@{count}}
+\index{count@{count}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{count}
+{\footnotesize\ttfamily int count = 0}
+
+\mbox{\label{a00026_a899a684add4db998aa529959af740007}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!current\+D\+Tstate@{current\+D\+Tstate}}
+\index{current\+D\+Tstate@{current\+D\+Tstate}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{current\+D\+Tstate}
+{\footnotesize\ttfamily \textbf{ Date\+Time\+Setting\+State} current\+D\+Tstate}
+
+\mbox{\label{a00026_a17f53343d2421cadaf0b28c0104336e8}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!cursor\+\_\+position@{cursor\+\_\+position}}
+\index{cursor\+\_\+position@{cursor\+\_\+position}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{cursor\+\_\+position}
+{\footnotesize\ttfamily int cursor\+\_\+position = 0x48}
+
+\mbox{\label{a00026_a98898ca641561a1509b6480f2fcc9c82}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!date@{date}}
+\index{date@{date}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{date}
+{\footnotesize\ttfamily char date[6]}
+
+\mbox{\label{a00026_a4dc6154106ef9553df408d112969b9f4}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!date\+\_\+changed@{date\+\_\+changed}}
+\index{date\+\_\+changed@{date\+\_\+changed}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{date\+\_\+changed}
+{\footnotesize\ttfamily bool date\+\_\+changed}
+
+\mbox{\label{a00026_a8c53114ab82deb8bcca25a381fbf7e9b}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!days\+\_\+per\+\_\+month@{days\+\_\+per\+\_\+month}}
+\index{days\+\_\+per\+\_\+month@{days\+\_\+per\+\_\+month}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{days\+\_\+per\+\_\+month}
+{\footnotesize\ttfamily int days\+\_\+per\+\_\+month[12] = \{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31\}}
+
+\mbox{\label{a00026_adfe0e9b4d1175932944c5fc800377419}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!leap\+\_\+set@{leap\+\_\+set}}
+\index{leap\+\_\+set@{leap\+\_\+set}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{leap\+\_\+set}
+{\footnotesize\ttfamily bool leap\+\_\+set}
+
+\mbox{\label{a00026_a41ebd28ef1d7c6ade45642cb6acc1039}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!line@{line}}
+\index{line@{line}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{line}
+{\footnotesize\ttfamily int line = 0}
+
+\mbox{\label{a00026_a11a26f776c1e8c7605638a93f4dec200}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!line\+\_\+changed@{line\+\_\+changed}}
+\index{line\+\_\+changed@{line\+\_\+changed}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{line\+\_\+changed}
+{\footnotesize\ttfamily bool line\+\_\+changed}
+
+\mbox{\label{a00026_abc2d6e8e724cf2c25aaa1789327ecc0c}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!month\+\_\+changed@{month\+\_\+changed}}
+\index{month\+\_\+changed@{month\+\_\+changed}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{month\+\_\+changed}
+{\footnotesize\ttfamily bool month\+\_\+changed}
+
+\mbox{\label{a00026_a0a4bbaa8cfcf5920f0efe5e92edc12f3}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!new\+\_\+date\+\_\+time\+\_\+set@{new\+\_\+date\+\_\+time\+\_\+set}}
+\index{new\+\_\+date\+\_\+time\+\_\+set@{new\+\_\+date\+\_\+time\+\_\+set}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{new\+\_\+date\+\_\+time\+\_\+set}
+{\footnotesize\ttfamily bool new\+\_\+date\+\_\+time\+\_\+set}
+
+\mbox{\label{a00026_a7347602b0c550e0bdbdc1849ba27a4e6}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!new\+Date@{new\+Date}}
+\index{new\+Date@{new\+Date}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{new\+Date}
+{\footnotesize\ttfamily \textbf{ Date\+Time} new\+Date}
+
+\mbox{\label{a00026_ac746fa6ad48d19984a159f14bec028a3}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!quit@{quit}}
+\index{quit@{quit}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{quit}
+{\footnotesize\ttfamily bool quit}
+
+\mbox{\label{a00026_a82015813ad639914dc140eb7eb2dd475}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!sec@{sec}}
+\index{sec@{sec}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{sec}
+{\footnotesize\ttfamily unsigned char sec}
+
+\mbox{\label{a00026_ae665ec9af6296a68ed82b95cd2663926}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!title@{title}}
+\index{title@{title}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{title}
+{\footnotesize\ttfamily char title[15]}
+
+\mbox{\label{a00026_a1bab8b194f5a78d4d8b6e01a4e8d8d32}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!write\+\_\+functions@{write\+\_\+functions}}
+\index{write\+\_\+functions@{write\+\_\+functions}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{write\+\_\+functions}
+{\footnotesize\ttfamily \textbf{ display\+\_\+function} write\+\_\+functions[2] = \{\textbf{ Write\+\_\+\+Date\+\_\+\+Settings}, \textbf{ Write\+\_\+\+Time\+\_\+\+Settings}\}}
+
+\mbox{\label{a00026_abeac221e38b7b9ce7df8722c842bf671}} 
+\index{date\+\_\+setting.\+c@{date\+\_\+setting.\+c}!year@{year}}
+\index{year@{year}!date\+\_\+setting.\+c@{date\+\_\+setting.\+c}}
+\paragraph{year}
+{\footnotesize\ttfamily int year}
+

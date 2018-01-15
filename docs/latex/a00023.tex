@@ -1,0 +1,325 @@
+\subsection{Commonheader.\+h File Reference}
+\label{a00023}\index{Commonheader.\+h@{Commonheader.\+h}}
+{\ttfamily \#include $<$xc.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for Commonheader.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{a00024}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00025}
+\end{center}
+\end{figure}
+\subsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \textbf{ Date\+Time}
+\end{DoxyCompactItemize}
+\subsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ Pin}(n)~(1 $<$$<$ n)
+\item 
+\#define \textbf{ B\+U\+T\+T\+O\+N\+\_\+\+M\+A\+SK}~0x0F
+\item 
+\#define \textbf{ I\+N\+C\+R\+E\+M\+E\+NT}~0x01
+\item 
+\#define \textbf{ D\+E\+C\+R\+E\+M\+E\+NT}~0x02
+\item 
+\#define \textbf{ M\+O\+V\+E\+\_\+\+R\+I\+G\+HT}~0x04
+\item 
+\#define \textbf{ M\+O\+V\+E\+\_\+\+L\+E\+FT}~0x08
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ Button\+Check} (void)
+\item 
+void \textbf{ Button\+Init} (void)
+\item 
+void \textbf{ update\+Variables} (void)
+\item 
+void \textbf{ Delay\+\_\+loop} (unsigned long j)
+\item 
+unsigned char \textbf{ convert\+\_\+from\+\_\+bit\+\_\+pos} (unsigned char bit\+Pos)
+\item 
+unsigned char \textbf{ convert\+\_\+to\+\_\+bit\+\_\+pos} (unsigned char pin\+Num)
+\item 
+bool \textbf{ single\+\_\+key\+\_\+pressed} (char byte\+Val)
+\item 
+void \textbf{ Clear\+Buttons} (void)
+\item 
+unsigned char \textbf{ convert\+\_\+bcd\+\_\+to\+\_\+dec} (unsigned char val)
+\item 
+unsigned char \textbf{ convert\+\_\+dec\+\_\+to\+\_\+bcd} (unsigned char val)
+\item 
+\textbf{ Date\+Time} $\ast$ \textbf{ convert\+Date\+From\+Array} (unsigned char input[$\,$])
+\end{DoxyCompactItemize}
+\subsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ prev\+Butt} = -\/1
+\item 
+unsigned \textbf{ last\+Pressed} = 9
+\item 
+\textbf{ Date\+Time} \textbf{ date\+Time}
+\item 
+\textbf{ Date\+Time} \textbf{ alarm\+Duration}
+\item 
+bool \textbf{ Date\+Changed}
+\item 
+int \textbf{ current\+\_\+alarm\+\_\+duration}
+\item 
+bool \textbf{ active\+Zones} [4]
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Macro Definition Documentation}
+\mbox{\label{a00023_afe20026ae95d143f6354cd1bb5b7a0a9}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!B\+U\+T\+T\+O\+N\+\_\+\+M\+A\+SK@{B\+U\+T\+T\+O\+N\+\_\+\+M\+A\+SK}}
+\index{B\+U\+T\+T\+O\+N\+\_\+\+M\+A\+SK@{B\+U\+T\+T\+O\+N\+\_\+\+M\+A\+SK}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{B\+U\+T\+T\+O\+N\+\_\+\+M\+A\+SK}
+{\footnotesize\ttfamily \#define B\+U\+T\+T\+O\+N\+\_\+\+M\+A\+SK~0x0F}
+
+\mbox{\label{a00023_a922175f7c5b47ad6cdfdb2dca80b5648}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!D\+E\+C\+R\+E\+M\+E\+NT@{D\+E\+C\+R\+E\+M\+E\+NT}}
+\index{D\+E\+C\+R\+E\+M\+E\+NT@{D\+E\+C\+R\+E\+M\+E\+NT}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{D\+E\+C\+R\+E\+M\+E\+NT}
+{\footnotesize\ttfamily \#define D\+E\+C\+R\+E\+M\+E\+NT~0x02}
+
+\mbox{\label{a00023_ad99a3089c13b6f47b26b218a997fad73}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!I\+N\+C\+R\+E\+M\+E\+NT@{I\+N\+C\+R\+E\+M\+E\+NT}}
+\index{I\+N\+C\+R\+E\+M\+E\+NT@{I\+N\+C\+R\+E\+M\+E\+NT}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{I\+N\+C\+R\+E\+M\+E\+NT}
+{\footnotesize\ttfamily \#define I\+N\+C\+R\+E\+M\+E\+NT~0x01}
+
+\mbox{\label{a00023_a4796d02bb619233fee554b3ff9c8da48}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!M\+O\+V\+E\+\_\+\+L\+E\+FT@{M\+O\+V\+E\+\_\+\+L\+E\+FT}}
+\index{M\+O\+V\+E\+\_\+\+L\+E\+FT@{M\+O\+V\+E\+\_\+\+L\+E\+FT}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{M\+O\+V\+E\+\_\+\+L\+E\+FT}
+{\footnotesize\ttfamily \#define M\+O\+V\+E\+\_\+\+L\+E\+FT~0x08}
+
+\mbox{\label{a00023_a001bb501c43a2caa67dc0d3245bd073c}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!M\+O\+V\+E\+\_\+\+R\+I\+G\+HT@{M\+O\+V\+E\+\_\+\+R\+I\+G\+HT}}
+\index{M\+O\+V\+E\+\_\+\+R\+I\+G\+HT@{M\+O\+V\+E\+\_\+\+R\+I\+G\+HT}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{M\+O\+V\+E\+\_\+\+R\+I\+G\+HT}
+{\footnotesize\ttfamily \#define M\+O\+V\+E\+\_\+\+R\+I\+G\+HT~0x04}
+
+\mbox{\label{a00023_a11259431994827b5ec3f33b36d6d0a2e}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!Pin@{Pin}}
+\index{Pin@{Pin}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{Pin}
+{\footnotesize\ttfamily \#define Pin(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})~(1 $<$$<$ n)}
+
+
+
+\subsubsection{Function Documentation}
+\mbox{\label{a00023_a0bcbbfbc2b8750738cfd3bd92caac260}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!Button\+Check@{Button\+Check}}
+\index{Button\+Check@{Button\+Check}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{Button\+Check()}
+{\footnotesize\ttfamily int Button\+Check (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{a00023_a30a1cff81be3c91e307685387401e863}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!Button\+Init@{Button\+Init}}
+\index{Button\+Init@{Button\+Init}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{Button\+Init()}
+{\footnotesize\ttfamily void Button\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{a00023_a30a1cff81be3c91e307685387401e863_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00023_a034e39ae5657bf5b846d4ce5ff0a6047}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!Clear\+Buttons@{Clear\+Buttons}}
+\index{Clear\+Buttons@{Clear\+Buttons}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{Clear\+Buttons()}
+{\footnotesize\ttfamily void Clear\+Buttons (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00023_a034e39ae5657bf5b846d4ce5ff0a6047_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00023_a03795fe6451769e81af8ef69856e8acb}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!convert\+\_\+bcd\+\_\+to\+\_\+dec@{convert\+\_\+bcd\+\_\+to\+\_\+dec}}
+\index{convert\+\_\+bcd\+\_\+to\+\_\+dec@{convert\+\_\+bcd\+\_\+to\+\_\+dec}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{convert\+\_\+bcd\+\_\+to\+\_\+dec()}
+{\footnotesize\ttfamily unsigned char convert\+\_\+bcd\+\_\+to\+\_\+dec (\begin{DoxyParamCaption}\item[{unsigned char}]{val }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00023_a03795fe6451769e81af8ef69856e8acb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00023_abaa7c975d4dd864dbf88ce3c10029aa4}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!convert\+\_\+dec\+\_\+to\+\_\+bcd@{convert\+\_\+dec\+\_\+to\+\_\+bcd}}
+\index{convert\+\_\+dec\+\_\+to\+\_\+bcd@{convert\+\_\+dec\+\_\+to\+\_\+bcd}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{convert\+\_\+dec\+\_\+to\+\_\+bcd()}
+{\footnotesize\ttfamily unsigned char convert\+\_\+dec\+\_\+to\+\_\+bcd (\begin{DoxyParamCaption}\item[{unsigned char}]{val }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00023_abaa7c975d4dd864dbf88ce3c10029aa4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00023_a0975bad4a272465d34f2dd42b61929f9}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!convert\+\_\+from\+\_\+bit\+\_\+pos@{convert\+\_\+from\+\_\+bit\+\_\+pos}}
+\index{convert\+\_\+from\+\_\+bit\+\_\+pos@{convert\+\_\+from\+\_\+bit\+\_\+pos}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{convert\+\_\+from\+\_\+bit\+\_\+pos()}
+{\footnotesize\ttfamily unsigned char convert\+\_\+from\+\_\+bit\+\_\+pos (\begin{DoxyParamCaption}\item[{unsigned char}]{bit\+Pos }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00023_a0975bad4a272465d34f2dd42b61929f9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00023_ac22561642e81efb7df183503c322c2b0}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!convert\+\_\+to\+\_\+bit\+\_\+pos@{convert\+\_\+to\+\_\+bit\+\_\+pos}}
+\index{convert\+\_\+to\+\_\+bit\+\_\+pos@{convert\+\_\+to\+\_\+bit\+\_\+pos}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{convert\+\_\+to\+\_\+bit\+\_\+pos()}
+{\footnotesize\ttfamily unsigned char convert\+\_\+to\+\_\+bit\+\_\+pos (\begin{DoxyParamCaption}\item[{unsigned char}]{pin\+Num }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00023_ac22561642e81efb7df183503c322c2b0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00023_abbe3f18b8a8d4112e5d5f3d1764ccabf}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!convert\+Date\+From\+Array@{convert\+Date\+From\+Array}}
+\index{convert\+Date\+From\+Array@{convert\+Date\+From\+Array}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{convert\+Date\+From\+Array()}
+{\footnotesize\ttfamily \textbf{ Date\+Time}$\ast$ convert\+Date\+From\+Array (\begin{DoxyParamCaption}\item[{unsigned char}]{input[$\,$] }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00023_abbe3f18b8a8d4112e5d5f3d1764ccabf_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00023_a4ac586173db65fe258489805cd2a50a7}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!Delay\+\_\+loop@{Delay\+\_\+loop}}
+\index{Delay\+\_\+loop@{Delay\+\_\+loop}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{Delay\+\_\+loop()}
+{\footnotesize\ttfamily void Delay\+\_\+loop (\begin{DoxyParamCaption}\item[{unsigned long}]{j }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00023_a4ac586173db65fe258489805cd2a50a7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00023_a8ac785f2d4c8d133c61c4e9be06cb606}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!single\+\_\+key\+\_\+pressed@{single\+\_\+key\+\_\+pressed}}
+\index{single\+\_\+key\+\_\+pressed@{single\+\_\+key\+\_\+pressed}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{single\+\_\+key\+\_\+pressed()}
+{\footnotesize\ttfamily bool single\+\_\+key\+\_\+pressed (\begin{DoxyParamCaption}\item[{char}]{byte\+Val }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00023_a8ac785f2d4c8d133c61c4e9be06cb606_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00023_a77a749cc64c8c52f24cfa7d5a886435e}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!update\+Variables@{update\+Variables}}
+\index{update\+Variables@{update\+Variables}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{update\+Variables()}
+{\footnotesize\ttfamily void update\+Variables (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00023_a77a749cc64c8c52f24cfa7d5a886435e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{a00023_a77a749cc64c8c52f24cfa7d5a886435e_icgraph}
+\end{center}
+\end{figure}
+
+
+\subsubsection{Variable Documentation}
+\mbox{\label{a00023_a0c777c89cc8b06ddc6c0176f2c31033f}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!active\+Zones@{active\+Zones}}
+\index{active\+Zones@{active\+Zones}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{active\+Zones}
+{\footnotesize\ttfamily bool active\+Zones[4]}
+
+\mbox{\label{a00023_a01c2a28170e998893c6428276cb87ae2}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!alarm\+Duration@{alarm\+Duration}}
+\index{alarm\+Duration@{alarm\+Duration}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{alarm\+Duration}
+{\footnotesize\ttfamily \textbf{ Date\+Time} alarm\+Duration}
+
+\mbox{\label{a00023_ab073eeb8d5a2147ef91fab51d73ab4b2}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!current\+\_\+alarm\+\_\+duration@{current\+\_\+alarm\+\_\+duration}}
+\index{current\+\_\+alarm\+\_\+duration@{current\+\_\+alarm\+\_\+duration}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{current\+\_\+alarm\+\_\+duration}
+{\footnotesize\ttfamily int current\+\_\+alarm\+\_\+duration}
+
+\mbox{\label{a00023_acaf1b7d1c378b3ba535f7989083a8c7e}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!Date\+Changed@{Date\+Changed}}
+\index{Date\+Changed@{Date\+Changed}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{Date\+Changed}
+{\footnotesize\ttfamily bool Date\+Changed}
+
+\mbox{\label{a00023_a129e222d3019ef1ee0f6a7b86a51ae74}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!date\+Time@{date\+Time}}
+\index{date\+Time@{date\+Time}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{date\+Time}
+{\footnotesize\ttfamily \textbf{ Date\+Time} date\+Time}
+
+\mbox{\label{a00023_a4fed233d61569dfeb6c0673b30edb19b}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!last\+Pressed@{last\+Pressed}}
+\index{last\+Pressed@{last\+Pressed}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{last\+Pressed}
+{\footnotesize\ttfamily unsigned last\+Pressed = 9}
+
+\mbox{\label{a00023_ad1c7b1431d808919a1d6929901e260d5}} 
+\index{Commonheader.\+h@{Commonheader.\+h}!prev\+Butt@{prev\+Butt}}
+\index{prev\+Butt@{prev\+Butt}!Commonheader.\+h@{Commonheader.\+h}}
+\paragraph{prev\+Butt}
+{\footnotesize\ttfamily int prev\+Butt = -\/1}
+

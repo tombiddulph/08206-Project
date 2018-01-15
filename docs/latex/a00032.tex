@@ -1,0 +1,364 @@
+\subsection{lcd.\+c File Reference}
+\label{a00032}\index{lcd.\+c@{lcd.\+c}}
+{\ttfamily \#include $<$xc.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}lcd.\+h\char`\"{}}\newline
+Include dependency graph for lcd.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{a00033}
+\end{center}
+\end{figure}
+\subsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ RS}~R\+A5
+\item 
+\#define \textbf{ RW}~R\+A4
+\item 
+\#define \textbf{ E}~R\+A3
+\item 
+\#define \textbf{ P\+SB}~R\+A2
+\item 
+\#define \textbf{ C\+L\+\_\+\+H\+O\+ME}~0b00000001
+\item 
+\#define \textbf{ H\+O\+ME}~0b00000011
+\item 
+\#define \textbf{ L\+E\+FT}~0b00010111
+\item 
+\#define \textbf{ S\+E\+T\+\_\+\+C\+G\+R\+A\+M\+\_\+\+A\+D\+DR}~(addr) return (0x40 $\vert$ addr);
+\end{DoxyCompactItemize}
+\subsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \textbf{ Current\+Page} \{ \textbf{ Home}
+ \}
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ Write\+\_\+string} (char a[$\,$])
+\item 
+void \textbf{ L\+C\+D\+\_\+delay} (int j)
+\item 
+void \textbf{ cmd} (char cmd)
+\item 
+void \textbf{ init\+L\+CD} ()
+\item 
+void \textbf{ data} (char data)
+\item 
+void \textbf{ Write\+\_\+line} (char param[$\,$], int line\+No)
+\item 
+void \textbf{ clear\+\_\+lines} ()
+\item 
+void \textbf{ Write\+\_\+\+Date} (int line\+No)
+\item 
+void \textbf{ Write\+\_\+\+Time} (int line\+No)
+\item 
+void \textbf{ Write\+\_\+\+Time\+\_\+\+Settings} (\textbf{ Date\+Time} \textbf{ date}, int line\+No)
+\item 
+void \textbf{ Write\+\_\+\+Date\+\_\+\+Settings} (\textbf{ Date\+Time} \textbf{ date}, int line\+No)
+\end{DoxyCompactItemize}
+\subsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const int \textbf{ lines} [$\,$] = \{\textbf{ L\+I\+N\+E\+\_\+1}, \textbf{ L\+I\+N\+E\+\_\+2}, \textbf{ L\+I\+N\+E\+\_\+3}, \textbf{ L\+I\+N\+E\+\_\+4}\}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Macro Definition Documentation}
+\mbox{\label{a00032_abc1d11a56e6a6edad1ac6c0a90a807b3}} 
+\index{lcd.\+c@{lcd.\+c}!C\+L\+\_\+\+H\+O\+ME@{C\+L\+\_\+\+H\+O\+ME}}
+\index{C\+L\+\_\+\+H\+O\+ME@{C\+L\+\_\+\+H\+O\+ME}!lcd.\+c@{lcd.\+c}}
+\paragraph{C\+L\+\_\+\+H\+O\+ME}
+{\footnotesize\ttfamily \#define C\+L\+\_\+\+H\+O\+ME~0b00000001}
+
+\mbox{\label{a00032_a07484107e6d9fdf38b53edf631d6511d}} 
+\index{lcd.\+c@{lcd.\+c}!E@{E}}
+\index{E@{E}!lcd.\+c@{lcd.\+c}}
+\paragraph{E}
+{\footnotesize\ttfamily \#define E~R\+A3}
+
+\mbox{\label{a00032_a0e26ea2db1b570d1a6fe1ac180ef4541}} 
+\index{lcd.\+c@{lcd.\+c}!H\+O\+ME@{H\+O\+ME}}
+\index{H\+O\+ME@{H\+O\+ME}!lcd.\+c@{lcd.\+c}}
+\paragraph{H\+O\+ME}
+{\footnotesize\ttfamily \#define H\+O\+ME~0b00000011}
+
+\mbox{\label{a00032_a437ef08681e7210d6678427030446a54}} 
+\index{lcd.\+c@{lcd.\+c}!L\+E\+FT@{L\+E\+FT}}
+\index{L\+E\+FT@{L\+E\+FT}!lcd.\+c@{lcd.\+c}}
+\paragraph{L\+E\+FT}
+{\footnotesize\ttfamily \#define L\+E\+FT~0b00010111}
+
+\mbox{\label{a00032_a85d6b002cc4fc92f98aeaae45c9ea113}} 
+\index{lcd.\+c@{lcd.\+c}!P\+SB@{P\+SB}}
+\index{P\+SB@{P\+SB}!lcd.\+c@{lcd.\+c}}
+\paragraph{P\+SB}
+{\footnotesize\ttfamily \#define P\+SB~R\+A2}
+
+\mbox{\label{a00032_af8903d8eea3868940c60af887473b152}} 
+\index{lcd.\+c@{lcd.\+c}!RS@{RS}}
+\index{RS@{RS}!lcd.\+c@{lcd.\+c}}
+\paragraph{RS}
+{\footnotesize\ttfamily \#define RS~R\+A5}
+
+\mbox{\label{a00032_afc4ded33ac0ca43defcce639e965748a}} 
+\index{lcd.\+c@{lcd.\+c}!RW@{RW}}
+\index{RW@{RW}!lcd.\+c@{lcd.\+c}}
+\paragraph{RW}
+{\footnotesize\ttfamily \#define RW~R\+A4}
+
+\mbox{\label{a00032_a3b016cac3c73038fcccfb3c7de10bce0}} 
+\index{lcd.\+c@{lcd.\+c}!S\+E\+T\+\_\+\+C\+G\+R\+A\+M\+\_\+\+A\+D\+DR@{S\+E\+T\+\_\+\+C\+G\+R\+A\+M\+\_\+\+A\+D\+DR}}
+\index{S\+E\+T\+\_\+\+C\+G\+R\+A\+M\+\_\+\+A\+D\+DR@{S\+E\+T\+\_\+\+C\+G\+R\+A\+M\+\_\+\+A\+D\+DR}!lcd.\+c@{lcd.\+c}}
+\paragraph{S\+E\+T\+\_\+\+C\+G\+R\+A\+M\+\_\+\+A\+D\+DR}
+{\footnotesize\ttfamily \#define S\+E\+T\+\_\+\+C\+G\+R\+A\+M\+\_\+\+A\+D\+DR~(addr) return (0x40 $\vert$ addr);}
+
+
+
+\subsubsection{Enumeration Type Documentation}
+\mbox{\label{a00032_a2d8f1d61cec74e044b469a00d45390d1}} 
+\index{lcd.\+c@{lcd.\+c}!Current\+Page@{Current\+Page}}
+\index{Current\+Page@{Current\+Page}!lcd.\+c@{lcd.\+c}}
+\paragraph{Current\+Page}
+{\footnotesize\ttfamily enum \textbf{ Current\+Page}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Home@{Home}!lcd.\+c@{lcd.\+c}}\index{lcd.\+c@{lcd.\+c}!Home@{Home}}}\mbox{\label{a00032_a2d8f1d61cec74e044b469a00d45390d1a8feb334f9ed9ddb8dbc69cfa4fd6b614}} 
+Home&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\subsubsection{Function Documentation}
+\mbox{\label{a00032_a8180985bda05d2858c1cd892c9619a42}} 
+\index{lcd.\+c@{lcd.\+c}!clear\+\_\+lines@{clear\+\_\+lines}}
+\index{clear\+\_\+lines@{clear\+\_\+lines}!lcd.\+c@{lcd.\+c}}
+\paragraph{clear\+\_\+lines()}
+{\footnotesize\ttfamily void clear\+\_\+lines (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00032_a8180985bda05d2858c1cd892c9619a42_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00032_a8180985bda05d2858c1cd892c9619a42_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00032_ac1f52f9c871ece7cb377c4fea1c6c79d}} 
+\index{lcd.\+c@{lcd.\+c}!cmd@{cmd}}
+\index{cmd@{cmd}!lcd.\+c@{lcd.\+c}}
+\paragraph{cmd()}
+{\footnotesize\ttfamily void cmd (\begin{DoxyParamCaption}\item[{char}]{cmd }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{a00032_ac1f52f9c871ece7cb377c4fea1c6c79d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00032_ac1f52f9c871ece7cb377c4fea1c6c79d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00032_a54955197a7b52d9a202b75527f68cc08}} 
+\index{lcd.\+c@{lcd.\+c}!data@{data}}
+\index{data@{data}!lcd.\+c@{lcd.\+c}}
+\paragraph{data()}
+{\footnotesize\ttfamily void data (\begin{DoxyParamCaption}\item[{char}]{data }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{a00032_a54955197a7b52d9a202b75527f68cc08_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00032_a54955197a7b52d9a202b75527f68cc08_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00032_a08529d00f32f8441dc7669b1a1d3783c}} 
+\index{lcd.\+c@{lcd.\+c}!init\+L\+CD@{init\+L\+CD}}
+\index{init\+L\+CD@{init\+L\+CD}!lcd.\+c@{lcd.\+c}}
+\paragraph{init\+L\+C\+D()}
+{\footnotesize\ttfamily void init\+L\+CD (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=299pt]{a00032_a08529d00f32f8441dc7669b1a1d3783c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{a00032_a08529d00f32f8441dc7669b1a1d3783c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00032_a43354028a3c697c67905dc7e55e6de8d}} 
+\index{lcd.\+c@{lcd.\+c}!L\+C\+D\+\_\+delay@{L\+C\+D\+\_\+delay}}
+\index{L\+C\+D\+\_\+delay@{L\+C\+D\+\_\+delay}!lcd.\+c@{lcd.\+c}}
+\paragraph{L\+C\+D\+\_\+delay()}
+{\footnotesize\ttfamily void L\+C\+D\+\_\+delay (\begin{DoxyParamCaption}\item[{int}]{j }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00032_a43354028a3c697c67905dc7e55e6de8d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00032_a897e97006c9f0d112306aac62288d408}} 
+\index{lcd.\+c@{lcd.\+c}!Write\+\_\+\+Date@{Write\+\_\+\+Date}}
+\index{Write\+\_\+\+Date@{Write\+\_\+\+Date}!lcd.\+c@{lcd.\+c}}
+\paragraph{Write\+\_\+\+Date()}
+{\footnotesize\ttfamily void Write\+\_\+\+Date (\begin{DoxyParamCaption}\item[{int}]{line\+No }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00032_a897e97006c9f0d112306aac62288d408_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{a00032_a897e97006c9f0d112306aac62288d408_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00032_a754f53f3cd8f30c8c0211fdb4f548a31}} 
+\index{lcd.\+c@{lcd.\+c}!Write\+\_\+\+Date\+\_\+\+Settings@{Write\+\_\+\+Date\+\_\+\+Settings}}
+\index{Write\+\_\+\+Date\+\_\+\+Settings@{Write\+\_\+\+Date\+\_\+\+Settings}!lcd.\+c@{lcd.\+c}}
+\paragraph{Write\+\_\+\+Date\+\_\+\+Settings()}
+{\footnotesize\ttfamily void Write\+\_\+\+Date\+\_\+\+Settings (\begin{DoxyParamCaption}\item[{\textbf{ Date\+Time}}]{date,  }\item[{int}]{line\+No }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00032_a754f53f3cd8f30c8c0211fdb4f548a31_cgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00032_a7a79900a1e7306db896b33ca4a068108}} 
+\index{lcd.\+c@{lcd.\+c}!Write\+\_\+line@{Write\+\_\+line}}
+\index{Write\+\_\+line@{Write\+\_\+line}!lcd.\+c@{lcd.\+c}}
+\paragraph{Write\+\_\+line()}
+{\footnotesize\ttfamily void Write\+\_\+line (\begin{DoxyParamCaption}\item[{char}]{param[$\,$],  }\item[{int}]{line\+No }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00032_a7a79900a1e7306db896b33ca4a068108_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00032_a7a79900a1e7306db896b33ca4a068108_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00032_ade43d0cfa2e755883a7c353a07e7ed0d}} 
+\index{lcd.\+c@{lcd.\+c}!Write\+\_\+string@{Write\+\_\+string}}
+\index{Write\+\_\+string@{Write\+\_\+string}!lcd.\+c@{lcd.\+c}}
+\paragraph{Write\+\_\+string()}
+{\footnotesize\ttfamily void Write\+\_\+string (\begin{DoxyParamCaption}\item[{char}]{a[$\,$] }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{a00032_ade43d0cfa2e755883a7c353a07e7ed0d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00032_ade43d0cfa2e755883a7c353a07e7ed0d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00032_a56e791a9efe9fd411e81433c290b733e}} 
+\index{lcd.\+c@{lcd.\+c}!Write\+\_\+\+Time@{Write\+\_\+\+Time}}
+\index{Write\+\_\+\+Time@{Write\+\_\+\+Time}!lcd.\+c@{lcd.\+c}}
+\paragraph{Write\+\_\+\+Time()}
+{\footnotesize\ttfamily void Write\+\_\+\+Time (\begin{DoxyParamCaption}\item[{int}]{line\+No }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00032_a56e791a9efe9fd411e81433c290b733e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{a00032_a56e791a9efe9fd411e81433c290b733e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00032_aaa71cdb88431591180cebebb47616028}} 
+\index{lcd.\+c@{lcd.\+c}!Write\+\_\+\+Time\+\_\+\+Settings@{Write\+\_\+\+Time\+\_\+\+Settings}}
+\index{Write\+\_\+\+Time\+\_\+\+Settings@{Write\+\_\+\+Time\+\_\+\+Settings}!lcd.\+c@{lcd.\+c}}
+\paragraph{Write\+\_\+\+Time\+\_\+\+Settings()}
+{\footnotesize\ttfamily void Write\+\_\+\+Time\+\_\+\+Settings (\begin{DoxyParamCaption}\item[{\textbf{ Date\+Time}}]{date,  }\item[{int}]{line\+No }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00032_aaa71cdb88431591180cebebb47616028_cgraph}
+\end{center}
+\end{figure}
+
+
+\subsubsection{Variable Documentation}
+\mbox{\label{a00032_a17dc5deafcb87316c9a0d609704e64a8}} 
+\index{lcd.\+c@{lcd.\+c}!lines@{lines}}
+\index{lines@{lines}!lcd.\+c@{lcd.\+c}}
+\paragraph{lines}
+{\footnotesize\ttfamily const int lines[$\,$] = \{\textbf{ L\+I\+N\+E\+\_\+1}, \textbf{ L\+I\+N\+E\+\_\+2}, \textbf{ L\+I\+N\+E\+\_\+3}, \textbf{ L\+I\+N\+E\+\_\+4}\}}
+

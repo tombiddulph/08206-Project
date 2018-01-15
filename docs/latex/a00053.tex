@@ -1,0 +1,298 @@
+\subsection{temp\+\_\+thresh.\+c File Reference}
+\label{a00053}\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+{\ttfamily \#include \char`\"{}temp\+\_\+thresh.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lcd.\+h\char`\"{}}\newline
+Include dependency graph for temp\+\_\+thresh.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{a00054}
+\end{center}
+\end{figure}
+\subsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ T\+E\+N\+\_\+\+I\+N\+C\+R\+E\+M\+E\+NT}~0x01
+\item 
+\#define \textbf{ T\+E\+N\+\_\+\+D\+E\+C\+R\+E\+M\+E\+NT}~0x02
+\item 
+\#define \textbf{ U\+N\+I\+T\+\_\+\+I\+N\+C\+R\+E\+M\+E\+NT}~0x04
+\item 
+\#define \textbf{ U\+N\+I\+T\+\_\+\+D\+E\+C\+R\+E\+M\+E\+NT}~0x08
+\item 
+\#define \textbf{ S\+A\+VE}~0x10
+\item 
+\#define \textbf{ M\+A\+X\+\_\+\+T\+E\+MP}~124
+\item 
+\#define \textbf{ M\+I\+N\+\_\+\+T\+E\+MP}~-\/54
+\item 
+\#define \textbf{ M\+A\+X\+\_\+\+T\+I\+ME}~60
+\item 
+\#define \textbf{ M\+I\+N\+\_\+\+T\+I\+ME}~0
+\end{DoxyCompactItemize}
+\subsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \textbf{ Thermomiter\+Setting\+State} \{ \textbf{ T\+H\+R\+E\+S\+H\+\_\+\+T\+E\+MP}, 
+\textbf{ T\+H\+R\+E\+S\+H\+\_\+\+T\+I\+ME}, 
+\textbf{ O\+V\+E\+R\+V\+I\+EW}, 
+\textbf{ E\+X\+IT}
+ \}
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ update\+\_\+threshold} (char choice)
+\item 
+void \textbf{ set\+Thresh} ()
+\item 
+void \textbf{ update\+Time} ()
+\item 
+void \textbf{ overview\+Page} ()
+\item 
+void \textbf{ temp\+Thresh\+Loop} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \textbf{ threshold} [7]
+\item 
+int \textbf{ threshold\+\_\+temp\+\_\+\+L\+HS}
+\item 
+int \textbf{ threshold\+\_\+temp\+\_\+\+R\+HS}
+\item 
+int \textbf{ threshold\+\_\+time} = 1
+\item 
+bool \textbf{ quit}
+\item 
+bool \textbf{ displayed\+Once}
+\item 
+bool \textbf{ negative\+Flag}
+\item 
+\textbf{ Thermomiter\+Setting\+State} \textbf{ current\+Therm\+State}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Macro Definition Documentation}
+\mbox{\label{a00053_aed8ea54a2630aaf2ae3f2bd5fa886959}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!M\+A\+X\+\_\+\+T\+E\+MP@{M\+A\+X\+\_\+\+T\+E\+MP}}
+\index{M\+A\+X\+\_\+\+T\+E\+MP@{M\+A\+X\+\_\+\+T\+E\+MP}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{M\+A\+X\+\_\+\+T\+E\+MP}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+T\+E\+MP~124}
+
+\mbox{\label{a00053_a5320d4457a472d8888ec1905bc0e0a1c}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!M\+A\+X\+\_\+\+T\+I\+ME@{M\+A\+X\+\_\+\+T\+I\+ME}}
+\index{M\+A\+X\+\_\+\+T\+I\+ME@{M\+A\+X\+\_\+\+T\+I\+ME}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{M\+A\+X\+\_\+\+T\+I\+ME}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+T\+I\+ME~60}
+
+\mbox{\label{a00053_a2522d2568f63855838c3ecfb44084710}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!M\+I\+N\+\_\+\+T\+E\+MP@{M\+I\+N\+\_\+\+T\+E\+MP}}
+\index{M\+I\+N\+\_\+\+T\+E\+MP@{M\+I\+N\+\_\+\+T\+E\+MP}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{M\+I\+N\+\_\+\+T\+E\+MP}
+{\footnotesize\ttfamily \#define M\+I\+N\+\_\+\+T\+E\+MP~-\/54}
+
+\mbox{\label{a00053_a2cb9809f30ffec513e731194339f2ca4}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!M\+I\+N\+\_\+\+T\+I\+ME@{M\+I\+N\+\_\+\+T\+I\+ME}}
+\index{M\+I\+N\+\_\+\+T\+I\+ME@{M\+I\+N\+\_\+\+T\+I\+ME}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{M\+I\+N\+\_\+\+T\+I\+ME}
+{\footnotesize\ttfamily \#define M\+I\+N\+\_\+\+T\+I\+ME~0}
+
+\mbox{\label{a00053_ab2868d85c8a74e3ee08bdc44580e2235}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!S\+A\+VE@{S\+A\+VE}}
+\index{S\+A\+VE@{S\+A\+VE}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{S\+A\+VE}
+{\footnotesize\ttfamily \#define S\+A\+VE~0x10}
+
+\mbox{\label{a00053_a0a0a76ca2070265810c6d9c2673ac7a0}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!T\+E\+N\+\_\+\+D\+E\+C\+R\+E\+M\+E\+NT@{T\+E\+N\+\_\+\+D\+E\+C\+R\+E\+M\+E\+NT}}
+\index{T\+E\+N\+\_\+\+D\+E\+C\+R\+E\+M\+E\+NT@{T\+E\+N\+\_\+\+D\+E\+C\+R\+E\+M\+E\+NT}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{T\+E\+N\+\_\+\+D\+E\+C\+R\+E\+M\+E\+NT}
+{\footnotesize\ttfamily \#define T\+E\+N\+\_\+\+D\+E\+C\+R\+E\+M\+E\+NT~0x02}
+
+\mbox{\label{a00053_a98e0273de447fe74445ecd4ee08cc4ac}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!T\+E\+N\+\_\+\+I\+N\+C\+R\+E\+M\+E\+NT@{T\+E\+N\+\_\+\+I\+N\+C\+R\+E\+M\+E\+NT}}
+\index{T\+E\+N\+\_\+\+I\+N\+C\+R\+E\+M\+E\+NT@{T\+E\+N\+\_\+\+I\+N\+C\+R\+E\+M\+E\+NT}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{T\+E\+N\+\_\+\+I\+N\+C\+R\+E\+M\+E\+NT}
+{\footnotesize\ttfamily \#define T\+E\+N\+\_\+\+I\+N\+C\+R\+E\+M\+E\+NT~0x01}
+
+\mbox{\label{a00053_adbf57103837da7b97ce1db444ea7e168}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!U\+N\+I\+T\+\_\+\+D\+E\+C\+R\+E\+M\+E\+NT@{U\+N\+I\+T\+\_\+\+D\+E\+C\+R\+E\+M\+E\+NT}}
+\index{U\+N\+I\+T\+\_\+\+D\+E\+C\+R\+E\+M\+E\+NT@{U\+N\+I\+T\+\_\+\+D\+E\+C\+R\+E\+M\+E\+NT}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{U\+N\+I\+T\+\_\+\+D\+E\+C\+R\+E\+M\+E\+NT}
+{\footnotesize\ttfamily \#define U\+N\+I\+T\+\_\+\+D\+E\+C\+R\+E\+M\+E\+NT~0x08}
+
+\mbox{\label{a00053_ae26ef9f141147b84cec520d66f36dc61}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!U\+N\+I\+T\+\_\+\+I\+N\+C\+R\+E\+M\+E\+NT@{U\+N\+I\+T\+\_\+\+I\+N\+C\+R\+E\+M\+E\+NT}}
+\index{U\+N\+I\+T\+\_\+\+I\+N\+C\+R\+E\+M\+E\+NT@{U\+N\+I\+T\+\_\+\+I\+N\+C\+R\+E\+M\+E\+NT}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{U\+N\+I\+T\+\_\+\+I\+N\+C\+R\+E\+M\+E\+NT}
+{\footnotesize\ttfamily \#define U\+N\+I\+T\+\_\+\+I\+N\+C\+R\+E\+M\+E\+NT~0x04}
+
+
+
+\subsubsection{Enumeration Type Documentation}
+\mbox{\label{a00053_a47f1a40153be9c3d6294b8f4b3b6d033}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!Thermomiter\+Setting\+State@{Thermomiter\+Setting\+State}}
+\index{Thermomiter\+Setting\+State@{Thermomiter\+Setting\+State}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{Thermomiter\+Setting\+State}
+{\footnotesize\ttfamily enum \textbf{ Thermomiter\+Setting\+State}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+H\+R\+E\+S\+H\+\_\+\+T\+E\+MP@{T\+H\+R\+E\+S\+H\+\_\+\+T\+E\+MP}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!T\+H\+R\+E\+S\+H\+\_\+\+T\+E\+MP@{T\+H\+R\+E\+S\+H\+\_\+\+T\+E\+MP}}}\mbox{\label{a00053_a47f1a40153be9c3d6294b8f4b3b6d033a2b58a65b5a5682f5b9b69c30eaada4cd}} 
+T\+H\+R\+E\+S\+H\+\_\+\+T\+E\+MP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{T\+H\+R\+E\+S\+H\+\_\+\+T\+I\+ME@{T\+H\+R\+E\+S\+H\+\_\+\+T\+I\+ME}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!T\+H\+R\+E\+S\+H\+\_\+\+T\+I\+ME@{T\+H\+R\+E\+S\+H\+\_\+\+T\+I\+ME}}}\mbox{\label{a00053_a47f1a40153be9c3d6294b8f4b3b6d033a1f1f985f860065d3a2edc1fcc60e9e54}} 
+T\+H\+R\+E\+S\+H\+\_\+\+T\+I\+ME&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{O\+V\+E\+R\+V\+I\+EW@{O\+V\+E\+R\+V\+I\+EW}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!O\+V\+E\+R\+V\+I\+EW@{O\+V\+E\+R\+V\+I\+EW}}}\mbox{\label{a00053_a47f1a40153be9c3d6294b8f4b3b6d033ab1eb7a6917170ab35f0a2b74982419fc}} 
+O\+V\+E\+R\+V\+I\+EW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+X\+IT@{E\+X\+IT}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!E\+X\+IT@{E\+X\+IT}}}\mbox{\label{a00053_a47f1a40153be9c3d6294b8f4b3b6d033a7a10b5d68d31711288e1fe0fa17dbf4f}} 
+E\+X\+IT&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\subsubsection{Function Documentation}
+\mbox{\label{a00053_a9392b97d781ba354db0cc33d1f45c9f9}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!overview\+Page@{overview\+Page}}
+\index{overview\+Page@{overview\+Page}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{overview\+Page()}
+{\footnotesize\ttfamily void overview\+Page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=279pt]{a00053_a9392b97d781ba354db0cc33d1f45c9f9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00053_a934f0cdada5e3c3460026cb93ed2c0e5}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!set\+Thresh@{set\+Thresh}}
+\index{set\+Thresh@{set\+Thresh}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{set\+Thresh()}
+{\footnotesize\ttfamily void set\+Thresh (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00053_a934f0cdada5e3c3460026cb93ed2c0e5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{a00053_a934f0cdada5e3c3460026cb93ed2c0e5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00053_af9c48a1dcf99ec4adcf775f6c9a15566}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!temp\+Thresh\+Loop@{temp\+Thresh\+Loop}}
+\index{temp\+Thresh\+Loop@{temp\+Thresh\+Loop}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{temp\+Thresh\+Loop()}
+{\footnotesize\ttfamily void temp\+Thresh\+Loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00053_af9c48a1dcf99ec4adcf775f6c9a15566_cgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00053_a3acd2fb37a2da55980e0f729314ef612}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!update\+\_\+threshold@{update\+\_\+threshold}}
+\index{update\+\_\+threshold@{update\+\_\+threshold}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{update\+\_\+threshold()}
+{\footnotesize\ttfamily void update\+\_\+threshold (\begin{DoxyParamCaption}\item[{char}]{choice }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00053_a3acd2fb37a2da55980e0f729314ef612_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{a00053_a19562d96ecbcf8a223d3c38b39993fbf}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!update\+Time@{update\+Time}}
+\index{update\+Time@{update\+Time}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{update\+Time()}
+{\footnotesize\ttfamily void update\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00053_a19562d96ecbcf8a223d3c38b39993fbf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{a00053_a19562d96ecbcf8a223d3c38b39993fbf_icgraph}
+\end{center}
+\end{figure}
+
+
+\subsubsection{Variable Documentation}
+\mbox{\label{a00053_a0b99fb402801f0cab37b25976fb424a3}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!current\+Therm\+State@{current\+Therm\+State}}
+\index{current\+Therm\+State@{current\+Therm\+State}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{current\+Therm\+State}
+{\footnotesize\ttfamily \textbf{ Thermomiter\+Setting\+State} current\+Therm\+State}
+
+\mbox{\label{a00053_a84d634610480252465926997c0c6a5fa}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!displayed\+Once@{displayed\+Once}}
+\index{displayed\+Once@{displayed\+Once}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{displayed\+Once}
+{\footnotesize\ttfamily bool displayed\+Once}
+
+\mbox{\label{a00053_a948d5675d71a8ca6c92efbd22676abd0}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!negative\+Flag@{negative\+Flag}}
+\index{negative\+Flag@{negative\+Flag}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{negative\+Flag}
+{\footnotesize\ttfamily bool negative\+Flag}
+
+\mbox{\label{a00053_ac746fa6ad48d19984a159f14bec028a3}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!quit@{quit}}
+\index{quit@{quit}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{quit}
+{\footnotesize\ttfamily bool quit}
+
+\mbox{\label{a00053_adc70276b5fdc17a08b73d4b81bd71990}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!threshold@{threshold}}
+\index{threshold@{threshold}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{threshold}
+{\footnotesize\ttfamily char threshold[7]}
+
+\mbox{\label{a00053_aa3414c4147d0a1cf8f2c58d3a0c5a4d6}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!threshold\+\_\+temp\+\_\+\+L\+HS@{threshold\+\_\+temp\+\_\+\+L\+HS}}
+\index{threshold\+\_\+temp\+\_\+\+L\+HS@{threshold\+\_\+temp\+\_\+\+L\+HS}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{threshold\+\_\+temp\+\_\+\+L\+HS}
+{\footnotesize\ttfamily int threshold\+\_\+temp\+\_\+\+L\+HS}
+
+\mbox{\label{a00053_a338067300132c1c55cde90a9d1f15521}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!threshold\+\_\+temp\+\_\+\+R\+HS@{threshold\+\_\+temp\+\_\+\+R\+HS}}
+\index{threshold\+\_\+temp\+\_\+\+R\+HS@{threshold\+\_\+temp\+\_\+\+R\+HS}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{threshold\+\_\+temp\+\_\+\+R\+HS}
+{\footnotesize\ttfamily int threshold\+\_\+temp\+\_\+\+R\+HS}
+
+\mbox{\label{a00053_a897706d85cbfab47005e6d0e1bbb33cf}} 
+\index{temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}!threshold\+\_\+time@{threshold\+\_\+time}}
+\index{threshold\+\_\+time@{threshold\+\_\+time}!temp\+\_\+thresh.\+c@{temp\+\_\+thresh.\+c}}
+\paragraph{threshold\+\_\+time}
+{\footnotesize\ttfamily int threshold\+\_\+time = 1}
+

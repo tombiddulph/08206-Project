@@ -5,7 +5,7 @@
  * Created on 12 December 2017, 17:22
  */
 
-
+#include "Commonheader.h"
 #include "date_setting.h"
 
 /*
@@ -26,18 +26,17 @@
  local function prototypes
  */
 
-inline void set_leap_year_status();
+void set_leap_year_status();
 void Init();
 void Update_values();
 
 /*
  type definitions
  */
-typedef enum
-{
+typedef enum {
     DATE, TIME, OVERVIEW
 } DateTimeSettingState;
-typedef void(*display_function)(DateTime date, int lineNo);
+typedef void(*display_function)(DateTime *date, int lineNo);
 
 /*
  local variables
@@ -51,23 +50,20 @@ bool line_changed;
 bool new_date_time_set;
 bool leap_set;
 bool month_changed;
-int count;
-int line = 0;
-int cursor_position;
+char count;
+char cursor_position;
 
 int days_per_month [12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 char title[15];
 unsigned char command;
-unsigned char sec;
 char date[6];
-int year;
+char year;
 
 /*
  Initialize local variables
  */
-void Init()
-{
-    cursor_position =  START_CURSOR_POSITION;
+void Init() {
+    cursor_position = START_CURSOR_POSITION;
     count = 0;
     quit = false;
     date_changed = true;
@@ -76,29 +72,26 @@ void Init()
     leap_set = false;
     clear_lines();
 
+    DateTime *dateTime = get_current_date_time();
 
 
-
-    date[DAY] = dateTime.Day;
-    date[MONTH] = dateTime.Month;
-    date[YEAR] = dateTime.Year;
-    date[HOUR] = dateTime.Hour;
-    date[MINUTE] = dateTime.Minute;
-    date[SECOND] = dateTime.Second;
+    date[DAY] = dateTime->Day;
+    date[MONTH] = dateTime->Month;
+    date[YEAR] = dateTime->Year;
+    date[HOUR] = dateTime->Hour;
+    date[MINUTE] = dateTime->Minute;
+    date[SECOND] = dateTime->Second;
 }
 
-void Date_time_setting_loop()
-{
+void Date_time_setting_loop() {
 
     Init();
 
     currentDTstate = OVERVIEW;
 
 
-    while (1)
-    {
-        if(currentDTstate == OVERVIEW)
-        {
+    while (1) {
+        if (currentDTstate == OVERVIEW) {
             Write_line("1: DATE", 0);
             Write_line("2: TIME", 1);
             Write_line("3: EXIT", 2);
@@ -108,10 +101,8 @@ void Date_time_setting_loop()
             command = RIGHT_BUTTONS & BUTTON_MASK;
 
 
-            if(single_key_pressed(command))
-            {
-                switch(command)
-                {
+            if (single_key_pressed(command)) {
+                switch (command) {
                     case (1):
                         currentDTstate = DATE;
                         break;
@@ -127,41 +118,34 @@ void Date_time_setting_loop()
 
 
 
-        }
-        else
-        {
-            switch(currentDTstate)
-            {
+        } else {
+            switch (currentDTstate) {
                 case (DATE):
-                    strcpy(title, "Date selection");
+                    str_cpy(title, "Date selection");
                     break;
                 case (TIME):
-                    strcpy(title, "Time selection");
+                    str_cpy(title, "Time selection");
                     break;
             }
 
-            if(line_changed)
-            {
+            if (line_changed) {
                 line_changed = false;
                 Write_line(title, 0);
-                write_functions[currentDTstate](*convertDateFromArray(date), 1);
+                write_functions[currentDTstate](convertDateFromArray(date), 1);
             }
 
-            if(date_changed)
-            {
-                write_functions[currentDTstate](*convertDateFromArray(date), 1);
+            if (date_changed) {
+                write_functions[currentDTstate](convertDateFromArray(date), 1);
                 date_changed = false;
             }
 
             cmd(cursor_position);
 
 
-            if(new_date_time_set)
-            {
+            if (new_date_time_set) {
                 clear_lines();
 
-                switch(currentDTstate)
-                {
+                switch (currentDTstate) {
                     case (DATE):
                         Write_line("Date updated", 0);
                         Write_updated_date_rtc(convertDateFromArray(date));
@@ -175,8 +159,7 @@ void Date_time_setting_loop()
                 Write_line("to continue", 2);
                 currentDTstate = OVERVIEW;
 
-                while (!(LEFT_BUTTONS & BUTTON_MASK) && !(RIGHT_BUTTONS & BUTTON_MASK))
-                {
+                while (!(LEFT_BUTTONS & BUTTON_MASK) && !(RIGHT_BUTTONS & BUTTON_MASK)) {
                     /* do nothing */
                 }
                 new_date_time_set = false;
@@ -184,62 +167,52 @@ void Date_time_setting_loop()
                 cmd(DISPLAY_ON);
             }
 
-           
+
 
 
             Update_values();
 
 
 
-           
+
 
 
         }
     }
 }
 
-void Update_values()
-{
+void Update_values() {
 
 
     command = ((LEFT_BUTTONS & BUTTON_MASK) << 4) | (RIGHT_BUTTONS & BUTTON_MASK);
     Delay_loop(9999);
     command = ((LEFT_BUTTONS & BUTTON_MASK) << 4) | (RIGHT_BUTTONS & BUTTON_MASK);
 
-    switch(command)
-    {
+    switch (command) {
         case (0):
             break;
         case (INCREMENT):
-            switch(count)
-            {
+            switch (count) {
                 case (DAY):
 
-                    if(date[DAY] >= days_per_month[date[MONTH] - 1])
-                    {
+                    if (date[DAY] >= days_per_month[date[MONTH] - 1]) {
                         date[DAY] = 1;
-                    }
-                    else
-                    {
+                    } else {
                         date[DAY]++;
                     }
 
                     break;
 
                 case (MONTH):
-                    if(date[MONTH] == 12)
-                    {
+                    if (date[MONTH] == 12) {
                         date[MONTH] = 1;
-                    }
-                    else
-                    {
+                    } else {
                         date[MONTH]++;
                     }
                     month_changed = true;
                     set_leap_year_status();
 
-                    if(date[DAY] > days_per_month[date[MONTH] - 1 ])
-                    {
+                    if (date[DAY] > days_per_month[date[MONTH] - 1 ]) {
                         date[DAY] = days_per_month[date[MONTH] - 1];
                     }
                     break;
@@ -250,23 +223,17 @@ void Update_values()
 
                     break;
                 case (HOUR):
-                    if(date[HOUR] == 23)
-                    {
+                    if (date[HOUR] == 23) {
                         date[HOUR] = 0;
-                    }
-                    else
-                    {
+                    } else {
                         date[HOUR]++;
                     }
                     break;
                 case (MINUTE):
                 case (SECOND):
-                    if(date[count] == 59)
-                    {
+                    if (date[count] == 59) {
                         date[count] = 0;
-                    }
-                    else
-                    {
+                    } else {
                         date[count]++;
                     }
             }
@@ -274,26 +241,19 @@ void Update_values()
             date_changed = true;
             break;
         case (DECREMENT):
-            switch(count)
-            {
+            switch (count) {
                 case (DAY):
-                    if(date[DAY] == 1)
-                    {
+                    if (date[DAY] == 1) {
                         date[DAY] = days_per_month[date[MONTH] - 1];
-                    }
-                    else
-                    {
+                    } else {
                         date[DAY]--;
                     }
 
                     break;
                 case (MONTH):
-                    if(date[MONTH] == 1)
-                    {
+                    if (date[MONTH] == 1) {
                         date[MONTH] = 12;
-                    }
-                    else
-                    {
+                    } else {
                         date[MONTH]--;
                     }
 
@@ -301,8 +261,7 @@ void Update_values()
 
 
                     set_leap_year_status();
-                    if(date[DAY] > (days_per_month[date[MONTH] - 1]))
-                    {
+                    if (date[DAY] > (days_per_month[date[MONTH] - 1])) {
                         date[DAY] = days_per_month[date[MONTH] - 1];
                     }
                     break;
@@ -311,12 +270,9 @@ void Update_values()
                     set_leap_year_status();
                     break;
                 case (HOUR):
-                    if(date[HOUR] == 0)
-                    {
+                    if (date[HOUR] == 0) {
                         date[HOUR] = 23;
-                    }
-                    else
-                    {
+                    } else {
                         date[HOUR]--;
                     }
 
@@ -325,12 +281,9 @@ void Update_values()
                 case (MINUTE):
                 case (SECOND):
 
-                    if(date[count] == 0)
-                    {
+                    if (date[count] == 0) {
                         date[count] = 59;
-                    }
-                    else
-                    {
+                    } else {
                         date[count]--;
                     }
             }
@@ -338,28 +291,19 @@ void Update_values()
             date_changed = true;
             break;
         case (MOVE_RIGHT):
-            if(currentDTstate)
-            {
-                if(count == 5)
-                {
+            if (currentDTstate) {
+                if (count == 5) {
                     count = 3;
                     cursor_position = START_CURSOR_POSITION;
-                }
-                else
-                {
+                } else {
                     count++;
                     cursor_position += 2;
                 }
-            }
-            else
-            {
-                if(count == 2)
-                {
+            } else {
+                if (count == 2) {
                     count = 0;
                     cursor_position = START_CURSOR_POSITION;
-                }
-                else
-                {
+                } else {
                     count++;
                     cursor_position += 2;
                 }
@@ -367,28 +311,19 @@ void Update_values()
             break;
 
         case (MOVE_LEFT):
-            if(currentDTstate)
-            {
-                if(count == 3)
-                {
+            if (currentDTstate) {
+                if (count == 3) {
                     count = 5;
                     cursor_position = START_CURSOR_POSITION + 4;
-                }
-                else
-                {
+                } else {
                     count--;
                     cursor_position -= 2;
                 }
-            }
-            else
-            {
-                if(count == 0)
-                {
+            } else {
+                if (count == 0) {
                     count = 2;
                     cursor_position = START_CURSOR_POSITION + 4;
-                }
-                else
-                {
+                } else {
                     count--;
                     cursor_position -= 2;
                 }
@@ -411,21 +346,16 @@ void Update_values()
  Adds an extra day to the month of february if the year is a leap year
  */
 
-inline void set_leap_year_status()
-{
+void set_leap_year_status() {
     year = 2000 + date[YEAR];
 
-    if(((year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0)) && date[MONTH] == 2)
-    {
-        if(month_changed)
-        {
+    if (((year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0)) && date[MONTH] == 2) {
+        if (month_changed) {
             days_per_month[1]++;
             leap_set = true;
             month_changed = false;
         }
-    }
-    else if(leap_set)
-    {
+    } else if (leap_set) {
         days_per_month[1]--;
     }
 }

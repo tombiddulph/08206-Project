@@ -1,7 +1,7 @@
 #ifndef RTC_H
 #define RTC_H
 
-#include <xc.h>
+
 #include "Commonheader.h"
 #define RTC_IO   RB4                     //1302I_O           
 #define RTC_CLK  RC4                      //1302 clock        
@@ -21,7 +21,7 @@ void port_init_rtc();                      //port initilize subroutine.
 void ds1302_init();                    //DS1302 initilize subroutine.
 void set_time_rtc();                       //set time subroutine.
 void get_time_rtc();                       //get time subroutine.
-void Update_Global_DateTime();                        //display subroutine.
+DateTime *get_current_date_time();                        //display subroutine.
 void Write_updated_date_time_rtc(DateTime *date);
 void Write_updated_date_rtc(DateTime *date);
 void Write_updated_time_rtc(DateTime *date);
@@ -38,7 +38,7 @@ const char rtc_table[]={0x00,  0x58, 0x12,  0x12,  0x12,    0x06,   0x17,   0x00
 char rtc_table1[7];
 
 
-DateTime dateTime;
+
 
 
 #endif

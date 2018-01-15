@@ -19,9 +19,9 @@
 #define ZONE_3 0x08    
     
     
-extern bool activeZones[4]; 
+bool activeZones[4]; 
     
-void SetZone(int zone);
+void SetZone(char zone);
 void ZoneInit();
 void ZoneCheck();
 void ZoneLoop();
