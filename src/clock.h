@@ -21,7 +21,7 @@ void port_init_rtc();                      //port initilize subroutine.
 void ds1302_init();                    //DS1302 initilize subroutine.
 void set_time_rtc();                       //set time subroutine.
 void get_time_rtc();                       //get time subroutine.
-void Update_Global_DateTime();                        //display subroutine.
+void get_updated_date_time(DateTime *dateTime);                        //display subroutine.
 void Write_updated_date_time_rtc(DateTime *date);
 void Write_updated_date_rtc(DateTime *date);
 void Write_updated_time_rtc(DateTime *date);
@@ -36,9 +36,5 @@ void delay_rtc();                          //delay subroutine.
 const char rtc_table[]={0x00,  0x58, 0x12,  0x12,  0x12,    0x06,   0x17,   0x00};//{0x00,  0x58, 0x12,  0x03,   0x04,   0x06, 0x05,0x00};
 //define the read time and date save table.
 char rtc_table1[7];
-
-
-DateTime dateTime;
-
 
 #endif

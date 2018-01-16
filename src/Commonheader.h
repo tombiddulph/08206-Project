@@ -26,7 +26,11 @@ typedef struct {
 
 
 
-extern DateTime dateTime;
+typedef struct {
+    short tens;
+    short units;
+} fake_float;
+
 extern char alarmDurationMinutes;
 extern char alarmDurationSeconds;
 extern bool activeZones[4];

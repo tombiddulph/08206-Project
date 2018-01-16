@@ -28,7 +28,8 @@ void ZoneInit()
 
 void ZoneCheck()
 {
-    Update_Global_DateTime();
+    DateTime dateTime;
+    get_updated_date_time(&dateTime);
 
     if((dateTime.Hour < 8 || dateTime.Hour > 20) || (dateTime.Hour == 19 && dateTime.Minute >= 30))
     {

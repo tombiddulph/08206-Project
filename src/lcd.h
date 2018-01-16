@@ -44,6 +44,6 @@ void Write_Date_Time_Settings(DateTime dat, int lineNo);
 void Write_Time_Settings(DateTime date, int lineNo);
 void Write_Date_Settings(DateTime date, int lineNo);
 
-DateTime dateTime;
+
 
 #endif	/* LCD_H */

@@ -76,7 +76,8 @@ void Init()
     leap_set = false;
     clear_lines();
 
-
+    DateTime dateTime;
+    get_updated_date_time(&dateTime);
 
 
     date[DAY] = dateTime.Day;

@@ -14,24 +14,22 @@
 #include <xc.h>
 #include <string.h>
 #include "lcd.h"
+#include "clock.h"
 
 
 void Write_string(char a[]);
 
 const int lines[] = {LINE_1, LINE_2, LINE_3, LINE_4};
 
-enum CurrentPage
-{
+enum CurrentPage {
     Home
 };
 
-void LCD_delay(int j)
-{
-    for(unsigned i = 0; i < j; i++);
+void LCD_delay(int j) {
+    for (unsigned i = 0; i < j; i++);
 }
 
-void cmd(char cmd)
-{
+void cmd(char cmd) {
     RS = 0;
     RW = 0;
     E = 0;
@@ -43,8 +41,7 @@ void cmd(char cmd)
     LCD_delay(50);
 }
 
-void initLCD()
-{
+void initLCD() {
     ADCON1 = 0x06; // digital output
     TRISA = 0x00;
     TRISD = 0x00;
@@ -58,8 +55,7 @@ void initLCD()
 
 }
 
-void data(char data)
-{
+void data(char data) {
     RS = 1;
     RW = 0;
     E = 0;
@@ -71,62 +67,54 @@ void data(char data)
     LCD_delay(50);
 }
 
-void Write_string(char a[])
-{
+void Write_string(char a[]) {
 
     int i = 0;
-    while (a[i] != '\0')
-    {
+    while (a[i] != '\0') {
         data(a[i]);
         i++;
     }
-    for(; i < 16; ++i)
-    {
+    for (; i < 16; ++i) {
         data(' ');
     }
 }
 
-void Write_line(char param[], int lineNo)
-{
+void Write_line(char param[], int lineNo) {
     cmd(lines[lineNo]);
     Write_string(param);
 }
 
-void clear_lines()
-{
+void clear_lines() {
 
-    for(char i = 0; i < 4; i++)
-    {
+    for (char i = 0; i < 4; i++) {
         cmd(lines[i]);
         Write_string(BLANK_LINE);
     }
 }
 char str[10];
-void Write_Date(int lineNo)
-{
-    
+
+void Write_Date(int lineNo) {
+    DateTime dateTime;
+    get_updated_date_time(&dateTime);
     sprintf(str, "%02d/%02d/%02d", dateTime.Day, dateTime.Month, dateTime.Year);
     Write_line(str, lineNo);
 }
 
-void Write_Time(int lineNo)
-{
-    
-
+void Write_Time(int lineNo) {
+    DateTime dateTime;
+    get_updated_date_time(&dateTime);
     sprintf(str, "%02d:%02d:%02d", dateTime.Hour, dateTime.Minute, dateTime.Second);
     Write_line(str, lineNo);
 }
 
-void Write_Time_Settings(DateTime date, int lineNo)
-{
-    
+void Write_Time_Settings(DateTime date, int lineNo) {
+
     Write_line(" H   M  S", lineNo++);
     sprintf(str, "%02d  %02d  %02d", date.Hour, date.Minute, date.Second);
     Write_line(str, lineNo);
 }
 
-void Write_Date_Settings(DateTime date, int lineNo)
-{
+void Write_Date_Settings(DateTime date, int lineNo) {
     Write_line(" D   M  Y", lineNo++);
     sprintf(str, "%02d  %02d  %02d", date.Day, date.Month, date.Year);
     Write_line(str, lineNo);

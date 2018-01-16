@@ -22,7 +22,8 @@ void soundBuzzer( int zone)
     sprintf(buf, "Zone %d", zone);
     Write_line(buf, 0);
     Write_line("activated", 1);
-
+    DateTime dateTime;
+    get_updated_date_time(&dateTime);
     
     int totalSecs = (alarmDurationMinutes * 60) + alarmDurationSeconds;
     char currentSec = dateTime.Second;
@@ -51,7 +52,7 @@ void soundBuzzer( int zone)
 
 
         get_time_rtc();
-        Update_Global_DateTime();
+        get_updated_date_time(&dateTime);
 
       
 
