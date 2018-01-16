@@ -47,7 +47,7 @@ bool single_key_pressed(char byteVal)
 
 
 
-DateTime *convertDateFromArray(unsigned char input[])
+void convert_to_datetime_from_array(char input[], DateTime *output)
 {
     char *ptr = input;
     DateTime d;
@@ -57,7 +57,8 @@ DateTime *convertDateFromArray(unsigned char input[])
     d.Hour = *ptr++;
     d.Minute = *ptr++;
     d.Second = *ptr;
-    return &d;
+    
+    *output = d;
 }
 
 void ButtonInit()

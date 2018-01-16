@@ -107,15 +107,15 @@ void Write_Time(int lineNo) {
     Write_line(str, lineNo);
 }
 
-void Write_Time_Settings(DateTime date, int lineNo) {
+void Write_Time_Settings(DateTime *date, int lineNo) {
 
     Write_line(" H   M  S", lineNo++);
-    sprintf(str, "%02d  %02d  %02d", date.Hour, date.Minute, date.Second);
+    sprintf(str, "%02d  %02d  %02d", date->Hour, date->Minute, date->Second);
     Write_line(str, lineNo);
 }
 
-void Write_Date_Settings(DateTime date, int lineNo) {
+void Write_Date_Settings(DateTime *date, int lineNo) {
     Write_line(" D   M  Y", lineNo++);
-    sprintf(str, "%02d  %02d  %02d", date.Day, date.Month, date.Year);
+    sprintf(str, "%02d  %02d  %02d", date->Day, date->Month, date->Year);
     Write_line(str, lineNo);
 }

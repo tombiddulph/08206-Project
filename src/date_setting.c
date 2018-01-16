@@ -37,7 +37,7 @@ typedef enum
 {
     DATE, TIME, OVERVIEW
 } DateTimeSettingState;
-typedef void(*display_function)(DateTime date, int lineNo);
+typedef void(*display_function)(DateTime *date, int lineNo);
 
 /*
  local variables
@@ -141,16 +141,23 @@ void Date_time_setting_loop()
                     break;
             }
 
+           
+            
             if(line_changed)
             {
                 line_changed = false;
                 Write_line(title, 0);
-                write_functions[currentDTstate](*convertDateFromArray(date), 1);
+                 DateTime dateTime;
+                convert_to_datetime_from_array(date, &dateTime);
+                
+                write_functions[currentDTstate](&dateTime, 1);
             }
 
             if(date_changed)
             {
-                write_functions[currentDTstate](*convertDateFromArray(date), 1);
+                DateTime dateTime;
+                convert_to_datetime_from_array(date, &dateTime);
+                write_functions[currentDTstate](&dateTime, 1);
                 date_changed = false;
             }
 
@@ -161,15 +168,18 @@ void Date_time_setting_loop()
             {
                 clear_lines();
 
+                DateTime dateTime;
+                convert_to_datetime_from_array(date, &dateTime);
+                
                 switch(currentDTstate)
                 {
                     case (DATE):
                         Write_line("Date updated", 0);
-                        Write_updated_date_rtc(convertDateFromArray(date));
+                        Write_updated_date_rtc(&dateTime);
                         break;
                     case (TIME):
                         Write_line("Time updated", 0);
-                        Write_updated_time_rtc(convertDateFromArray(date));
+                        Write_updated_time_rtc(&dateTime);
                         break;
                 }
                 Write_line("Press any key", 1);

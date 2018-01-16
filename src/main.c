@@ -282,7 +282,8 @@ void load_settings() {
 
     Write_line("Test", 0);
     //current_alarm_duration = load_data[ALARM_DURATION];
-    DateTime date = *convertDateFromArray(load_data);
+    DateTime date;
+    convert_to_datetime_from_array(load_data, &date);
     Write_updated_date_time_rtc(&date);
     alarmDurationMinutes = load_data[ALARM_DURATION_MINS];
     alarmDurationSeconds = load_data[ALARM_DURATION_SECS];

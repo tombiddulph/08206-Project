@@ -45,7 +45,7 @@ bool single_key_pressed(char byteVal);
 void ClearButtons(void);
 unsigned char convert_bcd_to_dec(unsigned char val);
 unsigned char convert_dec_to_bcd(unsigned char val);
-DateTime *convertDateFromArray(unsigned char input[]);
+void convert_to_datetime_from_array(char input[], DateTime *dateTime);
 
 #endif
 
