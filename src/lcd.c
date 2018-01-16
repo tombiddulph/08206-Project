@@ -17,7 +17,7 @@
 #include "clock.h"
 
 
-void Write_string(char a[]);
+void Write_string(const char a[]);
 
 const int lines[] = {LINE_1, LINE_2, LINE_3, LINE_4};
 
@@ -67,7 +67,7 @@ void data(char data) {
     LCD_delay(50);
 }
 
-void Write_string(char a[]) {
+void Write_string(const char a[]) {
 
     int i = 0;
     while (a[i] != '\0') {
@@ -79,7 +79,7 @@ void Write_string(char a[]) {
     }
 }
 
-void Write_line(char param[], int lineNo) {
+void Write_line(const char param[], int lineNo) {
     cmd(lines[lineNo]);
     Write_string(param);
 }

@@ -4,10 +4,10 @@
 #include "lcd.h"
 #include <stdlib.h>
 
-int current_alarm_duration;
+
 bool quit;
-char alarmDurationMinutes;
-char alarmDurationSeconds;
+unsigned char alarmDurationMinutes;
+unsigned char alarmDurationSeconds;
 void buzzerInit()
 {
     TRISC5 = 0; /* Configure TRISB7 as o/p              */

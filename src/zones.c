@@ -64,6 +64,10 @@ void ZoneCheck()
 
         if(!sounded)
         {
+            if(activatedZone == 0)
+            {
+                temperatureAlarm = false;
+            }
             soundBuzzer(activatedZone);
             sounded = true;
         }

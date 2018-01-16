@@ -35,7 +35,7 @@ void cmd(char cmd);
 void initLCD();
 void data(char data);
 void Second_line(char param[]);
-void Write_line(char param[], int lineNo);
+void Write_line(const char param[], int lineNo);
 void clear_line(int lineNo);
 void clear_lines();
 void Write_Date(int lineNo);

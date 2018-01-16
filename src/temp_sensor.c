@@ -23,9 +23,9 @@ unsigned int wd; //temperature BCD code  after convert
 unsigned char shi; //integer ten bit                           
 unsigned char ge; //integer Entries bit                       
 unsigned char shifen; //ten cent bit                              
-unsigned char baifen; //hundred cent bit                          
+//unsigned char baifen; //hundred cent bit                          
 unsigned char qianfen; //thousand cent bit                         
-unsigned char wanfen; //myriad cent bit                           
+//unsigned char wanfen; //myriad cent bit                           
 
 char temp_LHS;
 unsigned char temp_RHS;

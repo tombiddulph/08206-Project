@@ -56,9 +56,9 @@ unsigned char temp_RHS;
 bool temperatureAlarm;
 bool tempAlarmActivated;
 bool tempCountdown;
-char targetSec;
-char targetMin;
-
+unsigned char targetSec;
+unsigned char targetMin;
+unsigned char tempCountDownSeconds;
 bool activeZones[4];
 
 typedef void (*settings_ptr)(void);
@@ -91,12 +91,10 @@ typedef enum {
 
 
 STATE currentState;
-int current_alarm_duration;
 
-const char *saved = "Settings saved";
-const char *loaded = "Settings loaded";
-const char *buttonPress = "press a button";
-const char *toContinue = "to continue";
+
+
+
 
 void mainInit() {
     currentState = HOME;
@@ -135,12 +133,17 @@ void temp_check() {
     if (activeZones[0] && tempAlarmActivated) {
         if (!tempCountdown) {
             tempCountdown = true;
-            char secs = dateTime.Second + threshold_time;
-            targetMin = secs > 60 ? dateTime.Minute + 1 : dateTime.Minute;
-            targetSec = secs > 60 ? dateTime.Second - threshold_time : dateTime.Second + threshold_time;
+            tempCountDownSeconds = threshold_time;
+            
+            
+            unsigned char secs = (unsigned char) (dateTime.Second + threshold_time);
+            targetMin = secs > 59 ? dateTime.Minute + 1 : dateTime.Minute;
+            targetSec = secs > 59 ? secs - 60 : dateTime.Second + threshold_time;
         } else {
             if (dateTime.Minute == targetMin && dateTime.Second >= targetSec) {
                 temperatureAlarm = true;
+                tempCountdown = false;
+  
             }
         }
 
@@ -259,7 +262,7 @@ void save_settings() {
         Delay_loop(1000);
     }
 
-    wait_for_button_press(saved);
+    wait_for_button_press("Settings saved");
 
 }
 
@@ -269,7 +272,7 @@ void load_settings() {
         return;
     }
 
-    short i;
+    int i;
 
     volatile unsigned char load_data[13];
 
@@ -280,8 +283,7 @@ void load_settings() {
         Delay_loop(1000);
     }
 
-    Write_line("Test", 0);
-    //current_alarm_duration = load_data[ALARM_DURATION];
+   
     DateTime date;
     convert_to_datetime_from_array(load_data, &date);
     Write_updated_date_time_rtc(&date);
@@ -290,11 +292,11 @@ void load_settings() {
     threshold_temp_LHS = load_data[THRESHOLD_TENS] - 0x36; //remove the offset
     threshold_temp_RHS = load_data[THRESHOLD_UNITS];
     threshold_time = load_data[THRESHOLD_TIME];
-
+    
 
     char zones = load_data[ZONES];
 
-    for (i = 3; i >= 0; i--) {
+    for (i = 0; i  < 4; i++) {
 
         if ((zones) & (convert_to_bit_pos(i))) //check for set bits
         {
@@ -302,7 +304,7 @@ void load_settings() {
         }
     }
 
-    wait_for_button_press(&loaded);
+    wait_for_button_press("Settings loaded");
 }
 
 void wait_for_button_press(char *message) {

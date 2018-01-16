@@ -52,13 +52,13 @@ bool new_date_time_set;
 bool leap_set;
 bool month_changed;
 int count;
-int line = 0;
+
 int cursor_position;
 
 int days_per_month [12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 char title[15];
 unsigned char command;
-unsigned char sec;
+
 char date[6];
 int year;
 
