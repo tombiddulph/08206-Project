@@ -9,7 +9,7 @@
 #pragma config CPD = OFF        // Data EEPROM Memory Code Protection bit (Data EEPROM code protection off)
 #pragma config CP = OFF         // Flash Program Memory Code Protection bit (Code protection off)
 
-#include <xc.h>
+
 #include "temp_sensor.h"
 #include "lcd.h"
 #include "clock.h"
@@ -58,7 +58,6 @@ bool tempAlarmActivated;
 bool tempCountdown;
 unsigned char targetSec;
 unsigned char targetMin;
-unsigned char tempCountDownSeconds;
 bool activeZones[4];
 
 typedef void (*settings_ptr)(void);
@@ -70,7 +69,7 @@ void settings_page();
 void temp_sensor_page();
 void alarm_duration_page();
 void temp_check();
-void wait_for_button_press(char *message);
+void wait_for_button_press(const char *message);
 void load_settings();
 void save_settings();
 
@@ -133,7 +132,7 @@ void temp_check() {
     if (activeZones[0] && tempAlarmActivated) {
         if (!tempCountdown) {
             tempCountdown = true;
-            tempCountDownSeconds = threshold_time;
+          
             
             
             unsigned char secs = (unsigned char) (dateTime.Second + threshold_time);
@@ -144,7 +143,7 @@ void temp_check() {
                 temperatureAlarm = true;
                 tempCountdown = false;
   
-            }
+          }
         }
 
     } else {
@@ -307,7 +306,7 @@ void load_settings() {
     wait_for_button_press("Settings loaded");
 }
 
-void wait_for_button_press(char *message) {
+void wait_for_button_press(const char *message) {
     clear_lines();
     Write_line(message, 0);
     Write_line("press a button", 1);

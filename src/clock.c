@@ -7,7 +7,6 @@
 
 #include "Commonheader.h"
 #include "clock.h"
-#include <string.h>
 #include <stdio.h>
 
 

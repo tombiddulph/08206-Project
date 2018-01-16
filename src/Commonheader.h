@@ -4,7 +4,7 @@
 #include <xc.h>
 #include <stdio.h>
 #include <stdbool.h>
-
+#include <string.h>
 
 #define BUTTON_MASK 0x0F
 
@@ -45,7 +45,7 @@ bool single_key_pressed(char byteVal);
 void ClearButtons(void);
 unsigned char convert_bcd_to_dec(unsigned char val);
 unsigned char convert_dec_to_bcd(unsigned char val);
-void convert_to_datetime_from_array(char input[], DateTime *dateTime);
+void convert_to_datetime_from_array(const char input[], DateTime *dateTime);
 
 #endif
 

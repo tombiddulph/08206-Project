@@ -47,7 +47,7 @@ bool single_key_pressed(char byteVal)
 
 
 
-void convert_to_datetime_from_array(char input[], DateTime *output)
+void convert_to_datetime_from_array(const char input[], DateTime *output)
 {
     char *ptr = input;
     DateTime d;

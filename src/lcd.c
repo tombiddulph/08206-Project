@@ -12,7 +12,6 @@
 #define SET_CGRAM_ADDR (addr) return (0x40 | addr);
 
 #include <xc.h>
-#include <string.h>
 #include "lcd.h"
 #include "clock.h"
 
